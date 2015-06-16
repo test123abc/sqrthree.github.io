@@ -1,0 +1,1222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  
+  <title><![CDATA[sqrtthree]]></title>
+  <subtitle><![CDATA[我原本是想做一个诗人的...]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://sqrtthree.com//"/>
+  <updated>2015-01-14T16:00:00.000Z</updated>
+  <id>http://sqrtthree.com//</id>
+  
+  <author>
+    <name><![CDATA[sqrtthree]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[前端开发模板引擎 -- Jade之数据的动态传递和流程控制]]></title>
+    <link href="http://sqrtthree.com/2015/06/16/jade-03/"/>
+    <id>http://sqrtthree.com/2015/06/16/jade-03/</id>
+    <published>2015-06-16T15:37:48.000Z</published>
+    <updated>2015-01-14T16:00:00.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>前面介绍了一些 <code>Jade</code> 的简单用法，这篇文章为大家讲一下 <code>Jade</code> 中如何进行数据的动态传递和流程控制，干货来咯~</p>
+</blockquote>
+<h2 id="1、Jade_中简单的变量定义和使用">1、<code>Jade</code> 中简单的变量定义和使用</h2><blockquote>
+<p>我们在写 <code>html</code> 静态页面的过程中，免不了会碰到一些需要动态注入的地方，一般的写法就略显麻烦，那么我们有了 <code>Jade</code> 之后呢，不啰嗦了，我们从最简单的例子开始：</p>
+</blockquote>
+<a id="more"></a>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">doctype html</span><br><span class="line">html</span><br><span class="line">  head</span><br><span class="line">    title Hello,World.</span><br><span class="line">  body</span><br><span class="line">    -<span class="ruby"> var title = <span class="string">'sqrtthree.com'</span>;</span><br><span class="line"></span>    p welcome to #&#123;<span class="ruby">title&#125;</span></span><br></pre></td></tr></table></figure>
+<p>我想我们大概能够想象出编译结果：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>Hello,World.<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">p</span>&gt;</span>welcome to sqrtthree.com<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure><br>从上面的代码中我们可以看出，在 <code>Jade</code> 中进行数据传递非常简单：</p>
+<ol>
+<li>通过<code>-</code> + <code>空格</code>开始，作为标记在 <code>Jade</code> 中定义变量</li>
+<li>通过 <code>#{变量名}</code> 进行输出和调用即可.</li>
+</ol>
+<blockquote>
+<p>那要是我们就只是想输出 <code>#{}</code>的时候该怎么办呢？转义咯~<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p welcome to \#&#123;<span class="ruby">title&#125;</span>	// =&gt; &lt;p&gt;welcome to #&#123;<span class="ruby">title&#125;</span>&lt;/p&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>另外，在 <code>Jade</code> 里面我们就可以通过这种方式使用 <code>js</code>的语法了，比如这样：(为了看着方便，我就直接在后面写出关键行的编译结果了)<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> var title = <span class="string">'sqrtthree.com'</span>;</span><br><span class="line"></span>p welcome to #&#123;<span class="ruby">title.toUpperCase()&#125;</span>		// =&gt; &lt;p&gt;welcome to SQRTTHREE.COM&lt;/p&gt;</span><br></pre></td></tr></table></figure><br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> var title = <span class="string">'sqrtthree.com'</span>;</span><br><span class="line"></span>p welcome to #&#123;<span class="ruby">title.charAt(<span class="number">0</span>)&#125;</span>		// =&gt; &lt;p&gt;welcome to s&lt;/p&gt;</span><br></pre></td></tr></table></figure><br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> var title = <span class="string">'sqrtthree.com'</span>;</span><br><span class="line"></span>p welcome to #&#123;<span class="ruby">title.substring(<span class="number">0</span>,<span class="number">4</span>)&#125;</span>	// =&gt; &lt;p&gt;welcome to sqrt&lt;/p&gt;</span><br></pre></td></tr></table></figure><br>怎么样？有没有觉得很简单呢。</p>
+<blockquote>
+<p>但是呢，我们在工作中是很少直接在文件中这样直接定义变量值的，通常都是在后台读取到值然后设置到页面中，那我们现在没有后台该怎么办呢？还记得第一篇文章中我们说过的 <code>Jade</code> 命令行工具么？我们可以在 <code>Jade</code> 为我们提供的命令行工具中直接传递数据，话不多说，继续上代码：</p>
+</blockquote>
+<p>我们通过如下的命令编译下面的 <code>Jade</code> 文件，为了方便查看，就只显示部分的编译结果<br><figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jade <span class="transposed_variable">test.</span>jade  -P --obj <span class="string">'&#123;"</span>title<span class="string">": "</span>sqrtthree<span class="string">"&#125;'</span></span><br></pre></td></tr></table></figure><br><code>Jade</code> 文件如下：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">doctype html</span><br><span class="line">html</span><br><span class="line">  head</span><br><span class="line">    title welcome</span><br><span class="line">  body</span><br><span class="line">    p welcome to <span class="preprocessor">#&#123;title&#125;		// =&gt; <span class="title">&lt;p&gt;</span>welcome to sqrtthree<span class="title">&lt;/p&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>那么问题就来了，如果我们在命令行中和文件中定义了相同名字的变量，那究竟是显示哪一个变量的值呢？<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">doctype html</span><br><span class="line">html</span><br><span class="line">  head</span><br><span class="line">    title welcome</span><br><span class="line">  body</span><br><span class="line">    -<span class="ruby"> var title = <span class="string">'sqrtthree.com'</span></span><br><span class="line"></span>    p welcome to #&#123;<span class="ruby">title&#125;</span>		// =&gt; &lt;p&gt;welcome to sqrtthree.com&lt;/p&gt;</span><br></pre></td></tr></table></figure><br>根据编译结果显示，在文件中定义的值把之前外部传入的值替换掉了。</p>
+<p>其实上面的方式中有一个坑不知道大家发现没有，就是通常我们传入数据的时候都不会只传一个的，那如果需要传入很多的数据的话，怎么还能够这么写呢？反正换我我是绝逼会崩溃的。</p>
+</blockquote>
+<p><code>Jade</code> 也支持传入 <code>json</code> 文件的方式进行数据传递的, 例如我们在项目里新建一个 <code>data.json</code> 文件，格式如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">title</span>": <span class="value"><span class="string">"根号三的博客"</span></span>,</span><br><span class="line">  "<span class="attribute">href</span>": <span class="value"><span class="string">"sqrtthree.com"</span></span>,</span><br><span class="line">  "<span class="attribute">cont</span>": <span class="value"><span class="string">"我可耻，我打了个硬广。^_^"</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure><br>这里我们就要在命令行里执行另一个参数的命令了<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jade test<span class="class">.jade</span>  -P -O data<span class="class">.json</span>		<span class="comment">// 注意，O 为英文大写</span></span><br></pre></td></tr></table></figure><br>页面和编译结果分别为:<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">doctype html</span><br><span class="line">html</span><br><span class="line">  head</span><br><span class="line">    title welcome #&#123;<span class="ruby">title&#125;</span>	// =&gt; &lt;title&gt;welcome 根号三的博客&lt;/title&gt;</span><br><span class="line">  body</span><br><span class="line">    a(href='#&#123;<span class="ruby">href&#125;</span>', title='#&#123;<span class="ruby">title&#125;</span>') #&#123;<span class="ruby">href&#125;</span>		// =&gt; &lt;a href="sqrtthree.com" title="根号三的博客"&gt;sqrtthree.com&lt;/a&gt;</span><br><span class="line">    p #&#123;<span class="ruby">cont&#125;</span>		// =&gt; &lt;p&gt;我可耻，我打了个硬广。^_^&lt;/p&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="2、Jade_中的注释">2、<code>Jade</code> 中的注释</h2><blockquote>
+<p>变量一多，我们就难免会忘记他们的含义，为了便于后期维护，我们的好习惯是给他们都加上注释方便理解。</p>
+<p>单行注释和 JavaScript 里是一样的，通过 <code>//</code> 来开始，并且必须为单独一行哟~<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// just some example		// =&gt; <span class="comment">&lt;!-- just some example--&gt;</span></span><br><span class="line">p just some example		// =&gt; <span class="tag">&lt;<span class="title">p</span>&gt;</span>just some example<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>Jade</code> 同样支持不输出的注释，只需要加一个横线 <code>-</code> 就好了<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//- just some example</span></span><br><span class="line"><span class="tag">p</span> just some example		<span class="comment">// =&gt; &lt;p&gt;just some example&lt;/p&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>如果我们需要多行注释的话，使用下面的块注释也是极好的<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.box</span></span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">    <span class="tag">h1</span> this is <span class="tag">a</span> demo.</span><br><span class="line">    <span class="tag">p</span> this is <span class="tag">a</span> paragraph.</span><br></pre></td></tr></table></figure><br>编译结果是这样的：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"box"</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--</span><br><span class="line">  h1 this is a demo.</span><br><span class="line">  p this is a paragraph.</span><br><span class="line">  --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="3、流程控制">3、流程控制</h2><blockquote>
+<p>有了变量，我们就可以做很多事情。比如像下面这样：<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="subst">-</span> <span class="built_in">var</span> <span class="built_in">data</span> <span class="subst">=</span> &#123;<span class="string">"name"</span>: <span class="string">"sqrtthree"</span>,<span class="string">"age"</span>: <span class="number">20</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="subst">-</span> for ( <span class="built_in">var</span> attr <span class="keyword">in</span> <span class="built_in">data</span>)</span><br><span class="line">  p<span class="subst">=</span> <span class="string">'my '</span> <span class="subst">+</span> attr <span class="subst">+</span> <span class="string">' is '</span> <span class="subst">+</span> <span class="built_in">data</span><span class="preprocessor">[</span>attr<span class="preprocessor">]</span><span class="markup">ighlight html %&#125;</span></span><br></pre></td></tr></table></figure><br>那么结果是什么样的呢？<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;<span class="keyword">my</span> <span class="property">name</span> <span class="keyword">is</span> sqrtthree&lt;/p&gt;</span><br><span class="line">&lt;p&gt;<span class="keyword">my</span> age <span class="keyword">is</span> <span class="number">20</span>&lt;/p&gt;</span><br></pre></td></tr></table></figure><br>咦，看着怎么这么熟悉呢？没错，就是 <code>js</code> 中遍历 <code>json</code>对象的操作。当然了，下面这种方式也是可以的，结果和上面是一样的<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> var data = &#123;<span class="string">"name"</span><span class="symbol">:</span> <span class="string">"sqrtthree"</span>,<span class="string">"age"</span><span class="symbol">:</span> <span class="number">20</span>&#125;;</span><br><span class="line"></span></span><br><span class="line">-<span class="ruby"> <span class="keyword">for</span> ( var attr <span class="keyword">in</span> data)</span><br><span class="line"></span><span class="comment">  //- p= 'my ' + attr + ' is ' + data[attr]</span></span><br><span class="line">  p my #&#123;<span class="ruby">attr&#125;</span> is #&#123;<span class="ruby">data[attr]&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>当然了，除了 <code>for</code> 之外，<code>Jade</code> 还提供了另外一种语法糖<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> var data = &#123;<span class="string">"name"</span><span class="symbol">:</span> <span class="string">"sqrtthree"</span>,<span class="string">"age"</span><span class="symbol">:</span> <span class="number">20</span>&#125;;</span><br><span class="line"></span></span><br><span class="line">-<span class="ruby"> each value, keys <span class="keyword">in</span> data</span><br><span class="line"></span><span class="comment">  //- p=keys + ' : ' + value</span></span><br><span class="line">  p #&#123;<span class="ruby">keys&#125;</span> : #&#123;<span class="ruby">value&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>说完了 <code>json</code> 对象，我们来说一说他的好搭档 - 数组<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> var skills = [<span class="string">'html'</span>, <span class="string">'css'</span>, <span class="string">'javascript'</span>, <span class="string">'nodejs'</span>];</span><br><span class="line"></span></span><br><span class="line">ul</span><br><span class="line">  -<span class="ruby"> each skill <span class="keyword">in</span> skills</span><br><span class="line"></span>    li #&#123;<span class="ruby">skill&#125;</span></span><br></pre></td></tr></table></figure><br>编译结果是这个样子的<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>html<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>css<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>javascript<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>nodejs<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br></pre></td></tr></table></figure><br>什么？太简单了？那我们来点复杂的<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> var data = [&#123;<span class="symbol">id:</span> <span class="number">1</span>,<span class="symbol">skills:</span> [<span class="string">'html'</span>, <span class="string">'css'</span>]&#125;,&#123;<span class="symbol">id:</span> <span class="number">2</span>,<span class="symbol">skills:</span> [<span class="string">'javascript'</span>,<span class="string">'nodejs'</span>]&#125;];</span><br><span class="line"></span></span><br><span class="line">dl</span><br><span class="line">  -<span class="ruby"> each list <span class="keyword">in</span> data</span><br><span class="line"></span>    dt #&#123;<span class="ruby">list.id&#125;</span></span><br><span class="line">    -<span class="ruby"> each item <span class="keyword">in</span> list.skills</span><br><span class="line"></span>      dd #&#123;<span class="ruby">item&#125;</span></span><br></pre></td></tr></table></figure><br>结果是这样的<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dl</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">dt</span>&gt;</span>1<span class="tag">&lt;/<span class="title">dt</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">dd</span>&gt;</span>html<span class="tag">&lt;/<span class="title">dd</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">dd</span>&gt;</span>css<span class="tag">&lt;/<span class="title">dd</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">dt</span>&gt;</span>2<span class="tag">&lt;/<span class="title">dt</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">dd</span>&gt;</span>javascript<span class="tag">&lt;/<span class="title">dd</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">dd</span>&gt;</span>nodejs<span class="tag">&lt;/<span class="title">dd</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dl</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>说完了 <code>for</code> &amp; <code>each</code> 语句，我们还有 <code>while</code> 语句呢，比如我们要输出5个 <code>li</code>，我们可以这么写：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- <span class="keyword">var</span> <span class="keyword">n</span> = 0;</span><br><span class="line"></span><br><span class="line">ul</span><br><span class="line">  <span class="keyword">while</span> <span class="keyword">n</span> &lt; 5</span><br><span class="line">    <span class="keyword">li</span>=<span class="keyword">n</span>++</span><br></pre></td></tr></table></figure><br>结果很明显：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>0<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>1<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>2<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>3<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>4<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="4、条件判断">4、条件判断</h2><blockquote>
+<p>关于<code>if else</code>，我们可以这样用<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> var onOff = <span class="keyword">true</span>;</span><br><span class="line"></span>-<span class="ruby"> var data = [<span class="string">'html'</span>,<span class="string">'css'</span>,<span class="string">'javascript'</span>]</span><br><span class="line"></span></span><br><span class="line">ul</span><br><span class="line">  if onOff</span><br><span class="line">    -<span class="ruby">each skills <span class="keyword">in</span> data</span><br><span class="line"></span>      li=skills</span><br><span class="line">  else</span><br><span class="line">    li none</span><br></pre></td></tr></table></figure><br>当 <code>onOff</code> 变量为真时，结果为<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>html<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>css<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>javascript<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br></pre></td></tr></table></figure><br>当 <code>onOff</code> 变量为假时，结果为<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;ul&gt;</span></span><br><span class="line">  <span class="variable">&lt;li&gt;</span><span class="keyword">none</span><span class="variable">&lt;/li&gt;</span></span><br><span class="line"><span class="variable">&lt;/ul&gt;</span></span><br></pre></td></tr></table></figure><br>又见语法糖，<code>Jade</code> 默认是支持 <code>unless</code> 的，那么问题来了，<code>unless</code> 究竟是个什么东东呢？<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> var onOff = <span class="keyword">true</span>;</span><br><span class="line"></span>-<span class="ruby"> var data = [<span class="string">'html'</span>,<span class="string">'css'</span>,<span class="string">'javascript'</span>]</span><br><span class="line"></span></span><br><span class="line">ul</span><br><span class="line">  unless !onOff</span><br><span class="line">    -<span class="ruby">each skills <span class="keyword">in</span> data</span><br><span class="line"></span>      li=skills</span><br><span class="line">  else</span><br><span class="line">    li none</span><br></pre></td></tr></table></figure><br>从上面的代码中，我们可以看出，<code>unless</code> 实际上就是 <code>if ( !(expr) )</code> 的等价方式.</p>
+<p>下面我们谈谈 <code>case</code> &amp; <code>when</code> 的用法，编译结果我就不写了，大家可以自行测试。<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- <span class="reserved">var</span> data = <span class="string">'jser'</span>;</span><br><span class="line"></span><br><span class="line"><span class="reserved">case</span> data</span><br><span class="line">  <span class="keyword">when</span> <span class="string">'jser'</span></span><br><span class="line">    p Hello, jser.</span><br><span class="line">  <span class="keyword">when</span> <span class="string">'weber'</span></span><br><span class="line">    p Hello, weber.</span><br><span class="line">  <span class="reserved">default</span></span><br><span class="line">    p Hello, <span class="comment">#&#123;data&#125;</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>前面介绍了一些 <code>Jade</code> 的简单用法，这篇文章为大家讲一下 <code>Jade</code> 中如何进行数据的动态传递和流程控制，干货来咯~</p>
+</blockquote>
+<h2 id="1、Jade_中简单的变量定义和使用">1、<code>Jade</code> 中简单的变量定义和使用</h2><blockquote>
+<p>我们在写 <code>html</code> 静态页面的过程中，免不了会碰到一些需要动态注入的地方，一般的写法就略显麻烦，那么我们有了 <code>Jade</code> 之后呢，不啰嗦了，我们从最简单的例子开始：</p>
+</blockquote>]]>
+    
+    </summary>
+    
+      <category term="jade" scheme="http://sqrtthree.com/tags/jade/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[前端开发模板引擎 -- Jade之标签的基本写法]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/jade-02/"/>
+    <id>http://sqrtthree.com/2015/06/14/jade-02/</id>
+    <published>2015-06-14T04:19:16.000Z</published>
+    <updated>2015-06-14T04:19:16.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="1、文档声明">1、文档声明</h2><blockquote>
+<p>我们在开始写一个 <code>html</code> 页面的时候，首先要写上 <code>DOCTYPE</code> 文档声明的，现在通常情况下我们都是采用 <code>HTML5</code> 的文档声明方式，那么在 <code>jade</code> 里面我们应该怎么写呢？<br>在 <code>jade</code> 里面编写文档声明有2种方式：</p>
+</blockquote>
+<ol>
+<li>我们可以直接在 <code>jade</code> 文件里面写 <code>doctype html</code> 即可</li>
+<li><code>jade</code> 为我们提供了一个简单的写法，<code>!!! 5</code> (不过好像 <code>jade</code> 在升级之后的新版本中不推荐使用此方法了 -_-)</li>
+</ol>
+<a id="more"></a>
+<blockquote>
+<p>当然，<code>jade</code> 还默认支持其他类型的文档声明，只需要使用 <code>doctype</code> 跟上下面的选项即可。<code>jade</code> 默认支持的有:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var doctypes = exports.doctypes = &#123;</span><br><span class="line">    '5': '<span class="doctype">&lt;!DOCTYPE html&gt;</span>',</span><br><span class="line">    'xml': '<span class="pi">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span>',</span><br><span class="line">    'default': '<span class="doctype">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</span>',</span><br><span class="line">    'transitional': '<span class="doctype">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</span>',</span><br><span class="line">    'strict': '<span class="doctype">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;</span>',</span><br><span class="line">    'frameset': '<span class="doctype">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd"&gt;</span>',</span><br><span class="line">    '1.1': '<span class="doctype">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"&gt;</span>',</span><br><span class="line">    'basic': '<span class="doctype">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd"&gt;</span>',</span><br><span class="line">    'mobile': '<span class="doctype">&lt;!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.2//EN" "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd"&gt;</span>'</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><code>doctype</code> 对大小写是不敏感的, 所以下面两个是一样的效果:<br><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">doctype <span class="keyword">Default</span></span><br><span class="line">doctype <span class="keyword">default</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>例如：如果我们要想写 <code>XHTML 1.0 Strict</code> 文档声明，则可以这样写：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">doctype</span> strict</span><br></pre></td></tr></table></figure></p>
+<p>编译结果如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="2、标签">2、标签</h2><blockquote>
+<p><code>jade</code> 中的标签的写法非常的简单，就是一个单词。</p>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">doctype <span class="tag">html</span></span><br><span class="line"><span class="tag">html</span></span><br><span class="line">  head</span><br><span class="line">    title</span><br><span class="line">  body</span><br></pre></td></tr></table></figure>
+<p>以上代码会被编译成:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span><span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">body</span>&gt;</span><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong><code>jade</code> 是以严格的缩进来区分标签的开始和结束的，默认为2个空格表示缩进。</strong></p>
+<blockquote>
+<p>如果我们要写一个标签并且带有内容，比如说要写一个标题，我们只需要在标签单词后面加一个空格，然后跟上内容即可。</p>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">h1</span> this is <span class="tag">a</span> title.</span><br><span class="line"><span class="tag">p</span> this is <span class="tag">a</span> paragraph.</span><br></pre></td></tr></table></figure>
+<p>编译结果为：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;<span class="keyword">this</span> <span class="keyword">is</span> a title.&lt;/h1&gt;</span><br><span class="line">&lt;p&gt;<span class="keyword">this</span> <span class="keyword">is</span> a paragraph.&lt;/p&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>有的时候，我们会需要输出一些特殊排版格式的文本或者是为了提高代码的阅读性，需要显示出如下的效果：<br><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;p&gt;</span></span><br><span class="line">  <span class="keyword">1</span>. 001</span><br><span class="line">  <span class="keyword">2</span>. 002</span><br><span class="line">  <span class="keyword">3</span>. 003</span><br><span class="line">  <span class="keyword">4</span>. 004</span><br><span class="line"><span class="tag">&lt;/p&gt;</span></span><br></pre></td></tr></table></figure><br>那么我们在 jade 中应该怎么写呢，这里 jade 给我们提供了两种方式，第一种是在每一行前面加上一个 <code>|</code> 和<code>空格</code>：<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">p</span><br><span class="line">  <span class="string">| 1. 001</span></span><br><span class="line">  <span class="string">| 2. 002</span></span><br><span class="line">  <span class="string">| 3. 003</span></span><br><span class="line">  <span class="string">| 4. 004</span></span><br></pre></td></tr></table></figure><br>第二种方法是：在标签名后面紧跟一个 <code>.</code> 号。则此标签下面的内容会被 <code>jade</code> 解析为一个代码段：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">p</span>.</span><br><span class="line">  <span class="number">1</span>. <span class="number">001</span></span><br><span class="line">  <span class="number">2</span>. <span class="number">002</span></span><br><span class="line">  <span class="number">3</span>. <span class="number">003</span></span><br><span class="line">  <span class="number">4</span>. <span class="number">004</span></span><br></pre></td></tr></table></figure></p>
+<p>这下有的同学就傻傻分不清了，这两种方式到底有什么区别呢？这里我们就不得不说到标签混排，如果我们有这样一个需求，在上面的代码中 <code>1</code> 的后面需要加一个 <code>strong</code> 标签。</p>
+</blockquote>
+<p>首先我们说第一种情况下，我们的写法：<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">p</span><br><span class="line">  <span class="string">| 1. 001</span></span><br><span class="line">  strong aaa</span><br><span class="line">  <span class="string">| 2. 002</span></span><br><span class="line">  <span class="string">| 3. 003</span></span><br><span class="line">  <span class="string">| 4. 004</span></span><br></pre></td></tr></table></figure></p>
+<p>如果是第二种写法的话，我们就需要这样写：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">p.</span><br><span class="line">  1. 001</span><br><span class="line">  <span class="tag">&lt;<span class="title">strong</span>&gt;</span>aaa<span class="tag">&lt;/<span class="title">strong</span>&gt;</span></span><br><span class="line">  2. 002</span><br><span class="line">  3. 003</span><br><span class="line">  4. 004</span><br></pre></td></tr></table></figure></p>
+<p>编译结果如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span></span><br><span class="line">  1. 001</span><br><span class="line">  <span class="tag">&lt;<span class="title">strong</span>&gt;</span>aaa<span class="tag">&lt;/<span class="title">strong</span>&gt;</span></span><br><span class="line">  2. 002</span><br><span class="line">  3. 003</span><br><span class="line">  4. 004</span><br><span class="line"><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="3、标签的属性和属性值">3、标签的属性和属性值</h2><blockquote>
+<p><code>h1</code> <code>p</code> 等等这些标签，我们通常都会给他们写上<code>id</code> &amp; <code>class</code>属性的，那么这在 <code>jade</code> 中应该怎么写呢？和 <code>zen coding</code> 的语法一样，我们只需要这样写：</p>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">h1<span class="id">#id</span><span class="class">.class</span> this is <span class="tag">a</span> title.</span><br><span class="line">p<span class="id">#j-text</span><span class="class">.text</span> this is <span class="tag">a</span> paragraph.</span><br></pre></td></tr></table></figure>
+<p>编译结果为：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1 id=<span class="string">"id"</span> <span class="keyword">class</span>=<span class="string">"class"</span>&gt;<span class="keyword">this</span> <span class="keyword">is</span> a title.&lt;/h1&gt;</span><br><span class="line">&lt;p id=<span class="string">"j-text"</span> <span class="keyword">class</span>=<span class="string">"text"</span>&gt;<span class="keyword">this</span> <span class="keyword">is</span> a paragraph.&lt;/p&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>等等，那我要是想添加多个 <code>class</code> 怎么办呢？这样办：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">h1<span class="id">#id</span><span class="class">.class1</span><span class="class">.class2</span><span class="class">.class3</span> this is <span class="tag">a</span> title.</span><br><span class="line">p<span class="id">#j-text</span><span class="class">.text</span> this is <span class="tag">a</span> paragraph.</span><br></pre></td></tr></table></figure><br>编译结果为：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1 id=<span class="string">"id"</span> <span class="keyword">class</span>=<span class="string">"class1 class2 class3"</span>&gt;<span class="keyword">this</span> <span class="keyword">is</span> a title.&lt;/h1&gt;</span><br><span class="line">&lt;p id=<span class="string">"j-text"</span> <span class="keyword">class</span>=<span class="string">"text"</span>&gt;<span class="keyword">this</span> <span class="keyword">is</span> a paragraph.&lt;/p&gt;</span><br></pre></td></tr></table></figure></p>
+<p>什么？写 <code>div</code> 写烦了？那就不写咯。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="id">#id</span><span class="class">.class</span></span><br><span class="line"><span class="id">#id</span><span class="class">.class1</span><span class="class">.class2</span> this is <span class="tag">a</span> <span class="tag">div</span> without tags.</span><br></pre></td></tr></table></figure><br>编译结果为：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"id"</span> <span class="type">class</span>=<span class="string">"class"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"id"</span> <span class="type">class</span>=<span class="string">"class1 class2"</span>&gt;this <span class="keyword">is</span> a <span class="keyword">div</span> <span class="keyword">without</span> tags.&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p><strong>这里要说明一下，在 <code>jade</code> 的语法里面，只有 <code>div</code> 标签能够省略不写.</strong></p>
+<blockquote>
+<p>说完了 <code>id</code> 和 <code>class</code>，我们再来说一下标签其他的属性应该怎么添加。<code>jade</code> 里添加其他属性和值的语法也和 <code>zen coding</code> 类似，我们需要在标签后面加上小括号<code>()</code>，然后按照<code>(属性名=属性值)</code>的格式写就好了，如果有多个属性，中间以逗号进行分割。</p>
+</blockquote>
+<p>比如上面的 id 和 class 的写法我们就可以改写成：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">h1</span><span class="params">(id=<span class="string">"id"</span>, class=<span class="string">"class"</span>)</span></span> this is <span class="tag">a</span> title.</span><br><span class="line"><span class="function"><span class="title">p</span><span class="params">(id=<span class="string">"j-text"</span>, class=<span class="string">"text"</span>)</span></span> this is <span class="tag">a</span> paragraph.</span><br></pre></td></tr></table></figure><br>结果是一样的：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1 id=<span class="string">"id"</span> <span class="keyword">class</span>=<span class="string">"class"</span>&gt;<span class="keyword">this</span> <span class="keyword">is</span> a title.&lt;/h1&gt;</span><br><span class="line">&lt;p id=<span class="string">"j-text"</span> <span class="keyword">class</span>=<span class="string">"text"</span>&gt;<span class="keyword">this</span> <span class="keyword">is</span> a paragraph.&lt;/p&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>说来说去还是这两个属性，烦了？那我们换一个吧：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a(<span class="variable">herf=</span><span class="string">"/index.html"</span>, <span class="variable">title=</span><span class="string">"this is a link."</span>, <span class="variable">target=</span><span class="string">"_blank"</span>, <span class="variable">data-uid=</span><span class="string">"1000"</span>) index.html</span><br></pre></td></tr></table></figure><br>编译结果为：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a <span class="variable">herf=</span><span class="string">"/index.html"</span> <span class="variable">title=</span><span class="string">"this is a link."</span> <span class="variable">target=</span><span class="string">"_blank"</span> <span class="variable">data-uid=</span><span class="string">"1000"</span>&gt;index.html&lt;/a&gt;</span><br></pre></td></tr></table></figure></p>
+<p>那么问题就来了，如果我们要写一个单属性应该怎么写？比如给表单元素添加 <code>checked</code>属性：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">input(<span class="variable">type=</span><span class="string">"checkbox"</span>, <span class="variable">name=</span><span class="string">"all"</span>, checked, <span class="variable">value=</span><span class="string">"全选"</span>)</span><br></pre></td></tr></table></figure><br>编译结果为：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input <span class="variable">type=</span><span class="string">"checkbox"</span> <span class="variable">name=</span><span class="string">"all"</span> <span class="variable">checked=</span><span class="string">"checked"</span> <span class="variable">value=</span><span class="string">"全选"</span>/&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[写一些我所知道的 jade 语法]]>
+    
+    </summary>
+    
+      <category term="jade" scheme="http://sqrtthree.com/tags/jade/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[My Code Wars v0.9]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/myCodeWars-09/"/>
+    <id>http://sqrtthree.com/2015/06/14/myCodeWars-09/</id>
+    <published>2015-06-14T04:18:00.000Z</published>
+    <updated>2015-06-14T04:18:00.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="description">description</h3><blockquote>
+<p>Create a combinator function named flip that takes a function as an argument and returns that function with it’s arguments reversed.</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="For_example:">For example:</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">flip</span><span class="params">(print)</span><span class="params">(<span class="number">4</span>,<span class="number">5</span>)</span></span> <span class="comment">// returns "5 -&gt; 4"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span><span class="params">(a,b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + <span class="string">" -&gt; "</span> + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟出招">菜鸟出招</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flip(fn) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> fn(<span class="built_in">arguments</span>[<span class="number">1</span>], <span class="built_in">arguments</span>[<span class="number">0</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="偷师学艺">偷师学艺</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flip(fn) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> fn.apply(<span class="keyword">this</span>, [].reverse.apply(<span class="built_in">arguments</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="关键字积累">关键字积累</h3><ul>
+<li>apply</li>
+<li>reverse</li>
+</ul>
+<h3 id="菜鸟总结">菜鸟总结</h3><blockquote>
+<p><code>apply</code> 方法和 <code>call</code> 方法一样, 都是调用一个对象的一个方法，以另一个对象替换当前对象, 简单的说,就是修改当前函数中的 <code>this</code> 对象的指向。</p>
+</blockquote>
+<p>区别在于参数的不同:</p>
+<ul>
+<li>call(thisObj,arg1, arg2,… argn]);</li>
+<li>apply(thisObj, [arg1, arg2, …]);</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[这里记录了我在 codewars 网站上的一些收获。]]>
+    
+    </summary>
+    
+      <category term="myCodeWars" scheme="http://sqrtthree.com/tags/myCodeWars/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[My Code Wars v0.8]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/myCodeWars-08/"/>
+    <id>http://sqrtthree.com/2015/06/14/myCodeWars-08/</id>
+    <published>2015-06-14T04:17:53.000Z</published>
+    <updated>2015-06-14T04:17:53.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="description">description</h3><blockquote>
+<p>In this kata you should simply determine, whether a given year is a leap year or not. In case you don’t know the rules, here they are:</p>
+</blockquote>
+<ul>
+<li>years divisible by 4 are leap years</li>
+<li>but years divisible by 100 are no leap years</li>
+<li>but years divisible by 400 are leap years</li>
+<li>Only valid years (positive integers) will be tested, so you don’t have to validate them</li>
+</ul>
+<a id="more"></a>
+<h3 id="菜鸟出招">菜鸟出招</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function isLeapYear(<span class="property">year</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="property">year</span>%<span class="number">400</span> == <span class="number">0</span>) &#123;</span><br><span class="line"><span class="command">        return</span> <span class="constant">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="property">year</span>%<span class="number">100</span> == <span class="number">0</span>) &#123;</span><br><span class="line"><span class="command">        return</span> <span class="constant">false</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="property">year</span>%<span class="number">4</span> == <span class="number">0</span>) &#123;</span><br><span class="line"><span class="command">        return</span> <span class="constant">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="command">        return</span> <span class="constant">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="偷师学艺">偷师学艺</h3><p>function isLeapYear(year) {<br>  return new Date(year, 1, 29).getDate() == 29;<br>}</p>
+<h3 id="菜鸟总结">菜鸟总结</h3><blockquote>
+<p>很简单的一道题目, 看了别人的代码, 好吧, 我觉得这算是抖机灵.</p>
+<p>不过既然看到了 <code>Date</code> 对象, 就总结一下他的参数吧, 参数分为三种.</p>
+</blockquote>
+<h4 id="第一种：new_Date(年,月,日,时,分,秒)">第一种：new Date(年,月,日,时,分,秒)</h4><ul>
+<li>六个数字或者纯数字的字符串作为参数. 注意: 月份是从0开始的， 所以new Date(2014,9,1); 表示2014年10月1日。</li>
+</ul>
+<h4 id="第二种：new_Date(“月，日，_年_，时:分:秒”);">第二种：new Date(“月，日， 年 ，时:分:秒”);</h4><ul>
+<li>一个字符串作为参数. 注意: 月份必须是以英文字母表示，可以是全拼也可以是缩写，除了时间之间必须用冒号之外，其它之间的间隔可以是空格，也可以是逗号。</li>
+</ul>
+<h4 id="第三种：new_Date(_1283802344121_);">第三种：new Date( 1283802344121 );</h4><ul>
+<li>一串纯数字，表示毫秒数。返回值表示从1970年1月1日加上这个毫秒数，能够到达的时间点。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[这里记录了我在 codewars 网站上的一些收获。]]>
+    
+    </summary>
+    
+      <category term="myCodeWars" scheme="http://sqrtthree.com/tags/myCodeWars/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[My Code Wars v0.7]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/myCodeWars-07/"/>
+    <id>http://sqrtthree.com/2015/06/14/myCodeWars-07/</id>
+    <published>2015-06-14T04:17:45.000Z</published>
+    <updated>2015-06-14T04:17:45.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="Description">Description</h3><p>Just a simple sorting usage. Create a function that returns the elements of the input-array in a sorted manner.</p>
+<a id="more"></a>
+<h3 id="菜鸟出招">菜鸟出招</h3><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// input: names - unsorted<span class="instruction"> array</span><br><span class="line"></span>// output: sorted<span class="instruction"> array</span><br><span class="line"></span>sortme =<span class="function"> function(</span> names <span class="function">)</span>&#123;</span><br><span class="line"> <span class="instruction"> if </span>( names &amp;&amp;<span class="function"> Object.prototype.toString.call(</span>names<span class="function">)</span>.slice(8,-1<span class="function">)</span> === 'Array' <span class="function">)</span> &#123;</span><br><span class="line">   <span class="instruction"> return </span>names.sort(<span class="function">)</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;<span class="function">)</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟思维">菜鸟思维</h3><blockquote>
+<p>数组排序, 这是一个很常见的题目, 实现的方法也很多, 我上面偷了个懒使用了数组对象中的 <code>sort</code> 方法. 其中还用到了 <code>toString</code> 方法判断元素的类型是否是数组.</p>
+</blockquote>
+<h3 id="关键字积累">关键字积累</h3><ul>
+<li>sort</li>
+<li>toString</li>
+</ul>
+<h3 id="菜鸟总结">菜鸟总结</h3><blockquote>
+<p><code>sort</code> 方法除了可以直接调用之外, 还可以接收一个函数作为参数进行自定义排序. 其中</p>
+</blockquote>
+<ul>
+<li><code>sort</code> 方法的参数必须是一个函数.</li>
+<li>函数必须有返回值.</li>
+<li>返回值必须是 <code>Number</code> 类型, 并且不能是 <code>NaN</code>.</li>
+</ul>
+<blockquote>
+<p>排序方式</p>
+</blockquote>
+<ul>
+<li>每次挑选两个值进行比较, 直到把所有应该排序的值都挑完.</li>
+<li>如果返回值是一个正数, 会交换两个值的位置.</li>
+<li>如果返回值是一个负数或是0, 不交换两个值的位置.</li>
+</ul>
+<blockquote>
+<p>需要注意的是, 在排序之前会把数组中不是字符串的值，先转换成字符串，然后按照字符串比较大小的规则进行从小到大排序（按照所对应的字符编码一位一位比较)</p>
+</blockquote>
+<h4 id="完美汉字排序">完美汉字排序</h4><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr1=[<span class="string">"阿杜"</span>,<span class="string">"毕加索"</span>,<span class="string">"张三"</span>,<span class="string">"李四"</span>,<span class="string">"王五"</span>,<span class="string">"小明"</span>,<span class="string">"李雷"</span>]; </span><br><span class="line">arr1.sort(<span class="function"><span class="keyword">function</span><span class="params">(str1,str2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> str1.localeCompare(str2);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="快速排序的第一种方法_—_冒泡排序">快速排序的第一种方法 — 冒泡排序</h4><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">var</span> arr = [<span class="number">1</span>, <span class="number">4</span>, <span class="number">34</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">6</span>];</span><br><span class="line"></span><br><span class="line">for (<span class="built_in">var</span> i = <span class="number">0</span>, len = arr.length; i &lt; len; ++i) &#123;</span><br><span class="line">  for (<span class="built_in">var</span> j = <span class="number">0</span>; j &lt; len - i; ++j) &#123;</span><br><span class="line">    compare(j, j + <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function compare(<span class="built_in">prev</span>, <span class="built_in">next</span>) &#123;</span><br><span class="line">  if (arr[<span class="built_in">prev</span>] &gt; arr[<span class="built_in">next</span>]) &#123;</span><br><span class="line">    arr[<span class="built_in">prev</span>] = arr[<span class="built_in">prev</span>] + arr[<span class="built_in">next</span>];</span><br><span class="line">    arr[<span class="built_in">next</span>] = arr[<span class="built_in">prev</span>] - arr[<span class="built_in">next</span>];</span><br><span class="line">    arr[<span class="built_in">prev</span>] = arr[<span class="built_in">prev</span>] - arr[<span class="built_in">next</span>];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="快速排序的第二种方法_—_递归排序">快速排序的第二种方法 — 递归排序</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">4</span>, <span class="number">34</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">6</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> <span class="built_in">quickSort</span> = function (arr) &#123;</span><br><span class="line">  <span class="keyword">if</span> (arr.length &lt;= <span class="number">1</span>) <span class="keyword">return</span> arr;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> cIndex = <span class="type">Math</span>.floor( arr.length/<span class="number">2</span> );</span><br><span class="line">  <span class="keyword">var</span> cNum = arr.splice(cIndex, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> <span class="keyword">left</span> = [];</span><br><span class="line">  <span class="keyword">var</span> <span class="keyword">right</span> = [];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (arr[i] &lt; cNum) &#123;</span><br><span class="line">      <span class="keyword">left</span>.push(arr[i]);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">right</span>.push(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">quickSort</span>(<span class="keyword">left</span>).concat([cNum], <span class="built_in">quickSort</span>(<span class="keyword">right</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">alert( <span class="built_in">quickSort</span>(arr) );</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[这里记录了我在 codewars 网站上的一些收获。]]>
+    
+    </summary>
+    
+      <category term="myCodeWars" scheme="http://sqrtthree.com/tags/myCodeWars/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[My Code Wars v0.6]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/myCodeWars-06/"/>
+    <id>http://sqrtthree.com/2015/06/14/myCodeWars-06/</id>
+    <published>2015-06-14T04:17:39.000Z</published>
+    <updated>2015-06-14T04:17:39.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="Description">Description</h3><p>Create a function <code>add(n)</code> which returns a function that always adds n to any number</p>
+<a id="more"></a>
+<h3 id="Test_Cases">Test Cases</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Test.<span class="function"><span class="title">expect</span><span class="params">(add(<span class="number">1</span>)</span><span class="params">(<span class="number">3</span>)</span></span>===<span class="number">4</span>, <span class="string">'add one to three equals four'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟出招">菜鸟出招</h3><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(n)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">(num)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> num + n;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟思维">菜鸟思维</h3><p>这道题没有什么太大的难度，算是一个常规题，考察了函数的返回值的知识点。</p>
+<h3 id="关键字积累">关键字积累</h3><ul>
+<li>return</li>
+</ul>
+<h3 id="菜鸟总结">菜鸟总结</h3><ol>
+<li>通过 <code>return</code> 语句，我们可以在函数中将一个值返回到调用它的地方。</li>
+<li>在使用 <code>return</code> 语句时，函数会停止执行，并返回指定的值。</li>
+<li>当前函数在执行完 <code>return</code> 语句后将停止执行，但是整个 <code>JavaScript</code> 并不会停止执行，仅仅是函数。<code>JavaScript</code> 将从调用函数的地方继续执行代码。</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[这里记录了我在 codewars 网站上的一些收获。]]>
+    
+    </summary>
+    
+      <category term="myCodeWars" scheme="http://sqrtthree.com/tags/myCodeWars/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[My Code Wars v0.5]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/myCodeWars-05/"/>
+    <id>http://sqrtthree.com/2015/06/14/myCodeWars-05/</id>
+    <published>2015-06-14T04:17:35.000Z</published>
+    <updated>2015-06-14T04:17:35.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="Description">Description</h3><p>The JavaScript standard now includes functional additions to array like map, filter and reduce, but sadly is missing the convenience functions range and sum . Implement a version of range and sum (which you can then copy and use in your future Kata to make them smaller).</p>
+<p>Array.range(start, count) should return an array containing ‘count’ numbers from ‘start’ to ‘start + count’. <em>Example: Array.range(0, 3) returns [0, 1, 2]</em></p>
+<p>Array.sum() return the sum of all numbers in the array <em>Example: [0, 1, 2].sum() returns 3. Example: Array.range(-1,4).sum() should return 2</em></p>
+<p>While not forbidden try to write both function without using a for loop</p>
+<a id="more"></a>
+<h3 id="菜鸟出招">菜鸟出招</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.range = <span class="function"><span class="keyword">function</span>(<span class="params">start, count</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> arr = [];</span><br><span class="line">  <span class="keyword">for</span> ( <span class="keyword">var</span> i = start; i &lt; start + count; i++ ) &#123;</span><br><span class="line">    arr.push(i);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.sum = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> num = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.length; i++ ) &#123; </span><br><span class="line">    num += <span class="keyword">this</span>[i];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="偷师学艺">偷师学艺</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.range = <span class="function"><span class="keyword">function</span>(<span class="params">start, count</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.apply( <span class="literal">null</span>, <span class="built_in">Array</span>(count) ).map(<span class="function"><span class="keyword">function</span>(<span class="params">item, i</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> start + i;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">Array</span>.prototype.sum = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">  &#125;,<span class="number">0</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟思维">菜鸟思维</h3><ul>
+<li><code>range</code>方法：就是通过设置 <code>for</code> 循环的起始和结束范围，得到中间符合要求的一系列值，并将其放入一个数组中进行返回。</li>
+<li><code>sum</code>方法：从数组中的第一项开始，遍历数组中的每一项，使其与初始值0进行相加，然后将结果和下一项再进行相加，直至结束，得到所有数字的和。</li>
+</ul>
+<h3 id="关键字积累">关键字积累</h3><ul>
+<li>apply</li>
+<li>map</li>
+<li>reduce</li>
+</ul>
+<h3 id="菜鸟总结">菜鸟总结</h3><h4 id="apply_方法"><code>apply</code> 方法</h4><ul>
+<li>它的作用是修改函数内部的 <code>this</code> 指向，</li>
+<li>参数：此方法接收两个参数，第一个参数为我们需要修改之后的 <code>this</code> 指向，即此函数内部的 <code>this</code> 对象将会变成我们所传入的第一个参数，第二个参数为函数执行时我们所需要正常转入的参数，格式为一个类数组。</li>
+<li>与此方法有相同作用的还有一个 <code>call</code> 方法，他们的不同之处在于传参方式的不同，<code>call</code> 方法会接收 <code>n</code> 个参数，其中第一个为我们需要重定向的 <code>this</code> 指向，后面为函数执行所需要的参数.<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var <span class="operator"><span class="keyword">show</span> = <span class="keyword">function</span>() &#123;</span><br><span class="line">  console.<span class="keyword">log</span>(<span class="string">'do something'</span>);</span></span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">// 通过 <span class="operator"><span class="keyword">call</span> 方式修改 this 对象</span><br><span class="line"><span class="keyword">show</span>.<span class="keyword">call</span>(newThis, arguments0, arguments1...);</span></span><br><span class="line">	</span><br><span class="line">// 通过 apply 方式修改 this 对象</span><br><span class="line"><span class="operator"><span class="keyword">show</span>.apply(newThis, arguments);</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="map_方法"><code>map</code> 方法</h4><ul>
+<li>该方法会对数组的每个元素调用定义的回调函数并返回包含结果的数组。</li>
+<li>参数：接收2个参数，其中第一个为必选参数 <code>callback</code>，表示对数组中每一个元素遍历时所执行的函数，第二个参数为可选参数，用来指定 <code>callback</code> 函数中的 <code>this</code> 关键字可引用的对象。如果省略，则 <code>undefined</code> 将用作 <code>this</code> 值。</li>
+<li>其中第一个参数 <code>callback</code> 最多可接收三个参数，分别是 <code>callback(item, index, array)</code>;</li>
+<li>返回值：一个新数组，其中的每个元素均为关联的原始数组元素的回调函数返回值。</li>
+</ul>
+<h4 id="reduce_方法"><code>reduce</code> 方法</h4><ul>
+<li>对数组中的所有元素（按升序索引顺序）调用指定的回调函数。 该回调函数的返回值为累积结果，并且此返回值在下一次调用该回调函数时作为参数提供。</li>
+<li>参数：接收2个参数，其中第一个问必选参数 <code>callback</code>， 表示对于数组中的每个元素，reduce 方法都会调用的方法，第二个参数为可选参数 <code>initialValue</code>，如果指定 <code>initialValue</code>，则它将用作初始值来启动累积。 第一次调用 <code>callback</code> 函数会将此值作为参数而非数组值提供。</li>
+<li>其中第一个参数 <code>callback</code> 最多可接收四个参数，分别为：通过上一次调用回调函数获得的值，当前数组元素的值，当前数组元素的数字索引, 包含该元素的数组对象。即 <code>callback(previousValue, currentValue, currentIndex, array)</code>;</li>
+<li>返回值：通过最后一次调用回调函数获得的累积结果。</li>
+<li>需要说明的是，如果我们设置了 <code>initialValue</code> 的值，那么在第一次调用回调函数时，<code>previousValue</code> 参数就是我们所传入的 <code>initialValue</code>，如果没有设置，<code>previousValue</code> 参数是数组中的第一个元素的值。</li>
+<li>同时存在一个 <code>reduceRight</code> 方法，按降序索引顺序处理元素。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[这里记录了我在 codewars 网站上的一些收获。]]>
+    
+    </summary>
+    
+      <category term="myCodeWars" scheme="http://sqrtthree.com/tags/myCodeWars/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[My Code Wars v0.4]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/myCodeWars-04/"/>
+    <id>http://sqrtthree.com/2015/06/14/myCodeWars-04/</id>
+    <published>2015-06-14T04:17:32.000Z</published>
+    <updated>2015-06-14T04:17:32.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="Description">Description</h3><p>For this exercise you should create a JavaScript class like object called “Animal” that takes in “name” and “type” arguments. It should have a toString method that returns a human readable string indicating the argument information passed in. It should also allow the name property to be set.</p>
+<a id="more"></a>
+<h3 id="Example">Example</h3><p>The following is an example of how the final code would be used and what the expected return values should be:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dog = <span class="built_in">new</span> Animal(<span class="string">'Max'</span>, <span class="string">'dog'</span>);</span><br><span class="line">dog.toString(); <span class="comment">// should return 'Max is a dog'</span></span><br><span class="line">dog.<span class="keyword">type</span>; <span class="comment">// should == 'dog'</span></span><br><span class="line">dog.name; <span class="comment">// should == 'Max'</span></span><br><span class="line">dog.name = <span class="string">'Lassie'</span>; <span class="comment">// should set name to 'Lassie'</span></span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟出招">菜鸟出招</h3><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function <span class="keyword">Animal</span>(name, type)&#123;</span><br><span class="line">  this.name = name;</span><br><span class="line">  this.type = type;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">Animal</span>.prototype.toString = function() &#123;</span><br><span class="line">  return this.name + ' <span class="keyword">is</span> a ' + this.type;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟思维">菜鸟思维</h3><p>这道题简单的考了 <code>Javascript</code> 中面向对象相关的知识，是一个很简单的基础题型。涉及了面向对象中构造函数以及属性和方法的定义。</p>
+<h3 id="关键字积累">关键字积累</h3><ul>
+<li>构造函数</li>
+<li>prototype</li>
+</ul>
+<h3 id="菜鸟总结">菜鸟总结</h3><p>通过面向对象的方式编写程序，就像是搭积木一样，在复杂的功能中会有意想不到的便利。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[这里记录了我在 codewars 网站上的一些收获。]]>
+    
+    </summary>
+    
+      <category term="myCodeWars" scheme="http://sqrtthree.com/tags/myCodeWars/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[前端开发模板引擎 -- Jade之神奇的 mixins 和模板继承]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/jade-04/"/>
+    <id>http://sqrtthree.com/2015/06/14/jade-04/</id>
+    <published>2015-06-14T04:17:18.000Z</published>
+    <updated>2015-06-14T04:17:18.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="1、神奇的_mixins">1、神奇的 <code>mixins</code></h2><blockquote>
+<p>想必有 <code>less</code> &amp; <code>sass</code> 经验的同学对 <code>mixins</code> 一定都不陌生了，<code>mixins</code> 呢，其实就是方便对一堆代码块的重复利用。在 <code>Jade</code> 里面当然也少不了代码块的复用咯~~</p>
+</blockquote>
+<a id="more"></a>
+<p><code>mixins</code> 的定义很简单，就只需要 <code>mixin 代码块名字</code> 即可<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mixin demo</span><br><span class="line">  <span class="tag">p</span> this is <span class="tag">a</span> demo</span><br></pre></td></tr></table></figure><br>调用方式就更简单了，我们需要这样 <code>+代码块名字</code><br><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="addition">+demo</span></span><br></pre></td></tr></table></figure><br>输出结果非常理想<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;<span class="keyword">this</span> <span class="keyword">is</span> a demo&lt;/p&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>什么？你说这都是只能用于内容固定的代码块？没关系，我们来看看内容不固定的时候应该怎么办<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">mixin</span> <span class="built_in">info</span>(name, skills)</span><br><span class="line">  p my name is <span class="comment">#&#123;name&#125;</span></span><br><span class="line">  ul.skills-box</span><br><span class="line">    each skill in skills</span><br><span class="line">      li <span class="comment">#&#123;skill&#125;</span></span><br><span class="line"></span><br><span class="line">+<span class="built_in">info</span>(<span class="string">'sqrtthree'</span>,[<span class="string">'html'</span>,<span class="string">'css'</span>,<span class="string">'javascript'</span>,<span class="string">'nodejs'</span>])</span><br></pre></td></tr></table></figure><br>编译结果如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span>my name is sqrtthree<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"skills-box"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>html<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>css<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>javascript<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>nodejs<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>什么？你还想要嵌套的 <code>mixins</code>，╮(╯▽╰)╭  怎么这么多事。。<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mixin info(<span class="property">name</span>, skills)</span><br><span class="line">  p <span class="keyword">my</span> <span class="property">name</span> <span class="keyword">is</span> <span class="comment">#&#123;name&#125;</span></span><br><span class="line">  ul.skills-box</span><br><span class="line">    each skill <span class="keyword">in</span> skills</span><br><span class="line">      li <span class="comment">#&#123;skill&#125;</span></span><br><span class="line"></span><br><span class="line">mixin developersInfo(developer)</span><br><span class="line">  h2 <span class="comment">#&#123;developer.name&#125;</span></span><br><span class="line">  +info(developer.<span class="property">name</span>, developer.skills)</span><br><span class="line"></span><br><span class="line">+developersInfo(&#123;<span class="string">"name"</span>: <span class="string">"sqrtthree"</span>, <span class="string">"skills"</span>: ['html','css','javascript','nodejs']&#125;)</span><br></pre></td></tr></table></figure><br>编译结果是这个样子的<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">h2</span>&gt;</span>sqrtthree<span class="tag">&lt;/<span class="title">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span>my name is sqrtthree<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"skills-box"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>html<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>css<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>javascript<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>nodejs<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br></pre></td></tr></table></figure><br>那如果我们遇到不定参的问题呢<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">mixin</span> <span class="built_in">info</span>(className, ...skills)</span><br><span class="line">  ul(class=<span class="string">'#&#123;className&#125;'</span>)</span><br><span class="line">    each skill in skills</span><br><span class="line">      li <span class="comment">#&#123;skill&#125;</span></span><br><span class="line"></span><br><span class="line">+<span class="built_in">info</span>(<span class="string">'list'</span>,<span class="string">'html'</span>,<span class="string">'css'</span>,<span class="string">'javascript'</span>,<span class="string">'nodejs'</span>)</span><br></pre></td></tr></table></figure><br>我们来看编译结果<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"list"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>html<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>css<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>javascript<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>nodejs<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>变量都能传递了，那属性能传递么？<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mixin attr(<span class="type">text</span>)</span><br><span class="line">  p(<span class="type">class</span>=attributes.<span class="type">class</span>) <span class="comment">#&#123;text&#125;</span></span><br><span class="line"></span><br><span class="line">+attr('<span class="type">text</span>')(<span class="type">class</span>=<span class="string">"tips"</span>)</span><br></pre></td></tr></table></figure><br>结果如下：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p <span class="type">class</span>=<span class="string">"tips"</span>&gt;<span class="type">text</span>&lt;/p&gt;</span><br></pre></td></tr></table></figure></p>
+<p>属性传递的时候还有一个语法糖呢。<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mixin attr(<span class="type">text</span>)</span><br><span class="line">  p&amp;attributes(attributes) <span class="comment">#&#123;text&#125;</span></span><br><span class="line"></span><br><span class="line">+attr('demo')(<span class="type">class</span>=<span class="string">"tips"</span>, <span class="property">id</span>=<span class="string">"j-tips"</span>, data-<span class="property">id</span>=<span class="string">"18"</span>)</span><br></pre></td></tr></table></figure><br>我们来看编译结果是什么样的<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p <span class="property">id</span>=<span class="string">"j-tips"</span> data-<span class="property">id</span>=<span class="string">"18"</span> <span class="type">class</span>=<span class="string">"tips"</span>&gt;<span class="type">text</span>&lt;/p&gt;</span><br></pre></td></tr></table></figure></p>
+<p><code>mixins</code> 还有一个高级用法，那就是内联代码块。先上例子<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mixin</span> code(text)</span><br><span class="line"> p <span class="comment">#&#123;text&#125;</span></span><br><span class="line"> <span class="keyword">if</span> <span class="keyword">block</span></span><br><span class="line">  <span class="keyword">block</span></span><br><span class="line"> <span class="keyword">else</span></span><br><span class="line">  p no <span class="keyword">block</span>.</span><br><span class="line"></span><br><span class="line">+code('this <span class="keyword">is</span> a demo')</span><br><span class="line">  p this <span class="keyword">is</span> a <span class="keyword">block</span>.</span><br></pre></td></tr></table></figure><br>编译结果如下：<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;p&gt;</span>this is a demo<span class="variable">&lt;/p&gt;</span></span><br><span class="line"><span class="variable">&lt;p&gt;</span>this is a <span class="built_in">block</span>.<span class="variable">&lt;/p&gt;</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>从上面的代码中，我们可以看出，我们在调用<code>+code</code>的时候给他设置一个代码块 <code>p this is a block</code>，那么在 <code>mixins</code> 里面，程序会自动把这个代码块的内容传递给 <code>block</code> 变量。然后我们可以通过判断进行相应的操作。</p>
+<h2 id="2、模板的继承">2、模板的继承</h2><blockquote>
+<p>我们在做整站开发时，通常每一个页面的头部和底部都是一样的，之前我们的做法可能是写完一个之后然后不断的复制粘贴，但是现在我们有了 <code>Jade</code>之后，来看看我们可以怎么做？<br>在 <code>Jade</code> 里面，我们通过 <code>block</code> 和 <code>extends</code> 这两个关键字实现模板之间的继承，一个代码块可以看成是 <code>Jade</code> 中的一个 <code>block</code>，我们将在子模板中实现<br>我们先看一个小例子，定义一个简单的代码块<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">block demo</span><br><span class="line">  <span class="tag">p</span> this is <span class="tag">a</span> demo.</span><br></pre></td></tr></table></figure><br>默认情况下，代码块的内容是会被输出的<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;<span class="keyword">this</span> <span class="keyword">is</span> a demo.&lt;/p&gt;</span><br></pre></td></tr></table></figure><br>在同一个文件中，我们可以直接通过这种方式进行调用<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">block</span> demo</span><br><span class="line">  p this <span class="keyword">is</span> a demo.</span><br><span class="line"><span class="keyword">block</span> demo</span><br><span class="line"><span class="keyword">block</span> demo</span><br><span class="line"><span class="keyword">block</span> demo</span><br></pre></td></tr></table></figure><br>结果是这样的<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;<span class="keyword">this</span> <span class="keyword">is</span> a demo.&lt;/p&gt;</span><br><span class="line">&lt;p&gt;<span class="keyword">this</span> <span class="keyword">is</span> a demo.&lt;/p&gt;</span><br><span class="line">&lt;p&gt;<span class="keyword">this</span> <span class="keyword">is</span> a demo.&lt;/p&gt;</span><br><span class="line">&lt;p&gt;<span class="keyword">this</span> <span class="keyword">is</span> a demo.&lt;/p&gt;</span><br></pre></td></tr></table></figure></p>
+<p>那么如果是不同文件之间，如何进行调用呢？<br>比如我们有一个 <code>layout.jade</code> 文件，内容是这样的。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">doctype <span class="tag">html</span></span><br><span class="line"><span class="tag">html</span></span><br><span class="line">  head</span><br><span class="line">    title this is <span class="tag">a</span> demo.</span><br><span class="line">  <span class="tag">body</span></span><br><span class="line">    <span class="tag">h1</span> demo.</span><br><span class="line"></span><br><span class="line">    block cont</span><br></pre></td></tr></table></figure><br>然后呢，我们有一个 <code>demo.jade</code>文件是这样的<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">extends layout	<span class="comment">// 这里的 layout 指的是需要继承的模板文件</span></span><br><span class="line"></span><br><span class="line">block cont</span><br><span class="line">  <span class="tag">h2</span> Look, this is <span class="tag">a</span> demo.</span><br><span class="line">  <span class="tag">p</span> this is <span class="tag">a</span> paragraph.</span><br></pre></td></tr></table></figure><br>然后我们通过命令行工具编译 <code>demo.jade</code> 文件，结果是神奇的<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>this is a demo.<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">h1</span>&gt;</span>demo.<span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">h2</span>&gt;</span>Look, this is a demo.<span class="tag">&lt;/<span class="title">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">p</span>&gt;</span>this is a paragraph.<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure><br>怎么样？是不是觉得很方便呢？</p>
+<p>模板的继承解决了多个文件之间代码复用的问题，其实上面我们提到的页头和页脚我们用模板包含的方式可能更合适一些，下面我们来看一看模板的包含.</p>
+<p><code>includes</code> 允许你静态包含一段 <code>Jade</code>, 或者别的存放在单个文件中的东西比如 <code>css</code> <code>html</code>。<br>比如我们有一个 <code>footer.jade</code> 文件，他里面有着这样的内容<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">div<span class="id">#footer</span></span><br><span class="line">  <span class="tag">p</span> copyright.</span><br></pre></td></tr></table></figure><br>然后我们在我们的 <code>demo.jade</code> 文件中这样使用<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">doctype <span class="tag">html</span></span><br><span class="line"><span class="tag">html</span></span><br><span class="line">  head</span><br><span class="line">    title this is <span class="tag">a</span> demo.</span><br><span class="line">  <span class="tag">body</span></span><br><span class="line">    <span class="tag">h1</span> Hello, World.</span><br><span class="line"></span><br><span class="line">    include footer</span><br></pre></td></tr></table></figure><br>编译结果是这个样子的<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">CTYPE html&gt;</span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>this is a demo.<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">h1</span>&gt;</span>Hello, World.<span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"footer"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">p</span>&gt;</span>copyright.<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure><br>当然，通过 <code>includes</code> 引入 <code>css</code> 代码也是一样的。大家可以尝试一下，我这里就不举例子了。</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[写一些我所知道的 jade 语法]]>
+    
+    </summary>
+    
+      <category term="jade" scheme="http://sqrtthree.com/tags/jade/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[前端开发模板引擎 -- Jade之开篇]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/jade-01/"/>
+    <id>http://sqrtthree.com/2015/06/14/jade-01/</id>
+    <published>2015-06-14T04:16:45.000Z</published>
+    <updated>2015-06-14T04:16:45.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>随着 web 发展，前端应用变得越来越复杂，基于后端的 <code>javascript(Node.js)</code> 也开始崭露头角，此时  <code>javascript</code> 被寄予了更大的期望，与此同时 <code>javascript MVC</code> 思想也开始流行起来。为了使用户界面与业务数据（内容）分离，就产生了『模板引擎』这个概念。</p>
+<p>说的简单点，模板引擎就是一个字符串中有几个变量待定，通过模板引擎函数把数据动态的塞进去。</p>
+<p>今天我们就来聊一聊 <code>Jade</code> 的使用方法和语法说明。<code>Jade</code>官网：<a href="http://jade-lang.com/" target="_blank" rel="external">jade-lang.com/</a></p>
+</blockquote>
+<a id="more"></a>
+<h2 id="Jade_的使用和命令行工具构建方法">Jade 的使用和命令行工具构建方法</h2><p>Jade 的使用需要依赖 <code>Node</code>环境，通过 <code>npm</code> 包进行安装 <code>Jade</code> 命令行工具，安装成功之后就可以新建一个文件，文件后缀名为 <code>*.jade</code>。我们就可以尽情的使用 <code>jade</code> 的语法咯，写完之后只需要通过命令行工具进行编译即可编译为我们平时使用的 <code>html</code> 静态文件。</p>
+<h3 id="安装方法">安装方法</h3><p>1.首先确定是否安装有 <code>Node</code> 环境和 <code>npm</code> 工具，查看方法如下</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">在命令行工具中执行如下代码：</span><br><span class="line">node -v</span><br><span class="line"><span class="status">=&gt;</span> v<span class="number">0</span>.<span class="number">10.35</span></span><br><span class="line">npm -v</span><br><span class="line"><span class="status">=&gt;</span> <span class="number">1.4</span>.<span class="number">28</span></span><br><span class="line">/<span class="regexp">/ 如果成功返回版本号信息即为安装成功。</span></span><br></pre></td></tr></table></figure>
+<p>2.通过 <code>npm</code> 全局安装 <code>Jade</code> 命令行工具</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install jade -<span class="keyword">g</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// mac用户可能需要管理员权限，使用如下命令</span></span><br><span class="line">sudo npm install jade -<span class="keyword">g</span></span><br></pre></td></tr></table></figure>
+<p>3.创建 <code>*.Jade</code> 文件，开始任务。</p>
+<p>4.通过使用 <code>Jade</code> 命令行工具将 <code>jade</code> 文件编译为 <code>html</code> 文件</p>
+<h3 id="Jade_命令行工具使用方法">Jade 命令行工具使用方法</h3><p>我们可以通过 <code>jade --help</code> 查看 <code>Jade</code> 命令行工具的使用参数</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">jade --help</span><br><span class="line"></span><br><span class="line"><span class="type">Usage</span>: jade [options] [dir|file ...]</span><br><span class="line"></span><br><span class="line">  <span class="type">Options</span>:</span><br><span class="line"></span><br><span class="line">    -h, --help         output usage information / 输出使用信息</span><br><span class="line">    -V, --version      output the version number / 输出版本号信息</span><br><span class="line">    -O, --obj &lt;str&gt;    javascript options <span class="keyword">object</span> / 传输到 jade 文件中的数据对象</span><br><span class="line">    -o, --<span class="keyword">out</span> &lt;dir&gt;    output the compiled html to &lt;dir&gt; / 输出编译后的 <span class="type">HTML</span> 到 &lt;dir&gt;</span><br><span class="line">    -p, --path &lt;path&gt;  filename used to resolve includes / 在处理 stdio 时，查找包含文件时的查找路径</span><br><span class="line">    -P, --pretty       compile pretty html output / 格式化编译 html 文件</span><br><span class="line">    -c, --client       compile function <span class="keyword">for</span> client-side runtime.js / 编译浏览器端可用的 runtime.js</span><br><span class="line">    -n, --name &lt;str&gt;   <span class="type">The</span> name <span class="keyword">of</span> the compiled <span class="keyword">template</span> (requires --client) / 编译模板的名字</span><br><span class="line">    -D, --no-debug     compile <span class="keyword">without</span> debugging (smaller functions) / 关闭编译的调试选项(函数会更小)</span><br><span class="line">    -w, --watch        watch files <span class="keyword">for</span> changes <span class="keyword">and</span> automatically re-render / 监听文件改变并自动刷新编译结果</span><br><span class="line">    --name-after-file  <span class="type">Name</span> the <span class="keyword">template</span> after the last section <span class="keyword">of</span> the file path (requires --client <span class="keyword">and</span> overriden by --name)</span><br><span class="line">    --doctype &lt;str&gt;    <span class="type">Specify</span> the doctype on the command line (useful <span class="keyword">if</span> it <span class="keyword">is</span> <span class="keyword">not</span> specified by the <span class="keyword">template</span>) / 在命令行中指定文档类型(如果在模板中没有被指定)</span><br><span class="line"></span><br><span class="line">  <span class="type">Examples</span>:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 编译整个目录</span></span><br><span class="line">    $ jade templates</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 生成 &#123;foo,bar&#125;.html</span></span><br><span class="line">    $ jade &#123;foo,bar&#125;.jade</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 在标准IO下使用jade</span></span><br><span class="line">    $ jade &lt; my.jade &gt; my.html</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 在标准IO下使用jade</span></span><br><span class="line">    $ echo 'h1 <span class="type">Jade</span>!' | jade</span><br><span class="line"></span><br><span class="line">    <span class="comment"># foo, bar 目录渲染到 /tmp</span></span><br><span class="line">    $ jade foo bar --<span class="keyword">out</span> /tmp</span><br></pre></td></tr></table></figure>
+<p>实例：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 比如说我们需要编译index.jade文件，默认编译到同文件夹下的同名html 文件中</span></span><br><span class="line">jade index<span class="class">.jade</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果我们要格式化输出 index.html 文件，只需要添加 -P 参数即可</span></span><br><span class="line">jade -P index<span class="class">.jade</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果我们要实现监听和自动编译，需要使用 -w 参数</span></span><br><span class="line">jade -P -w index.jade</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[写一些我所知道的 jade 语法]]>
+    
+    </summary>
+    
+      <category term="jade" scheme="http://sqrtthree.com/tags/jade/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[My Code Wars v0.3]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/myCodeWars-03/"/>
+    <id>http://sqrtthree.com/2015/06/14/myCodeWars-03/</id>
+    <published>2015-06-14T04:16:32.000Z</published>
+    <updated>2015-06-14T04:16:32.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="Description">Description</h3><p>Santa is handing out gifts in the kindergarten. Many toddlers are around there and everyone should have the opportunity to have a seat on Santa’s lap. But there’s Peter, a 5 year old boy, who is a bit naughty. He tries to get two gifts. After he got the first one, he lines up again in the queue of children.</p>
+<p>But fortunately Santa is not alone. His elves keep a list with the names of the children, which already were on Santa’s lap. We know, that each child name is unique. If a child tries to get a second gift, the elves will tell Santa.</p>
+<p>OK, let’s help Santa and his elves with a simple function handOutGift() (hand_out_gift in Ruby) which takes the name of the next child. If this child already got a gift, it must throw an error in order to remind Santa.</p>
+<a id="more"></a>
+<h3 id="Example">Example</h3><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">handOutGift<span class="params">(<span class="string">"Peter"</span>)</span>;</span><br><span class="line">handOutGift<span class="params">(<span class="string">"Alison"</span>)</span>;</span><br><span class="line">handOutGift<span class="params">(<span class="string">"John"</span>)</span>;</span><br><span class="line">handOutGift<span class="params">(<span class="string">"Maria"</span>)</span>;</span><br><span class="line">handOutGift<span class="params">(<span class="string">"Peter"</span>)</span>; <span class="comment">// &lt;-- must throw an error</span></span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟出招">菜鸟出招</h3><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var <span class="keyword">nameList</span> = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span></span> handOutGift(<span class="keyword">name</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> ( <span class="keyword">nameList</span>[<span class="keyword">name</span>] ) throw <span class="string">'error'</span>;</span><br><span class="line">    <span class="keyword">nameList</span>[<span class="keyword">name</span>] = true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟思维">菜鸟思维</h3><p>利用 <code>JSON</code> 对象取其键值的便捷性作为中间件进行存储和判断。如果遇到已经存在的，则抛出错误。</p>
+<h3 id="关键字积累">关键字积累</h3><ul>
+<li>JSON</li>
+<li>throw</li>
+</ul>
+<h3 id="菜鸟总结">菜鸟总结</h3><p><code>JSON</code> 因为其极其方便的取赋值方法使其在很多场景中都被使用，利用 <code>JSON</code> 进行数组去重就是一个典型的例子。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[这里记录了我在 codewars 网站上的一些收获。]]>
+    
+    </summary>
+    
+      <category term="myCodeWars" scheme="http://sqrtthree.com/tags/myCodeWars/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[My Code Wars v0.2]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/myCodeWars-02/"/>
+    <id>http://sqrtthree.com/2015/06/14/myCodeWars-02/</id>
+    <published>2015-06-14T04:16:26.000Z</published>
+    <updated>2015-06-14T04:16:26.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="Description">Description</h3><p>Something is wrong with our Warrior class. The strike method does not work correctly. The following shows an example of this code being used:</p>
+<a id="more"></a>
+<h3 id="Example">Example</h3><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ninja = <span class="keyword">new</span> Warrior(<span class="string">'Ninja'</span>);</span><br><span class="line"><span class="keyword">var</span> samurai = <span class="keyword">new</span> Warrior(<span class="string">'Samurai'</span>);</span><br><span class="line"></span><br><span class="line">samurai.strike(ninja, <span class="number">3</span>);</span><br><span class="line"><span class="comment">// ninja.health should == 70</span></span><br></pre></td></tr></table></figure>
+<h3 id="Code">Code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Warrior = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.health = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Warrior.strike = <span class="function"><span class="keyword">function</span>(<span class="params">enemy, swings</span>)</span>&#123;</span><br><span class="line">    enemy.health = <span class="built_in">Math</span>.max(<span class="number">0</span>, enemy.health - (swings * <span class="number">10</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟出招">菜鸟出招</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Warrior = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.health = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Warrior.prototype.strike = <span class="function"><span class="keyword">function</span>(<span class="params">enemy, swings</span>)</span>&#123;</span><br><span class="line">    enemy.health = <span class="built_in">Math</span>.max(<span class="number">0</span>, enemy.health - (swings * <span class="number">10</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟思维">菜鸟思维</h3><p>这道题倒是没什么难度，考察了通过 静态方法和原型方法的区别，原题中的直接挂载到构造函数上的方法即为静态方法。静态方法是不能直接被实例对象调用的，但是原型方法可以。</p>
+<h3 id="关键字积累">关键字积累</h3><ul>
+<li>prototype</li>
+</ul>
+<h3 id="菜鸟总结">菜鸟总结</h3><ul>
+<li>静态方法：直接挂载到构造函数上的方法。</li>
+<li>原型方法：挂载到构造函数原型上的方法。</li>
+<li>构造方法：挂载到构造函数中 <code>this</code> 对象上的方法。</li>
+<li>实例方法：挂载到通过构造函数实例出的对象上的方法。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[这里记录了我在 codewars 网站上的一些收获。]]>
+    
+    </summary>
+    
+      <category term="myCodeWars" scheme="http://sqrtthree.com/tags/myCodeWars/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[My Code Wars v0.1]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/myCodeWars-01/"/>
+    <id>http://sqrtthree.com/2015/06/14/myCodeWars-01/</id>
+    <published>2015-06-14T04:16:08.000Z</published>
+    <updated>2015-06-14T04:16:08.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>这里讲述的是一个8级（kyu）菜鸟立志成为8段（dan）大神的故事。故事的起因是这样的。菜鸟有幸发现了<a href="http://www.codewars.com/" title="codewars" target="_blank" rel="external">codewars</a>这个网站，从此沉迷于内一发不可收拾，他在代码战争中一次次遭遇挫败，又一次次爬起来继续跌倒下去。欲知详情，且看『迈向7级的第一个脚印』。</p>
+<p>遥想当年自高自大，而今终知天外有天。</p>
+</blockquote>
+<h3 id="Description:">Description:</h3><p>The numberOfOccurrences function must return the number of occurrences of an element in an array.</p>
+<a id="more"></a>
+<h3 id="Example:">Example:</h3><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var arr = [<span class="number">0,1,2,2</span>,3]<span class="comment">;</span></span><br><span class="line">arr.numberOfOccurrences(0) === 1<span class="comment">;</span></span><br><span class="line">arr.numberOfOccurrences(4) === 0<span class="comment">;</span></span><br><span class="line">arr.numberOfOccurrences(2) === 2<span class="comment">;</span></span><br><span class="line">arr.numberOfOccurrences("a") === 0<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟出招">菜鸟出招</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.numberOfOccurrences = <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> total = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>[i] == num) &#123;</span><br><span class="line">            total++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> total;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟思维">菜鸟思维</h3><ol>
+<li>利用数组遍历</li>
+<li>如果数值相等则加1</li>
+<li>返回标记总数的变量</li>
+</ol>
+<h3 id="偷师学艺">偷师学艺</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.numberOfOccurrences = <span class="function"><span class="keyword">function</span>(<span class="params">search</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.filter(<span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> search === num</span><br><span class="line">    &#125;).length;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="关键字积累">关键字积累</h3><ul>
+<li>prototype</li>
+<li>filter</li>
+</ul>
+<h3 id="菜鸟总结">菜鸟总结</h3><p><code>filter()</code>是 <code>ECMAScirpt 5</code> 中规定的数组方法，返回的数组元素是调用的数组的一个子集。传递的函数是用来逻辑判定的：该函数返回 <code>true</code> 或是 <code>false</code>。如果返回值为 <code>true</code> 或是能转化为 <code>true</code> 的值，那么传递给判定函数的元素就是这个子集的成员，它将被添加到一个作为返回值的的数组中。</p>
+<p><code>filter()</code> 会跳过稀疏数组中缺少的元素，它的返回值总是稠密的。为了压缩稀疏数组的空缺，代码如下：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dense = sparse.filter(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>如果压缩空缺并删除 <code>undefined</code> 和<code>null</code>元素，代码如下：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = a.filter(<span class="function"><span class="keyword">function</span><span class="params">(x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x !== <span class="literal">undefined</span> &amp;&amp; x !== <span class="literal">null</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[这里记录了我在 codewars 网站上的一些收获。]]>
+    
+    </summary>
+    
+      <category term="myCodeWars" scheme="http://sqrtthree.com/tags/myCodeWars/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[My Code Wars v0.10]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/myCodeWars-10/"/>
+    <id>http://sqrtthree.com/2015/06/14/myCodeWars-10/</id>
+    <published>2015-06-14T03:55:40.000Z</published>
+    <updated>2015-06-14T03:55:40.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Find_the_capitals">Find the capitals</h2><h3 id="Description">Description</h3><h4 id="Instructions">Instructions</h4><blockquote>
+<p>Write a function that takes a single string (<code>word</code>) as argument. The function must return an ordered list containing the indexes of all capital letters in the string.</p>
+</blockquote>
+<h4 id="Example">Example</h4><pre><code>Test.assertSimilar( capitals('CodEWaRs'), [<span class="number">0,3,4,6</span>] )<span class="comment">; )</span>
+</code></pre><a id="more"></a>
+<h3 id="菜鸟出招">菜鸟出招</h3><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var capitals = <span class="function"><span class="keyword">function</span> <span class="params">(word)</span> &#123;</span></span><br><span class="line">	var arr = [];</span><br><span class="line">  </span><br><span class="line">	<span class="keyword">for</span> <span class="params">(var i = <span class="number">0</span>, len = word.length; i &lt; len; ++i)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> <span class="params">(word.charAt<span class="params">(i)</span> === word.charAt<span class="params">(i)</span>.toUpperCase<span class="params">()</span>)</span> &#123;</span><br><span class="line">			arr.push<span class="params">(i)</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">  </span><br><span class="line"> 	return arr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟思维">菜鸟思维</h3><blockquote>
+<p>遍历整个字符串, 将每一个位置上的字符和他自身转换大写之后的字符相比较, 如果相同, 则表示这个字符为大写字符, 将他的位置存放起来.</p>
+</blockquote>
+<h3 id="偷师学艺">偷师学艺</h3><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> capitals = <span class="function"><span class="keyword">function</span><span class="params">(word)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> word.split(<span class="string">''</span>).reduce(<span class="function"><span class="keyword">function</span><span class="params">(memo, v, i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> v === v.toUpperCase() ? memo.concat(i) : memo;</span><br><span class="line">    &#125;, []);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="关键字积累">关键字积累</h3><ul>
+<li>split</li>
+<li>reduce</li>
+<li>concat</li>
+</ul>
+<h3 id="菜鸟总结">菜鸟总结</h3><h4 id="split">split</h4><blockquote>
+<p>字符串方法, 作用是把字符串分割成数组. 接收一个参数, 参数表示指定的分隔符.</p>
+</blockquote>
+<ul>
+<li>以分割符作为分割依据，把分割符左右两边的值分别存入一个数组中</li>
+<li>分割符必须是字符串中有的子字符串，否则视为非法分割符</li>
+<li>分割符本身并不会存入数组</li>
+<li>如果不指定分割符或者分割符非法，将不分割字符串，直接存数组。</li>
+<li>只有在 <code>&#39;&#39;.split(&#39;&#39;).length</code> 这种情况下，分割之后的数组才是空数组，其它任何情况下，split之后的数组肯定会有一个值</li>
+</ul>
+<h4 id="reduce">reduce</h4><blockquote>
+<p>数组方法, 使用指定的函数将数组元素进行组合, 生成单个值.</p>
+<p><code>reduce()</code> 需要两个参数. 第一个是执行化简操作的函数. 化简函数的任务就是用某种方法把两个值组合或化简为一个值, 并返回化简之后的值. 第二个参数(可选参数)是一个传递给函数的初始值.其中, <strong>数组元素, 元素的索引和数组本身将作为第2~4个参数传递给化简函数. 第一个参数是到目前为止的化简操作积累的值</strong></p>
+<p>与之类似的还有一个 <code>reduceRight()</code>, 不同的是它按照数组索引从高到低(从右到左)处理数组.</p>
+</blockquote>
+<h4 id="concat">concat</h4><blockquote>
+<p>数组方法, 创建并返回一个新数组, 它的元素包括调用 <code>concat()</code> 的原始数组的元素 和 <code>concat()</code> 的每个参数. 如果这些参数中的任何一个自身是数组, 则连接的是数组的元素, 而非数组本身.</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[这里记录了我在 codewars 网站上的一些收获。]]>
+    
+    </summary>
+    
+      <category term="myCodeWars" scheme="http://sqrtthree.com/tags/myCodeWars/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[My Code Wars v0.11]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/myCodeWars-11/"/>
+    <id>http://sqrtthree.com/2015/06/14/myCodeWars-11/</id>
+    <published>2015-06-14T03:55:40.000Z</published>
+    <updated>2015-06-14T03:55:40.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Get_key/value_pairs_as_arrays">Get key/value pairs as arrays</h2><h3 id="Description">Description</h3><blockquote>
+<p>Complete the keysAndValues function so that it takes in an object and returns the keys and values as separate arrays.</p>
+</blockquote>
+<h3 id="Example">Example</h3><pre><code><span class="tag">keysAndValues</span>({<span class="attribute">a</span>: <span class="number">1</span>, <span class="attribute">b</span>: <span class="number">2</span>, <span class="attribute">c</span>: <span class="number">3</span>}) <span class="comment">// should return [['a', 'b', 'c'], [1, 2, 3]]</span>
+</code></pre><a id="more"></a>
+<h3 id="菜鸟出招">菜鸟出招</h3><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function keysAndValues(data) &#123;</span><br><span class="line">	var <span class="keyword">keys</span> = [], <span class="keyword">values</span> = [];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (var attr in data) &#123;</span><br><span class="line">		<span class="keyword">if</span> (data.hasOwnProperty(attr)) &#123;</span><br><span class="line">			<span class="keyword">keys</span>.<span class="keyword">push</span>(attr);</span><br><span class="line">			<span class="keyword">values</span>.<span class="keyword">push</span>(data[attr]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> [<span class="keyword">keys</span>, <span class="keyword">values</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟思维">菜鸟思维</h3><ul>
+<li>定义两个数组, 用于分别存放 <code>keys</code> &amp; <code>values</code></li>
+<li>遍历对象属性</li>
+<li>通过 <code>hasOwnProperty</code> 方法过滤掉来自原型链中的属性.</li>
+</ul>
+<h3 id="偷师学艺">偷师学艺</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">keysAndValues</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> keys = <span class="built_in">Object</span>.getOwnPropertyNames(data),</span><br><span class="line">    <span class="keyword">var</span> vals = keys.map(<span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data[key];</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> [keys, vals];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="关键字积累">关键字积累</h3><ul>
+<li>getOwnPropertyNames</li>
+<li>map</li>
+</ul>
+<h3 id="菜鸟总结">菜鸟总结</h3><h4 id="hasOwnProperty-NaN">hasOwnProperty</h4><blockquote>
+<p>用来检测集合中成员的所属关系 — 判断某个属性是否存在于某个对象中. 与之类似的方法还有 <code>in</code>, <code>propertyIsEnumerable()</code>.</p>
+</blockquote>
+<ul>
+<li><code>in</code> 运算符的左侧是属性名(字符串), 右侧是对象. 如果对象的自有属性或继承属性中包含这个属性则返回 <code>true</code>.</li>
+<li>对象的 <code>hasOwnProperty()</code> 方法用来检测给定的名字是否是对象的自身属性. 对于继承属性它将返回 <code>false</code>;</li>
+<li><code>propertyIsEnumerable()</code> 是 <code>hasOwnProperty()</code> 的增强版, 只有检测到是自有属性切这个属性的可枚举型为 <code>true</code> 时它才返回 <code>true</code>. 某些内置属性是不可枚举的.</li>
+</ul>
+<h4 id="Object-getOwnPropertyNames">Object.getOwnPropertyNames</h4><blockquote>
+<p><code>Object.getOwnPropertyNames(object)</code> 方法返回对象自己的属性的名称。 一个对象的自己的属性是指直接对该对象定义的属性，而不是从该对象的原型继承的属性。 对象的属性包括字段（对象）和函数。返回值为一个数组, 其中包含对象自己的属性的名称.</p>
+<p><code>getOwnPropertyNames</code> 方法同时返回可枚举的和不可枚举的属性和方法的名称。 若要仅返回可枚举的属性和方法的名称，可使用 <code>Object.keys</code> 函数 </p>
+</blockquote>
+<h4 id="map">map</h4><blockquote>
+<p>数组方法, 将调用的数组的每个元素传递给指定的函数, 并返回一个新数组, 它包含该函数的返回值. 如果调用的数组是稀疏数组, 返回的也是相同方式的稀疏数组: 它具有相同的长度, 相同的缺失元素.</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[这里记录了我在 codewars 网站上的一些收获。]]>
+    
+    </summary>
+    
+      <category term="myCodeWars" scheme="http://sqrtthree.com/tags/myCodeWars/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[My Github Stars]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/myGithubStars/"/>
+    <id>http://sqrtthree.com/2015/06/14/myGithubStars/</id>
+    <published>2015-06-14T03:55:40.000Z</published>
+    <updated>2015-06-14T03:55:40.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="enquire-js">enquire.js</h2><p>项目地址: <a href="https://github.com/wickynilliams/enquire.js/" target="_blank" rel="external">https://github.com/wickynilliams/enquire.js/</a></p>
+<blockquote>
+<p>enquire.js是一款超棒的轻量级处理CSS Media Queries的javascript类库。主要特性如下：</p>
+</blockquote>
+<ul>
+<li>帮助你处理匹配的media queries(不匹配的也可以)</li>
+<li>针对浏览器事件响应</li>
+<li>支持一次性的设置</li>
+<li>不依赖任何类库，甚至jQuery</li>
+<li>可以方便的应用到响应式设计中</li>
+<li>类库非常小，压缩版小于1kb</li>
+</ul>
+<h2 id="fastclick">fastclick</h2><p>项目地址: <a href="https://github.com/ftlabs/fastclick" target="_blank" rel="external">https://github.com/ftlabs/fastclick</a></p>
+<blockquote>
+<p>FastClick 是一个简单，易于使用的JS库用于消除在移动浏览器上触发click事件与一个物理Tap(敲击)之间的300延迟和点击穿透问题。</p>
+</blockquote>
+<hr>
+<h2 id="hammer-js">hammer.js</h2><p>项目地址: <a href="https://github.com/hammerjs/hammer.js/" target="_blank" rel="external">https://github.com/hammerjs/hammer.js/</a></p>
+<blockquote>
+<p>hammer.js是一个多点触摸手势库，能够为网页加入Tap、Double Tap、Swipe、Hold、Pinch、Drag等多点触摸事件，免去自己监听底层touchstart、touchmove、touchend事件并且写一大堆判断逻辑的痛苦。hammer.js不但支持触摸屏设备的浏览器，在桌面浏览器上，也能将鼠标的点击当做触摸，方便开发人员在桌面浏览器上调试。这是一个专为触摸手势而生的js库.</p>
+</blockquote>
+<hr>
+<h2 id="request">request</h2><p>项目地址: <a href="https://github.com/request/request" target="_blank" rel="external">https://github.com/request/request</a></p>
+<blockquote>
+<p>request 可以让你通过简单地方法来发起 http 请求调用. 也支持 HTTPS 和 重定向. 和 <a href="#superagent">superagent</a> 类似.</p>
+</blockquote>
+<hr>
+<h2 id="slideout">slideout</h2><p>项目地址: <a href="https://github.com/mango/slideout" target="_blank" rel="external">https://github.com/mango/slideout</a></p>
+<blockquote>
+<p>Slideout.js 是为您的移动 Web 应用开发的触摸滑出式的导航菜单。它没有依赖，自由搭配简单的标记，支持原生的滚动，您可以轻松地定制它。它支持不同的 CSS3 转换和过渡。最重要的是，它只是4KB 。</p>
+</blockquote>
+<hr>
+<h2 id="TheaterJS">TheaterJS</h2><p>项目地址: <a href="https://github.com/Zhouzi/TheaterJS" target="_blank" rel="external">https://github.com/Zhouzi/TheaterJS</a></p>
+<blockquote>
+<p>THeaterjs 是一个模仿人类打字效果的库.</p>
+</blockquote>
+<hr>
+<a id="more"></a>
+<h2 id="commander-js">commander.js</h2><p>项目地址: <a href="https://github.com/tj/commander.js" target="_blank" rel="external">https://github.com/tj/commander.js</a></p>
+<blockquote>
+<p>commander是一个轻巧的nodejs模块，提供了用户命令行输入和参数解析强大功能。commander源自一个同名的Ruby项目。</p>
+</blockquote>
+<p>commander的特性：</p>
+<ul>
+<li>自记录代码</li>
+<li>自动生成帮助</li>
+<li>合并短参数（“ABC”==“-A-B-C”）</li>
+<li>默认选项</li>
+<li>强制选项</li>
+<li>命令解析</li>
+<li>提示符</li>
+</ul>
+<hr>
+<h2 id="Inquirer-js">Inquirer.js</h2><p>项目地址: <a href="https://github.com/SBoudrias/Inquirer.js" target="_blank" rel="external">https://github.com/SBoudrias/Inquirer.js</a></p>
+<blockquote>
+<p>用来构建交互式的命令行程序.</p>
+</blockquote>
+<hr>
+<h2 id="benchmark-js">benchmark.js</h2><p>项目地址: <a href="https://github.com/bestiejs/benchmark.js" target="_blank" rel="external">https://github.com/bestiejs/benchmark.js</a></p>
+<blockquote>
+<p> benchmark是一个强大的基准测试库，几乎适用于所有JavaScript平台.</p>
+</blockquote>
+<hr>
+<h2 id="NoSleep-js">NoSleep.js</h2><p>项目地址: <a href="https://github.com/richtr/NoSleep.js" target="_blank" rel="external">https://github.com/richtr/NoSleep.js</a></p>
+<blockquote>
+<p>一个防止手机自动锁屏的JS库.</p>
+</blockquote>
+<hr>
+<h2 id="react-native-guide">react-native-guide</h2><p>项目地址: <a href="https://github.com/ele828/react-native-guide" target="_blank" rel="external">https://github.com/ele828/react-native-guide</a></p>
+<blockquote>
+<p>React-Native指南汇集了react-native学习资源与各类开源app</p>
+</blockquote>
+<hr>
+<h2 id="istanbul">istanbul</h2><p>项目地址: <a href="https://github.com/gotwarlost/istanbul" target="_blank" rel="external">https://github.com/gotwarlost/istanbul</a></p>
+<blockquote>
+<p>测试率覆盖工具.</p>
+</blockquote>
+<hr>
+<h2 id="should-js">should.js</h2><p>项目地址: <a href="https://github.com/tj/should.js" target="_blank" rel="external">https://github.com/tj/should.js</a></p>
+<blockquote>
+<p>一个断言库.</p>
+</blockquote>
+<hr>
+<h2 id="gulp-book">gulp-book</h2><p>项目地址: <a href="https://github.com/nimojs/gulp-book" target="_blank" rel="external">https://github.com/nimojs/gulp-book</a></p>
+<blockquote>
+<p>gulp 是基于 node 实现 Web 前端自动化开发的工具，利用它能够极大的提高开发效率。在 Web 前端开发工作中有很多“重复工作”，比如压缩CSS/JS文件。而这些工作都是有规律的。找到这些规律，并编写 gulp 配置代码,让 gulp 自动执行这些“重复工作”。这是一个gulp 中文入门指南.</p>
+</blockquote>
+<hr>
+<h2 id="passport">passport</h2><p>项目地址: <a href="https://github.com/jaredhanson/passport" target="_blank" rel="external">https://github.com/jaredhanson/passport</a></p>
+<blockquote>
+<p>Passport项目是一个基于Nodejs的认证中间件。Passport目的只是为了“登陆认证”，因此，代码干净，易维护，可以方便地集成到其他的应用中。</p>
+</blockquote>
+<hr>
+<h2 id="Node-bcrypt-js">Node.bcrypt.js</h2><p>项目地址: <a href="https://github.com/ncb000gt/node.bcrypt.js" target="_blank" rel="external">https://github.com/ncb000gt/node.bcrypt.js</a></p>
+<blockquote>
+<p>bcrypt，是一个跨平台的文件加密工具。由它加密的文件可在所有支持的操作系统和处理器上进行转移。它的口令必须是8至56个字符，并将在内部被转化为448位的密钥。然而，所提供的所有字符都具有十分重要的意义。密码越强大，您的数据就越安全。而node.bcrypt.js则是披上Nodejs斗篷的bcrypt，它的62.2%是C++代码，而Javascript代码只有30.3%。</p>
+</blockquote>
+<hr>
+<h2 id="PM2">PM2</h2><p>项目地址: <a href="https://github.com/Unitech/PM2" target="_blank" rel="external">https://github.com/Unitech/PM2</a></p>
+<blockquote>
+<p>pm2 是一个带有负载均衡功能的Node应用的进程管理器.</p>
+</blockquote>
+<hr>
+<h2 id="togetherjs">togetherjs</h2><p>项目地址: <a href="https://github.com/mozilla/togetherjs" target="_blank" rel="external">https://github.com/mozilla/togetherjs</a></p>
+<blockquote>
+<p>TogetherJS 是 Mozilla实验室出来的实时协作工具。免费并且开源，遵循MPL 2.0开源协议.它提供了用户间的即时协作功能。它同时通过 WebRTC 支持了多人间的文字、语音聊天功能。使用 TogetherJS，多个用户可以在同一页面上交互，看到对方的光标位置，一起浏览和编辑一个站点。TogetherJS 支持最新版的Firefox、Chrome 和 Safari。</p>
+</blockquote>
+<hr>
+<h2 id="tablesort">tablesort</h2><p>项目地址: <a href="https://github.com/tristen/tablesort" target="_blank" rel="external">https://github.com/tristen/tablesort</a></p>
+<blockquote>
+<p>tablesort 是一个简单且轻量级的表格快速排序插件.</p>
+</blockquote>
+<hr>
+<h2 id="nprogress">nprogress</h2><p>项目地址: <a href="https://github.com/rstacruz/nprogress" target="_blank" rel="external">https://github.com/rstacruz/nprogress</a></p>
+<blockquote>
+<p>应用于复杂网页的细长进度条。由 Google, YouTube, 和 Medium 提供灵感。</p>
+</blockquote>
+<hr>
+<h2 id="velocity">velocity</h2><p>项目地址: <a href="https://github.com/julianshapiro/velocity" target="_blank" rel="external">https://github.com/julianshapiro/velocity</a></p>
+<blockquote>
+<p>Velocity.js是一款动画切换的jQuery插件，它重新实现了jQuery的$.animate()方法从而加快动画切换的速度。Velocity.js只有7k的大小，它不仅包含了$.animate()的所有功能，并且还包含了颜色切换、转换(transform)、循环、缓动、CSS切换、Scroll功能，它是jQuery、 jQuery UI、CSS变换 在动画方面的最佳组合。Velocity.js支持IE8+、Chrome、Firefox等浏览器，并支持Andriod以及IOS。Velocity.js在内部实现中使用了jQuery的$.queue()方法，因此它比 jQuery的$.animate()、$.fade()、$.delay()方法更加流畅，其性能也高于CSS的animation属性.</p>
+</blockquote>
+<hr>
+<h2 id="spec">spec</h2><p>项目地址: <a href="https://github.com/ecomfe/spec" target="_blank" rel="external">https://github.com/ecomfe/spec</a></p>
+<blockquote>
+<p>百度EFE团队的开发规范文档.</p>
+</blockquote>
+<hr>
+<h2 id="normalize-css">normalize.css</h2><p>项目地址: <a href="https://github.com/necolas/normalize.css" target="_blank" rel="external">https://github.com/necolas/normalize.css</a></p>
+<blockquote>
+<p>Normalize.css 是一个可以定制的CSS文件，它让不同的浏览器在渲染网页元素的时候形式更统一.</p>
+</blockquote>
+<hr>
+<h2 id="jQuery-eraser">jQuery.eraser</h2><p>项目地址: <a href="https://github.com/boblemarin/jQuery.eraser" target="_blank" rel="external">https://github.com/boblemarin/jQuery.eraser</a></p>
+<blockquote>
+<p>jQuery.eraser 是一个基于 jQuery 的插件，它的效果类似于橡皮擦，按住鼠标不放，在图片上面来回移动，上面灰色的图片就会被擦出，显示出下面彩色的图片。</p>
+</blockquote>
+<hr>
+<h2 id="fullPage-js">fullPage.js</h2><p>项目地址: <a href="https://github.com/alvarotrigo/fullPage.js" target="_blank" rel="external">https://github.com/alvarotrigo/fullPage.js</a></p>
+<blockquote>
+<p>fullPage.js 是一个基于 jQuery 的插件，它能够很方便、很轻松的制作出全屏网站，主要功能有：</p>
+</blockquote>
+<ul>
+<li>支持鼠标滚动</li>
+<li>支持前进后退和键盘控制</li>
+<li>多个回调函数</li>
+<li>支持手机、平板触摸事件</li>
+<li>支持 CSS3 动画</li>
+<li>支持窗口缩放</li>
+<li>窗口缩放时自动调整</li>
+<li>可设置滚动宽度、背景颜色、滚动速度、循环选项、回调、文本对齐方式等等</li>
+</ul>
+<hr>
+<h2 id="stroll-js">stroll.js</h2><p>项目地址: <a href="https://github.com/hakimel/stroll.js" target="_blank" rel="external">https://github.com/hakimel/stroll.js</a></p>
+<blockquote>
+<p>stroll.js 是 CSS 列表滚动效果的集合，浏览器支持 3D 转换，同时也支持触摸屏设备（iOS 和 Android 4.x）</p>
+</blockquote>
+<hr>
+<h2 id="lodash">lodash</h2><p>项目地址: <a href="https://github.com/lodash/lodash" target="_blank" rel="external">https://github.com/lodash/lodash</a></p>
+<blockquote>
+<p>lodash 是一个 JavaScript 实用工具库，提供一致性，模块化，性能和配件等功能。</p>
+</blockquote>
+<hr>
+<h2 id="node-fs-extra">node-fs-extra</h2><p>项目地址: <a href="https://github.com/jprichardson/node-fs-extra" target="_blank" rel="external">https://github.com/jprichardson/node-fs-extra</a></p>
+<blockquote>
+<p>Node-fs-extra提供了一些额外的fs没有的函数，如果Nodejs自带的fs模块，还不能满足你在进行文件操作的使用，或者用着不顺心。不妨来node-fs-extra找一下有没有你想要的解决方案。</p>
+</blockquote>
+<hr>
+<h2 id="VPNOn">VPNOn</h2><p>项目地址: <a href="https://github.com/lexrus/VPNOn" target="_blank" rel="external">https://github.com/lexrus/VPNOn</a></p>
+<blockquote>
+<p>VPN On 是 一款 iOS 8 通知中心小部件，它在通知中心放置了一枚 VPN 按钮，你可以通过它一键开启 VPN 服务，而无需繁琐地进入系统设置。</p>
+</blockquote>
+<hr>
+<h2 id="mocha">mocha</h2><p>项目地址: <a href="https://github.com/mochajs/mocha" target="_blank" rel="external">https://github.com/mochajs/mocha</a></p>
+<blockquote>
+<p>Mocha 是一个能同时在 node 端和浏览器端运行的特性丰富的测试框架，它使得异步测试简单而有趣。Mocha 通过串行的方式运行测试，通过将未捕获的异常映射到正确的测试用例，它能支持灵活而精确的测试报告。</p>
+</blockquote>
+<hr>
+<h2 id="moment">moment</h2><p>项目地址: <a href="https://github.com/moment/moment" target="_blank" rel="external">https://github.com/moment/moment</a></p>
+<blockquote>
+<p>Moment是一个轻量级用于处理日期的工具，除了对日期进行格式化以外，你还能够对日期进行操作，验证，解析。</p>
+</blockquote>
+<hr>
+<h2 id="sweetalert">sweetalert</h2><p>项目地址: <a href="https://github.com/t4t5/sweetalert" target="_blank" rel="external">https://github.com/t4t5/sweetalert</a></p>
+<blockquote>
+<p>SweetAlert 是非常漂亮的 JavaScript 警报功能的替代品。SweetAlert 能在页面自动居中，支持桌面环境，移动端和平板，并且高度自定义。</p>
+</blockquote>
+<hr>
+<h2 id="seajs-wrap">seajs-wrap</h2><p>项目地址: <a href="https://github.com/seajs/seajs-wrap" target="_blank" rel="external">https://github.com/seajs/seajs-wrap</a></p>
+<blockquote>
+<p>在新的 spm3 中，编码书写规范从 CMD 规范全面转向了 CommonJS 。这样可能会碰到一个问题，在线下调试环境中可以直接运行的 CMD 模块，现在由于去掉了 define 块包装，无法在 Sea.js 环境中直接跑起来。我们推荐使用 spm doc watch 并打开 <a href="http://127.0.0.1:8000" target="_blank" rel="external">http://127.0.0.1:8000</a> 进行调试，这个工具会在本地启动一个静态服务，监听加载的静态文件并动态包装 define 块。但是这个工具并不能满足所有情况，所以就有了这个插件，可以帮助你对 CommonJS 模块进行调试。</p>
+</blockquote>
+<hr>
+<h2 id="notify-js">notify.js</h2><p>项目地址: <a href="https://github.com/alexgibson/notify.js" target="_blank" rel="external">https://github.com/alexgibson/notify.js</a></p>
+<blockquote>
+<p>使用 HTML5 中浏览器通知 api 扩展的一个通知插件.</p>
+</blockquote>
+<hr>
+<h2 id="Magic">Magic</h2><p>项目地址: <a href="https://github.com/BaiduFE/Magic" target="_blank" rel="external">https://github.com/BaiduFE/Magic</a></p>
+<blockquote>
+<p>百度魔方</p>
+</blockquote>
+<hr>
+<h2 id="webcamera">webcamera</h2><p>项目地址: <a href="https://github.com/node-modules/webcamera" target="_blank" rel="external">https://github.com/node-modules/webcamera</a></p>
+<blockquote>
+<p>网页截图工具 (by phantomjs)。通过phantomjs来打开渲染网页，对网页进行截图。</p>
+</blockquote>
+<hr>
+<h2 id="node123">node123</h2><p>项目地址: <a href="https://github.com/youyudehexie/node123" target="_blank" rel="external">https://github.com/youyudehexie/node123</a></p>
+<blockquote>
+<p>node.js中文资料导航</p>
+</blockquote>
+<hr>
+<h2 id="nw-js">nw.js</h2><p>项目地址: <a href="https://github.com/nwjs/nw.js" target="_blank" rel="external">https://github.com/nwjs/nw.js</a></p>
+<blockquote>
+<p>NW.js 可以让你直接在 DOM 上调用所有 Node.js 模块，相当于使用一种新的方法来编写 Web 应用。NW.js 的前身是 node-webkit 。</p>
+</blockquote>
+<hr>
+<h2 id="phantomjs">phantomjs</h2><p>项目地址: <a href="https://github.com/Medium/phantomjs" target="_blank" rel="external">https://github.com/Medium/phantomjs</a></p>
+<blockquote>
+<p>PhantomJS是一个基于WebKit的服务器端JavaScript API，它基于 BSD开源协议发布。PhantomJS无需浏览器的支持即可实现对Web的支持，且原生支持各种Web标准，如DOM 处理、JavaScript、CSS选择器、JSON、Canvas和可缩放矢量图形SVG。PhantomJS主要是通过JavaScript和CoffeeScript控制WebKit的CSS选择器、可缩放矢量图形SVG和HTTP网络等各个模块。</p>
+</blockquote>
+<hr>
+<h2 id="Nodemailer">Nodemailer</h2><p>项目地址: <a href="https://github.com/andris9/Nodemailer" target="_blank" rel="external">https://github.com/andris9/Nodemailer</a></p>
+<blockquote>
+<p>Nodemailer是一个简单易用的Node.js邮件发送组件.</p>
+</blockquote>
+<hr>
+<h2 id="superagent">superagent</h2><p>项目地址: <a href="https://github.com/visionmedia/superagent" target="_blank" rel="external">https://github.com/visionmedia/superagent</a></p>
+<blockquote>
+<p>superagent是nodejs里一个非常方便的客户端请求代理模块，当你想处理get,post,put,delete,head请求时,你就应该想起该用它了. 是一个轻量的,渐进式的ajax api,可读性好,学习曲线低,内部依赖nodejs原生的请求api.</p>
+</blockquote>
+<hr>
+<h2 id="iojs-cn">iojs-cn</h2><p>项目地址: <a href="https://github.com/iojs/iojs-cn" target="_blank" rel="external">https://github.com/iojs/iojs-cn</a></p>
+<blockquote>
+<p>io.js 中文化 &amp; 中文社区</p>
+</blockquote>
+<hr>
+<h2 id="LiveReload">LiveReload</h2><p>项目地址: <a href="https://github.com/livereload/LiveReload" target="_blank" rel="external">https://github.com/livereload/LiveReload</a></p>
+<blockquote>
+<p> 实现页面自动刷新，所见即所得编辑.LiveReload会监控你指定的目录中文件，如果有文件被更改，它就自动触发浏览器刷新页面。但如果你修改的是CSS或者图片，页面内容会即时更新，无需重新加载。</p>
+</blockquote>
+<hr>
+<h2 id="fetch">fetch</h2><p>项目地址: <a href="https://github.com/github/fetch" target="_blank" rel="external">https://github.com/github/fetch</a></p>
+<blockquote>
+<p>它是XMLHttpRequest的简易化新API。目前已经在Chrome和Firefox的测试版里实现。</p>
+</blockquote>
+<hr>
+<h2 id="https://github-com/aFarkas/html5shiv"><a href="https://github.com/aFarkas/html5shiv" target="_blank" rel="external">https://github.com/aFarkas/html5shiv</a></h2><p>项目地址: <a href="https://github.com/aFarkas/html5shiv" target="_blank" rel="external">https://github.com/aFarkas/html5shiv</a></p>
+<blockquote>
+<p>htnl5shiv主要解决HTML5提出的新的元素不被IE6-8识别的问题.</p>
+</blockquote>
+<hr>
+<h2 id="to-markdown">to-markdown</h2><p>项目地址: <a href="https://github.com/domchristie/to-markdown" target="_blank" rel="external">https://github.com/domchristie/to-markdown</a></p>
+<blockquote>
+<p>一个将 html 代码转换为 markdown 语法的 js 插件</p>
+</blockquote>
+<hr>
+<h2 id="markdown-js">markdown-js</h2><p>项目地址: <a href="https://github.com/evilstreak/markdown-js" target="_blank" rel="external">https://github.com/evilstreak/markdown-js</a></p>
+<blockquote>
+<p>将 markdown 语法转换为 html.</p>
+</blockquote>
+<hr>
+<h2 id="echarts">echarts</h2><p>项目地址: <a href="https://github.com/ecomfe/echarts" target="_blank" rel="external">https://github.com/ecomfe/echarts</a></p>
+<blockquote>
+<p>基于Canvas，纯Javascript图表库，提供直观，生动，可交互，可个性化定制的数据可视化图表。创新的拖拽重计算、数据视图、值域漫游等特性大大增强了用户体验，赋予了用户对数据进行挖掘、整合的能力。</p>
+</blockquote>
+<hr>
+<h2 id="zrender">zrender</h2><p>项目地址: <a href="https://github.com/ecomfe/zrender" target="_blank" rel="external">https://github.com/ecomfe/zrender</a></p>
+<blockquote>
+<p>一个轻量级的Canvas类库，MVC封装，数据驱动，提供类Dom事件模型，让canvas绘图大不同！</p>
+</blockquote>
+<hr>
+<h2 id="Hover">Hover</h2><p>项目地址: <a href="https://github.com/IanLunn/Hover" target="_blank" rel="external">https://github.com/IanLunn/Hover</a></p>
+<blockquote>
+<p>用 css3 实现的各种 hover 效果</p>
+</blockquote>
+<hr>
+<h2 id="xto">xto</h2><p>项目地址: <a href="https://github.com/XadillaX/xto" target="_blank" rel="external">https://github.com/XadillaX/xto</a></p>
+<blockquote>
+<p>一个查快递的node 包</p>
+</blockquote>
+<hr>
+<h2 id="jquery-s2t">jquery-s2t</h2><p>项目地址: <a href="https://github.com/hustlzp/jquery-s2t" target="_blank" rel="external">https://github.com/hustlzp/jquery-s2t</a></p>
+<blockquote>
+<p>中文的简体和繁体之间的转换.</p>
+</blockquote>
+<hr>
+<h2 id="dox">dox</h2><p>项目地址: <a href="https://github.com/tj/dox" target="_blank" rel="external">https://github.com/tj/dox</a></p>
+<blockquote>
+<p>兼容 Markdown, JSDoc 格式的文档生成器。</p>
+</blockquote>
+<hr>
+<h2 id="doxmate">doxmate</h2><p>项目地址: <a href="https://github.com/JacksonTian/doxmate" target="_blank" rel="external">https://github.com/JacksonTian/doxmate</a></p>
+<blockquote>
+<p>过去通常要自己维护API文档，这会是一件比较蛋疼的事情。所幸我们有dox，dox可以帮我们解析注解。但是dox不能帮我们任意生成文档。于是就有了doxmate，doxmate基于dox的注解对象，加入模板。在遵循Github和CommonJS的约定后，doxmate可以帮你的模块包快速生成文档。</p>
+</blockquote>
+<h2 id="use_vim_as_ide">use_vim_as_ide</h2><p>项目地址: <a href="https://github.com/yangyangwithgnu/use_vim_as_ide" target="_blank" rel="external">https://github.com/yangyangwithgnu/use_vim_as_ide</a></p>
+<blockquote>
+<p>所需即所获：像 IDE 一样使用 vim. vim 使用配置手册</p>
+</blockquote>
+<hr>
+<h2 id="d3">d3</h2><p>项目地址: <a href="https://github.com/mbostock/d3" target="_blank" rel="external">https://github.com/mbostock/d3</a></p>
+<blockquote>
+<p>一个强大的图表插件.</p>
+</blockquote>
+<hr>
+<h2 id="github-cheat-sheet">github-cheat-sheet</h2><p>项目地址: <a href="https://github.com/tiimgreen/github-cheat-sheet" target="_blank" rel="external">https://github.com/tiimgreen/github-cheat-sheet</a></p>
+<blockquote>
+<p>Git 和 Github 秘籍 和使用手册.</p>
+</blockquote>
+<hr>
+<h2 id="compass">compass</h2><p>项目地址: <a href="https://github.com/Compass/compass" target="_blank" rel="external">https://github.com/Compass/compass</a></p>
+<blockquote>
+<p>Compass是Sass的工具库（toolkit）。Sass本身只是一个编译器，Compass在它的基础上，封装了一系列有用的模块和模板，补充Sass的功能。它们之间的关系，有点像Javascript和jQuery、Ruby和Rails、python和Django的关系。</p>
+</blockquote>
+<hr>
+<h2 id="css3">css3</h2><p>项目地址: <a href="https://github.com/w3cmark/css3" target="_blank" rel="external">https://github.com/w3cmark/css3</a></p>
+<blockquote>
+<p>主要存放css3相关内容. 项目一：基于less的css3动画库.</p>
+</blockquote>
+<hr>
+<h2 id="eventproxy">eventproxy</h2><p>项目地址: <a href="https://github.com/JacksonTian/eventproxy" target="_blank" rel="external">https://github.com/JacksonTian/eventproxy</a></p>
+<blockquote>
+<p>EventProxy 仅仅是一个很轻量的工具，但是能够带来一种事件式编程的思维变化。利用事件机制解耦复杂业务逻辑. 移除被广为诟病的深度callback嵌套问题. 将串行等待变成并行等待，提升多异步协作场景下的执行效率</p>
+</blockquote>
+<hr>
+<h2 id="iOSBlogCN">iOSBlogCN</h2><p>项目地址: <a href="https://github.com/tangqiaoboy/iOSBlogCN" target="_blank" rel="external">https://github.com/tangqiaoboy/iOSBlogCN</a></p>
+<blockquote>
+<p>中文 iOS/Mac 开发博客列表</p>
+</blockquote>
+<hr>
+<h2 id="Programming-Alpha-To-Omega">Programming-Alpha-To-Omega</h2><p>项目地址: <a href="https://github.com/justjavac/Programming-Alpha-To-Omega" target="_blank" rel="external">https://github.com/justjavac/Programming-Alpha-To-Omega</a></p>
+<blockquote>
+<p>从零开始学编程系列汇总(从α到Ω)</p>
+</blockquote>
+<ul>
+<li><p><a href="http://zhuanlan.zhihu.com/mosky/19878087" target="_blank" rel="external">从零开始写个编译器吧系列</a>  (知乎专栏)</p>
+</li>
+<li><p><a href="http://top.jobbole.com/13810/" target="_blank" rel="external">从零开始写一个简单的操作系统</a>  (伯乐在线)</p>
+</li>
+<li><p><a href="http://www.ituring.com.cn/minibook/770" target="_blank" rel="external">从零开始写 JavaScript 框架</a>  (图灵社区)</p>
+</li>
+<li><p><a href="http://www.blueidea.com/tech/web/2010/7326.asp" target="_blank" rel="external">从零开始写 jQuery 框架</a>  (蓝色理想 )</p>
+</li>
+<li><p><a href="http://blog.fens.me/series-nodejs/" target="_blank" rel="external">从零开始 nodejs 系列文章</a>  (粉丝日志)</p>
+</li>
+<li><p><a href="https://software.intel.com/zh-cn/blogs/2013/11/07/1/" target="_blank" rel="external">从零开始编写网络游戏</a> ( 英特尔® 开发人员专区)</p>
+</li>
+<li><p><a href="http://www.cnblogs.com/EmptyFS/p/3621484.html" target="_blank" rel="external">从零开始编写自己的 C# 框架</a> (博客园)</p>
+</li>
+<li><p><a href="http://www.zhihu.com/question/20179805" target="_blank" rel="external">如何从零开始写一个 Chrome 扩展？</a> (知乎)</p>
+</li>
+<li><p><a href="http://jayli.github.io/blog/data/2010/12/11/writejslib.html" target="_blank" rel="external">从零开始写框架</a> (@jayli) )</p>
+</li>
+</ul>
+<hr>
+<h2 id="animate-css">animate.css</h2><p>项目地址: <a href="https://github.com/daneden/animate.css" target="_blank" rel="external">https://github.com/daneden/animate.css</a></p>
+<blockquote>
+<p>animate是一个css3动画库，里面预设了很多种常用的动画，使用也很简单，因为它是把不同的动画绑定到了不同的类里，所以我们想要使用哪种动画的时候，只需要简单的把那个相应的类添加到元素上就行了.</p>
+</blockquote>
+<hr>
+<h2 id="MazeJS">MazeJS</h2><p>项目地址: <a href="https://github.com/finscn/MazeJS" target="_blank" rel="external">https://github.com/finscn/MazeJS</a></p>
+<blockquote>
+<p>js迷宫生成工具。 有比较好的扩展性(得益于 Growing Tree 算法) , 不仅可以生成完全随机的完美迷宫 和 非完美迷宫, 还可以生成有某种倾向性的迷宫.</p>
+</blockquote>
+<hr>
+<h2 id="autoprefixer">autoprefixer</h2><p>项目地址: <a href="https://github.com/postcss/autoprefixer" target="_blank" rel="external">https://github.com/postcss/autoprefixer</a></p>
+<blockquote>
+<p>一个以最好的方式处理浏览器前缀的后处理程序.</p>
+</blockquote>
+<hr>
+<h2 id="pace">pace</h2><p>项目地址: <a href="https://github.com/HubSpot/pace" target="_blank" rel="external">https://github.com/HubSpot/pace</a></p>
+<blockquote>
+<p>它能够炫酷地利用进度条来实现页面的加载和Ajax导航，是一个轻量级的JavaScript库。</p>
+</blockquote>
+<p>Pace.js的过人之处：</p>
+<ul>
+<li>你可以在网站的任何网页放置这个进度条。</li>
+<li>Pace.js的执行原理是：利用文档读取的状态，事件循环和执行ajax请求。</li>
+<li>官网的demo中包含了14种主题，可以随意选择，当然也可以自己开发新的主题。</li>
+<li>进度条自动检测。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[这里记录了我在 github 上一些关注的项目, 为了方便自己查阅。不定期更新.]]>
+    
+    </summary>
+    
+      <category term="myGithubStars" scheme="http://sqrtthree.com/tags/myGithubStars/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Sublime Text - 实用快捷键 (Mac OS X)]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/Sublime-Text-Mac/"/>
+    <id>http://sqrtthree.com/2015/06/14/Sublime-Text-Mac/</id>
+    <published>2015-06-14T03:55:40.000Z</published>
+    <updated>2015-06-14T03:55:40.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>代码编辑器或者文本编辑器，对于程序员来说，就像剑与战士一样，谁都想拥有一把可以随心驾驭且锋利无比的宝剑，而每一位程序员，同样会去追求最适合自己的强大、灵活的编辑器，相信你和我一样，都不会例外。</p>
+<p>Sublime Text绝对是一款性感无比的代码编辑器，因为 Sublime Text 2 编辑器的特性和使用技巧实在太过多，本人也未算用得精通，所以无法一一列举展现，有兴趣的朋友可以自行下载体验，<a href="http://www.sublimetext.com/" title="传送门-Sublime Text下载地址" target="_blank" rel="external">传送门</a>，这里就先分享一下我平时使用频率比较高的快捷键吧。(ps:如果你是 Windows 用户，请移步这里。<a href="/2015/01/09/Sublime-Text-pc/">Windows 用户</a>)</p>
+</blockquote>
+<a id="more"></a>
+<p>注：图标和按键对应说明：</p>
+<ul>
+<li>⌘    command/win</li>
+<li>⌃    control/ctrl</li>
+<li>⇧    shift</li>
+<li>⌥    option/alt</li>
+</ul>
+<h3 id="打开/前往">打开/前往</h3><ul>
+<li><code>⌘T</code>    前往文件</li>
+<li><code>⌘⌃P</code>    前往项目</li>
+<li><code>⌘R</code>    前往 method   js文件中是搜索函数名</li>
+<li><code>⌘⇧P</code>    命令提示 ｜</li>
+<li><code>⌃G</code>    前往行</li>
+<li><code>⌃ ~</code>    python 控制台</li>
+</ul>
+<h3 id="编辑">编辑</h3><ul>
+<li><code>⌘L</code>        选择行 (重复按下将下一行加入选择)</li>
+<li><code>⌘D</code>        选择词 (重复按下时多重选择相同的词进行多重编辑)  跟系统快捷键有冲突</li>
+<li><code>⌃⇧M</code>    选择括号内的内容</li>
+<li><code>⌘⇧↩</code>    在当前行前插入新行</li>
+<li><code>⌘↩</code>        在当前行后插入新行</li>
+<li><code>⌘⌃↑</code>     向上移动当前行/所在行</li>
+<li><code>⌘⌃↓</code>    向下移动当前行/所在行</li>
+<li><code>⌃⇧K</code>    删除当前行</li>
+<li><code>⌘x</code>        删除当前行</li>
+<li><code>⌘KK</code>    从光标处删除至行尾</li>
+<li><code>⌘K⌫</code>    从光标处删除至行首</li>
+<li><code>⌘]</code>        缩进当前行</li>
+<li><code>⌘[</code>        取消缩进当前行</li>
+<li><code>⌘⇧D</code>    复制(多)行</li>
+<li><code>⌘J</code>        合并(多)行</li>
+<li><code>⌘KU</code>    改为大写</li>
+<li><code>⌘KL</code>    改为小写</li>
+<li><code>⌘ /</code>    注释</li>
+<li><code>⌘⌥ /</code>    块注释</li>
+<li><code>⌘Y</code>    恢复或重复</li>
+<li><code>⌘⇧V</code>    粘贴并自动缩进</li>
+<li><code>⌃ space</code>    自动完成(重复按下选择下一个提示)</li>
+<li><code>⌃M</code>    跳转至对应的括号</li>
+</ul>
+<h3 id="XML/HTML">XML/HTML</h3><ul>
+<li><code>⌘⇧A</code>    选择标签内的内容</li>
+<li><code>⌘⌥ .</code>    闭合当前标签</li>
+</ul>
+<h3 id="查找/替换">查找/替换</h3><ul>
+<li><code>⌘F</code>    查找</li>
+<li><code>⌘⌥F</code>    替换</li>
+<li><code>⌘⌥G</code>    查找下一个符合当前所选的内容</li>
+<li><code>⌘⌃G</code>    查找所有符合当前所选的内容进行多重编辑</li>
+<li><code>⌘⇧F</code>    在所有打开的文件中进行查找</li>
+</ul>
+<h3 id="拆分窗口/标签页">拆分窗口/标签页</h3><ul>
+<li><code>⌘⌥1</code>    单列</li>
+<li><code>⌘⌥2</code>    双列</li>
+<li><code>⌘⌥5</code>    网格 (4组)</li>
+<li><code>⌃[1,2,3,4]</code>    焦点移动至相应组</li>
+<li><code>⌃⇧[1,2,3,4]</code>    将当前文件移动至相应组</li>
+<li><code>⌘[1,2,3...]</code>    选择相应标签页</li>
+</ul>
+<h3 id="书签">书签</h3><ul>
+<li><code>⌘F2</code>    添加/去除书签</li>
+<li><code>F2</code>    下一个书签</li>
+<li><code>⇧F2</code>    前一个书签<br>⌘ <code>⇧F2</code>    清除书签</li>
+</ul>
+<h3 id="标记">标记</h3><ul>
+<li><code>⌘K space</code>    设置标记</li>
+<li><code>⌘KW</code>    从光标位置删除至标记</li>
+<li><code>⌘KA</code>    从光标位置选择至标记</li>
+<li><code>⌘KG</code>    清除标记</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[列举了一些平时常用的快捷键.]]>
+    
+    </summary>
+    
+      <category term="Sublime-Text" scheme="http://sqrtthree.com/tags/Sublime-Text/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[My Code Wars v0.23]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/myCodeWars-23/"/>
+    <id>http://sqrtthree.com/2015/06/14/myCodeWars-23/</id>
+    <published>2015-06-14T03:55:40.000Z</published>
+    <updated>2015-06-14T03:55:40.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Reverse_linked_list">Reverse linked list</h2><h3 id="Description">Description</h3><blockquote>
+<p>Let’s say we have a singly linked list. Emtpy list is represented by <code>null</code>. Non-empty list is represented by 2-element array <code>[value, tail]</code>.</p>
+<p>So for example list with values 1, 2, 3 would be represented as <code>[1, [2, [3, null]]]</code>.</p>
+<p>Your job is to develop function <code>reverseList</code> which returns elements of given list in reverse order without modification of the original list.</p>
+<p>P.S. Make sure your solution works on huge lists.</p>
+</blockquote>
+<h4 id="Test_Cases">Test Cases</h4><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Test.assertSimilar(reverseList(null), null);</span><br><span class="line">Test.assertSimilar(reverseList(<span class="comment">[1, <span class="comment">[2, <span class="comment">[3, null]</span>]</span>]</span>), <span class="comment">[3, <span class="comment">[2, <span class="comment">[1, null]</span>]</span>]</span>);</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="菜鸟出招">菜鸟出招</h3><blockquote>
+<p>好吧, 我当时没有思路╮(╯▽╰)╭ . 请教了别人之后得到了这样的代码.</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">flat</span><span class="params">(arr)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> ret = [];</span><br><span class="line"></span><br><span class="line">	ret.push(arr[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">Array</span>.isArray(arr[<span class="number">1</span>]) &#123;</span><br><span class="line">		ret.push.apply(ret, flat(arr[<span class="number">1</span>]));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">build</span><span class="params">(arr)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> ret = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">	arr.<span class="keyword">forEach</span>(<span class="function"><span class="keyword">function</span><span class="params">(item)</span> </span>&#123;</span><br><span class="line">		ret = [item, ret];</span><br><span class="line">	&#125;);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverseList</span><span class="params">(arr)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> build(flat(arr));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="偷师学艺">偷师学艺</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverseList</span><span class="params">(list)</span> </span>&#123;</span><br><span class="line">    node = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">list</span>) &#123;</span><br><span class="line">        node = [<span class="keyword">list</span>[<span class="number">0</span>], node];</span><br><span class="line">        <span class="keyword">list</span> = <span class="keyword">list</span>[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟总结">菜鸟总结</h3><blockquote>
+<p>其实并没有用到什么特殊的方法, 思路很重要.</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[这里记录了我在 codewars 网站上的一些收获。]]>
+    
+    </summary>
+    
+      <category term="myCodeWars" scheme="http://sqrtthree.com/tags/myCodeWars/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[My Code Wars v0.22]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/myCodeWars-22/"/>
+    <id>http://sqrtthree.com/2015/06/14/myCodeWars-22/</id>
+    <published>2015-06-14T03:55:40.000Z</published>
+    <updated>2015-06-14T03:55:40.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Two_Oldest_Ages">Two Oldest Ages</h2><h3 id="Description">Description</h3><blockquote>
+<p>The two oldest ages function/method needs to be completed. It should take an array of numbers as its argument and return the two highest numbers within the array. The returned value should be an array in the format [second oldest age, oldest age].</p>
+<p>The order of the numbers passed in could be any order. The following are some examples of what the method should return (shown in different languages but the logic will be the same between all three).</p>
+</blockquote>
+<pre><code><span class="function"><span class="title">twoOldestAges</span><span class="params">( [<span class="number">1</span>, <span class="number">2</span>, <span class="number">10</span>, <span class="number">8</span>] )</span></span> <span class="comment">// should return [8, 10]</span>
+</code></pre><a id="more"></a>
+<h3 id="菜鸟出招">菜鸟出招</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">twoOldestAges</span><span class="params">(ages)</span> &#123;</span></span><br><span class="line">    var arr = ages.sort(<span class="function"><span class="keyword">function</span><span class="params">(i, j)</span> &#123;</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">j</span> - <span class="built_in">i</span>;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="matrix">[arr[<span class="number">1</span>]</span>, arr<span class="matrix">[<span class="number">0</span>]</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟再出招">菜鸟再出招</h3><blockquote>
+<p>经过思考之后, 代码可以更简单一点.</p>
+</blockquote>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">twoOldestAges</span><span class="params">(ages)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> ages.sort(<span class="function"><span class="keyword">function</span><span class="params">(x, y)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> x - y;</span><br><span class="line">	&#125;).slice(-<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="关键字积累">关键字积累</h3><ul>
+<li>sort</li>
+<li>slice</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[这里记录了我在 codewars 网站上的一些收获。]]>
+    
+    </summary>
+    
+      <category term="myCodeWars" scheme="http://sqrtthree.com/tags/myCodeWars/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[My Code Wars v0.21]]></title>
+    <link href="http://sqrtthree.com/2015/06/14/myCodeWars-21/"/>
+    <id>http://sqrtthree.com/2015/06/14/myCodeWars-21/</id>
+    <published>2015-06-14T03:55:40.000Z</published>
+    <updated>2015-06-14T03:55:40.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Find_the_divisors!">Find the divisors!</h2><h3 id="Description">Description</h3><blockquote>
+<p>Create a function named <code>divisors</code> that takes an integer and returns an array with all of the integer’s divisors(except for 1 and the number itself). If the number is prime return the string ‘(integer) is prime’ (use Either String a in Haskell).</p>
+</blockquote>
+<h4 id="Example">Example</h4><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">divisors<span class="comment">(12)</span>; <span class="comment">//should return [2,3,4,6]</span></span><br><span class="line">divisors<span class="comment">(25)</span>; <span class="comment">//should return [5]</span></span><br><span class="line">divisors<span class="comment">(13)</span>; <span class="comment">//should return "13 is prime"</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="菜鸟出招">菜鸟出招</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">divisors</span><span class="params">(integer)</span> &#123;</span></span><br><span class="line">    var arr = <span class="matrix">[]</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (var <span class="built_in">i</span> = <span class="number">2</span>; <span class="built_in">i</span> &lt; integer; ++<span class="built_in">i</span>) <span class="cell">&#123;</span><br><span class="line">        if (! (integer % i)) &#123;</span><br><span class="line">            arr.push(i);</span><br><span class="line">        &#125;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> arr.<span class="built_in">length</span> ? arr: integer + <span class="string">' is prime'</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="菜鸟思维">菜鸟思维</h3><ul>
+<li>从2 开始遍历到它自身, 如果这个数能够被他整除, 则将这个数存到数组中.</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[这里记录了我在 codewars 网站上的一些收获。]]>
+    
+    </summary>
+    
+      <category term="myCodeWars" scheme="http://sqrtthree.com/tags/myCodeWars/"/>
+    
+  </entry>
+  
+</feed>
