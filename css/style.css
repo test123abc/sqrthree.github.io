@@ -2155,6 +2155,25 @@ pre .javascript .function {
   margin-top: 9px;
   float: left;
 }
+.article-pop-out {
+  float: left;
+}
+.article-pop-out:before {
+  float: left;
+  color: #999;
+  content: "\f08d";
+  font: 16px FontAwesome;
+  float: left;
+  margin-right: 10px;
+  margin-top: 9px;
+}
+.article-pop-out:after {
+  float: left;
+  content: "";
+  margin-right: 20px;
+  margin-top: 9px;
+  float: left;
+}
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
