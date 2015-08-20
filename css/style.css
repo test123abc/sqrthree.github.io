@@ -720,11 +720,16 @@ a {
 }
 .archives-wrap {
   position: relative;
-  margin: 30px;
-  margin: 30px;
+  margin: 0 30px;
   padding-right: 60px;
   border-bottom: 1px solid #eee;
   background: #fff;
+}
+.archives-wrap:first-child {
+  margin-top: 30px;
+}
+.archives-wrap:last-child {
+  margin-bottom: 80px;
 }
 .archives-wrap .archive-year-wrap {
   line-height: 35px;
@@ -1326,11 +1331,16 @@ a {
 }
 .archives-wrap {
   position: relative;
-  margin: 30px;
-  margin: 30px;
+  margin: 0 30px;
   padding-right: 60px;
   border-bottom: 1px solid #eee;
   background: #fff;
+}
+.archives-wrap:first-child {
+  margin-top: 30px;
+}
+.archives-wrap:last-child {
+  margin-bottom: 80px;
 }
 .archives-wrap .archive-year-wrap {
   line-height: 35px;
@@ -1670,6 +1680,7 @@ pre .javascript .function {
 }
 #page-nav {
   text-align: center;
+  margin-top: 30px;
 }
 #page-nav .page-number {
   width: 20px;
