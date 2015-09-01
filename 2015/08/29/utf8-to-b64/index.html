@@ -5,22 +5,22 @@
   
   <title>解决 Javascript 中 atob 方法解码中文字符乱码问题 | sqrtthree</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="您的鼓励是作者写作最大的动力如果您认为本网站的文章质量不错，读后觉得收获很大，不妨小额赞助我一下，让我有动力继续写出高质量的文章：我的支付宝账号是 sqrtthree@foxmail.com, 点击查看二维码
+  <meta name="description" content="今天在写一个通过 GitHub API 获取README 的功能的时候, 由于返回值为 Base64 编码, 我在尝试用 js 转换为 UFT-8 的时候发现中文会导致乱码. 在这里总结一下相关的知识点吧.
 
-今天在写一个通过 GitHub API 获取README 的功能的时候, 由于返回值为 Base64 编码, 我在尝试用 js 转换为 UFT-8 的时候发现中文会导致乱码. 在这里总结一">
+首先, 为什么要编码？由于一些网络通讯协议的限制, 又或者是出于信息加密的目的, 我们就需要将原信息转换为 base64 编码,然后才能进行传输.例如，发送某些含有 ASCII 码表中 0">
 <meta property="og:type" content="article">
 <meta property="og:title" content="解决 Javascript 中 atob 方法解码中文字符乱码问题">
 <meta property="og:url" content="http://blog.sqrtthree.com/2015/08/29/utf8-to-b64/index.html">
 <meta property="og:site_name" content="sqrtthree">
-<meta property="og:description" content="您的鼓励是作者写作最大的动力如果您认为本网站的文章质量不错，读后觉得收获很大，不妨小额赞助我一下，让我有动力继续写出高质量的文章：我的支付宝账号是 sqrtthree@foxmail.com, 点击查看二维码
+<meta property="og:description" content="今天在写一个通过 GitHub API 获取README 的功能的时候, 由于返回值为 Base64 编码, 我在尝试用 js 转换为 UFT-8 的时候发现中文会导致乱码. 在这里总结一下相关的知识点吧.
 
-今天在写一个通过 GitHub API 获取README 的功能的时候, 由于返回值为 Base64 编码, 我在尝试用 js 转换为 UFT-8 的时候发现中文会导致乱码. 在这里总结一">
+首先, 为什么要编码？由于一些网络通讯协议的限制, 又或者是出于信息加密的目的, 我们就需要将原信息转换为 base64 编码,然后才能进行传输.例如，发送某些含有 ASCII 码表中 0">
 <meta property="og:updated_time" content="2015-08-29T11:46:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解决 Javascript 中 atob 方法解码中文字符乱码问题">
-<meta name="twitter:description" content="您的鼓励是作者写作最大的动力如果您认为本网站的文章质量不错，读后觉得收获很大，不妨小额赞助我一下，让我有动力继续写出高质量的文章：我的支付宝账号是 sqrtthree@foxmail.com, 点击查看二维码
+<meta name="twitter:description" content="今天在写一个通过 GitHub API 获取README 的功能的时候, 由于返回值为 Base64 编码, 我在尝试用 js 转换为 UFT-8 的时候发现中文会导致乱码. 在这里总结一下相关的知识点吧.
 
-今天在写一个通过 GitHub API 获取README 的功能的时候, 由于返回值为 Base64 编码, 我在尝试用 js 转换为 UFT-8 的时候发现中文会导致乱码. 在这里总结一">
+首先, 为什么要编码？由于一些网络通讯协议的限制, 又或者是出于信息加密的目的, 我们就需要将原信息转换为 base64 编码,然后才能进行传输.例如，发送某些含有 ASCII 码表中 0">
   
     <link rel="alternative" href="/atom.xml" title="sqrtthree" type="application/atom+xml">
   
@@ -237,8 +237,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="您的鼓励是作者写作最大的动力">您的鼓励是作者写作最大的动力</h2><p>如果您认为本网站的文章质量不错，读后觉得收获很大，不妨小额赞助我一下，让我有动力继续写出高质量的文章：我的支付宝账号是 <code>sqrtthree@foxmail.com</code>, <a href="http://7xl8me.com1.z0.glb.clouddn.com/alipay.JPG" target="_blank" rel="external">点击查看二维码</a></p>
-<blockquote>
+        <blockquote>
 <p>今天在写一个通过 GitHub API 获取README 的功能的时候, 由于返回值为 Base64 编码, 我在尝试用 js 转换为 UFT-8 的时候发现中文会导致乱码. 在这里总结一下相关的知识点吧.</p>
 </blockquote>
 <h2 id="首先,_为什么要编码？">首先, 为什么要编码？</h2><p>由于一些网络通讯协议的限制, 又或者是出于信息加密的目的, 我们就需要将原信息转换为 base64 编码,然后才能进行传输.例如，发送某些含有 ASCII 码表中 0 到 31 之间的控制字符的数据。</p>
@@ -263,7 +262,7 @@
 <li><a href="https://developer.mozilla.org/en/docs/Web/API/WindowBase64/Base64_encoding_and_decoding" target="_blank" rel="external">https://developer.mozilla.org/en/docs/Web/API/WindowBase64/Base64_encoding_and_decoding</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/btoa" target="_blank" rel="external">https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/btoa</a></li>
 </ul>
-<h2 id="您的鼓励是作者写作最大的动力-1">您的鼓励是作者写作最大的动力</h2><p>如果您认为本网站的文章质量不错，读后觉得收获很大，不妨小额赞助我一下，让我有动力继续写出高质量的文章：我的支付宝账号是 <code>sqrtthree@foxmail.com</code>, <a href="http://7xl8me.com1.z0.glb.clouddn.com/alipay.JPG" target="_blank" rel="external">点击查看二维码</a></p>
+<h2 id="您的鼓励是作者写作最大的动力">您的鼓励是作者写作最大的动力</h2><p>如果您认为本网站的文章质量不错，读后觉得收获很大，不妨小额赞助我一下，让我有动力继续写出高质量的文章：我的支付宝账号是 <code>sqrtthree@foxmail.com</code>, <a href="http://7xl8me.com1.z0.glb.clouddn.com/alipay.JPG" target="_blank" rel="external">点击查看二维码</a></p>
 
       
     </div>
