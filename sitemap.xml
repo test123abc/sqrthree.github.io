@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.sqrtthree.com/2015/10/09/strict-mode/</loc>
+    <lastmod>2015-10-09T04:05:12.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://blog.sqrtthree.com/2015/10/05/without-you-im-nothing/</loc>
     <lastmod>2015-10-04T16:21:41.000Z</lastmod>
   </url>
