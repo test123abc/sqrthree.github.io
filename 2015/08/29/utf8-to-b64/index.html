@@ -125,7 +125,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/api/" style="font-size: 10px;">api</a> <a href="/tags/jade/" style="font-size: 20px;">jade</a>
+						<a href="/tags/api/" style="font-size: 10px;">api</a> <a href="/tags/jade/" style="font-size: 20px;">jade</a> <a href="/tags/服务器部署/" style="font-size: 10px;">服务器部署</a>
 					</div>
 				</section>
 				
@@ -258,7 +258,7 @@
 <h2 id="GitHub_API_获取_README_的中文乱码问题">GitHub API 获取 README 的中文乱码问题</h2><p>但是通过上面的解码方式解码 github 的 readme 数据的时候仍旧是乱码, 经过查找相关资料发现了Base64的编码与解码转的最优方案是下面这种:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">utf8_to_b64</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">window</span>.btoa(<span class="built_in">unescape</span>(<span class="built_in">encodeURIComponent</span>(str)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b64_to_utf8</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">decodeURIComponent</span>(<span class="built_in">escape</span>(<span class="built_in">window</span>.atob(str)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Usage:</span></span><br><span class="line">utf8_to_b64(<span class="string">'✓ à la mode'</span>); <span class="comment">// JTI1dTI3MTMlMjUyMCUyNUUwJTI1MjBsYSUyNTIwbW9kZQ==</span></span><br><span class="line">b64_to_utf8(<span class="string">'JTI1dTI3MTMlMjUyMCUyNUUwJTI1MjBsYSUyNTIwbW9kZQ=='</span>); <span class="comment">// "✓ à la mode"</span></span><br><span class="line"></span><br><span class="line">utf8_to_b64(<span class="string">'I \u2661 Unicode!'</span>); <span class="comment">// SSUyNTIwJTI1dTI2NjElMjUyMFVuaWNvZGUlMjUyMQ==</span></span><br><span class="line">b64_to_utf8(<span class="string">'SSUyNTIwJTI1dTI2NjElMjUyMFVuaWNvZGUlMjUyMQ=='</span>); <span class="comment">// "I ♡ Unicode!"</span></span><br></pre></td></tr></table></figure>
 <p>通过上面的这种方法去解析 github 的数据的时候, 发现中文能够正常显示了. 显然 github 也是采用了这种方案.</p>
-<h2 id="参考阅读">参考阅读</h2><ul>
+<h2 id="参考资料">参考资料</h2><ul>
 <li><a href="https://developer.mozilla.org/en/docs/Web/API/WindowBase64/Base64_encoding_and_decoding" target="_blank" rel="external">https://developer.mozilla.org/en/docs/Web/API/WindowBase64/Base64_encoding_and_decoding</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/btoa" target="_blank" rel="external">https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/btoa</a></li>
 </ul>
