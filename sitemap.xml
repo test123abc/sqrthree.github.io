@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.sqrtthree.com/2015/10/20/server-deployment-ssh/</loc>
+    <lastmod>2015-10-20T05:23:27.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://blog.sqrtthree.com/2015/10/19/server-deployment-choose/</loc>
     <lastmod>2015-10-19T05:28:41.000Z</lastmod>
   </url>
