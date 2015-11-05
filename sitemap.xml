@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.sqrtthree.com/2015/11/05/jquery3-the-next-generations/</loc>
+    <lastmod>2015-11-05T03:42:00.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://blog.sqrtthree.com/2015/11/04/about-fetalk/</loc>
     <lastmod>2015-11-03T16:56:41.000Z</lastmod>
   </url>

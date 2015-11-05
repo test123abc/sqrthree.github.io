@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>jQuery 3.0——下一代的jQuery | sqrtthree</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="2014年10月29日，jQuery 官方博客上更新了一篇博文，描述了关于下一代 jQuery 的一些信息。实际上这篇博文至今都已经一年时间了，jQuery 官方团队也早在2015年7月13日发布了 jQuery 3.0.0-alpha1 版本。我之前也只是匆匆的看过一遍，今日闲着无事，就尝试翻译了一下并发布了这篇迟到了一年的译版，想要了解 3.0 中的新特性的话可以关注我后续的更新。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery 3.0——下一代的jQuery">
+<meta property="og:url" content="http://blog.sqrtthree.com/2015/11/05/jquery3-the-next-generations/index.html">
+<meta property="og:site_name" content="sqrtthree">
+<meta property="og:description" content="2014年10月29日，jQuery 官方博客上更新了一篇博文，描述了关于下一代 jQuery 的一些信息。实际上这篇博文至今都已经一年时间了，jQuery 官方团队也早在2015年7月13日发布了 jQuery 3.0.0-alpha1 版本。我之前也只是匆匆的看过一遍，今日闲着无事，就尝试翻译了一下并发布了这篇迟到了一年的译版，想要了解 3.0 中的新特性的话可以关注我后续的更新。">
+<meta property="og:updated_time" content="2015-11-05T03:42:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jQuery 3.0——下一代的jQuery">
+<meta name="twitter:description" content="2014年10月29日，jQuery 官方博客上更新了一篇博文，描述了关于下一代 jQuery 的一些信息。实际上这篇博文至今都已经一年时间了，jQuery 官方团队也早在2015年7月13日发布了 jQuery 3.0.0-alpha1 版本。我之前也只是匆匆的看过一遍，今日闲着无事，就尝试翻译了一下并发布了这篇迟到了一年的译版，想要了解 3.0 中的新特性的话可以关注我后续的更新。">
+  
+    <link rel="alternative" href="/atom.xml" title="sqrtthree" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/author.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">sqrtthree</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">O ever youthful, O ever weeping.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/instagram">相册</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/sqrthree" title="github">github</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/sqrtthree" title="twitter">twitter</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/sqrtthree" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:sqrtthree@foxmail.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/FETalk/" style="font-size: 10px;">FETalk</a> <a href="/tags/api/" style="font-size: 10px;">api</a> <a href="/tags/jade/" style="font-size: 20px;">jade</a> <a href="/tags/服务器部署/" style="font-size: 20px;">服务器部署</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://sqrt3.sinaapp.com/">My Web</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">I&#39;m a Front-End developer in everywhere, now living in ZhengZhou, China. I&#39;m ❤ programming &amp; Front-end design.<a href="/2015/06/27/hello-world/">&nbsp;&nbsp;&nbsp;Click me.</a></div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">sqrtthree</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/author.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">sqrtthree</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">O ever youthful, O ever weeping.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/instagram">相册</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/sqrthree" title="github">github</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/sqrtthree" title="twitter">twitter</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/sqrtthree" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:sqrtthree@foxmail.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-jquery3-the-next-generations" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/05/jquery3-the-next-generations/" class="article-date">
+  	<time datetime="2015-11-05T03:42:00.000Z" itemprop="datePublished">2015-11-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      jQuery 3.0——下一代的jQuery
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/技术/">技术</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>2014年10月29日，jQuery 官方博客上更新了一篇博文，描述了关于下一代 jQuery 的一些信息。实际上这篇博文至今都已经一年时间了，jQuery 官方团队也早在2015年7月13日发布了 <code>jQuery 3.0.0-alpha1</code> 版本。我之前也只是匆匆的看过一遍，今日闲着无事，就尝试翻译了一下并发布了这篇迟到了一年的译版，想要了解 <code>3.0</code> 中的新特性的话可以关注我后续的更新。</p>
+<a id="more"></a>
+<h3 id="正文开始">正文开始</h3><p>It’s hard to believe it’s been nearly eight years since jQuery was released. Web development has changed a lot over the years, and jQuery has changed along with it. Through all of this time, the team has tried to walk the line between maintaining compatibility with code from the past versus supporting the best web development practices of the present.</p>
+<p>很难相信从 <code>jQuery</code> 发布以来已经过去八年了，过去的这些年 Web 开发已经改变了很多， <code>jQuery</code> 也随之变化着。在这个过程中，团队一直在保持对旧代码的兼容性和支持目前最好的 Web 开发实践之间努力平衡着。</p>
+<p>One of those best practices is semantic versioning, or semver for short. In a practical sense, semver gives developers (and build tools) an idea of the risk involved in moving to a new version of software. Version numbers are in the form of MAJOR.MINOR.PATCH with each of the three components being an integer. In semver, if the MAJOR number changes it indicates there are breaking changes in the API and thus developers need to beware.</p>
+<p>其中最好的做法就是语义化版本，或者简单的称之为 <a href="http://semver.org/lang/zh-CN/" target="_blank" rel="external">semver</a>，从实践的角度看，<a href="http://semver.org/lang/zh-CN/" target="_blank" rel="external">semver</a> 给了开发者(以及构建工具) 一个避免由于切换软件版本导致的风险的方法。版本号为 <code>MAJOR.MINOR.PATCH</code> 的格式，并且其三个组成部分均为整数。在<a href="http://semver.org/lang/zh-CN/" target="_blank" rel="external">semver</a> 中，如果 <code>MAJOR</code> 改变了，就意味着在 API 中出现了不兼容的改变，因此开发者们需要当心。</p>
+<p>The concept of versioning gets a little more nuanced with jQuery, where browser compatibility can be just as important as API compatibility. In order to create a slimmer jQuery, the team started shipping two versions in 2013. The first version remained numbered in the 1.x line and, currently at 1.11.1, maintains compatibility with a maximal number of browsers. The second version, starting with 2.0.0 and now at 2.1.1, dropped support for browsers like IE8 or lower in order to streamline the code. Both the 1.x and 2.x versions of jQuery have the same public APIs, even though they differ somewhat in their internal implementations.</p>
+<p>在 <code>jQuery</code> 中版本控制变得更加微妙，(对 jQuery 来说) 浏览器的兼容性和 API 的兼容性同等重要。为了创造一个 “苗条” 的 <code>jQuery</code> ，团队在2013年开始放出了两个版本。第一个版本保持着 1.x 的编号，当前(截止到原文发布时)最新版本为 1.11.1，其保持了最大数量的浏览器兼容性。第二个版本从 2.0.0 开始，目前是 2.1.1，为了精简代码，放弃了对 IE8及其以下版本浏览器的支持。1.x 和 2.x 版本的  <code>jQuery</code> 都有着相同的公开 API，尽管他们在内部实现上有一些不同。</p>
+<p>Our next releases will use a different nomenclature. As before, there will be two different released files. The successor to what is now version 1.11.1 will become jQuery Compat 3.0. The successor to jQuery 2.1.1 will be jQuery 3.0. There are two different packages on npm and Bower, but they share the same version to indicate they have the same API behavior.</p>
+<p>我们的下一个版本将会使用一种全新的命名方式。像之前一样，仍然会有两个不同的发布文件。现在的 <code>1.11.1</code> 版本的继任者将被称之为 <code>jQuery Compat 3.0</code>。<code>jQuery 2.1.1</code> 则将由 <code>jQuery 3.0</code>来接替。在 <code>npm</code> 和 <code>Bower</code> 上(译者注: 这是目前非常流行的前端包管理工具)，它们会是两个不同的包，但它们会共享同一个版本号，来说明它们在API层面上的行为是一致的。</p>
+<p>We’ll also be re-aligning our policy for browser support starting with these releases. The main jQuery package remains small and tight by supporting the evergreen browsers (the current and previous versions of a specific browser) that are common at the time of its release. We may support additional browsers in this package based on market share. The jQuery Compat package offers much wider browser support, but at the expense of a larger file size and potentially lower performance.</p>
+<p>这次版本发布之后，我们也将调整对浏览器的支持策略。主 <code>jQuery</code> 包将继续保持短小精悍，并且只支持在发布之时广泛使用的常青浏览器(evergreen browsers 指的是特定浏览器的当前和此前的若干版本)。我们也会根据市场份额在这个包的基础上支持更多的浏览器。而 <code>jQuery Compat</code> 包则提供更广泛的浏览器支持，但是付出的代价就是文件变得很大，执行效率也会低一些。</p>
+<p>Despite the big version number jump, we don’t anticipate a lot of migration issues for most current jQuery code. We’re just being good semver citizens with this version bump. Changes such as removing deprecated methods will be detected by a new version of the jQuery Migrate plugin to make them easy to find and fix. We’ll have more details on the changes in future blog posts.</p>
+<p>尽管这一次版本号跳跃很大，但是对于大多数 <code>jQuery</code> 代码来说，我们不期望造成很多的代码迁移问题。我们在这次版本升级中可是符合 <code>semver</code> 中的好公民的标准的。诸如像移除已废弃的方法这样的改变会被新版本的 <code>jQuery Migrate</code> 插件检测出来，这样一来，发现并且修复他们就变得容易多了。我们也会在将来的博客文章中讨论这些变化中的更多细节。</p>
+<blockquote>
+<p>So, here’s the TL;DR for version 3.0 of the jQuery API:</p>
+</blockquote>
+<p>下面就是一些 <code>jQuery API</code> 3.0 版本要说的内容：</p>
+<ul>
+<li>If you need support for the widest variety of browsers including IE8, Opera 12, Safari 5, and the like, use the jQuery-Compat 3.0.0 package. We recommend this version for most web sites, since it provides the best compatibility for all website visitors.</li>
+<li>如果你需要支持更多更广泛的浏览器，包括诸如 <code>IE8, Opera 12, Safari 5</code> 等，请使用 <code>jQuery-Compat 3.0.0</code> 版本。我们建议大多数网站都使用这一版本，因为它为网站的来访者提供了最好的兼容性支持。</li>
+<li>If your web site is built only for evergreen leading-edge browsers, or is an HTML-based app contained in a webview (for example PhoneGap or Cordova) where you know which browser engines are in use, go for the jQuery 3.0.0 package.</li>
+<li>如果你的网站仅仅是为了那些最先进的浏览器而建，或者仅仅是一个基于 <code>HTML</code> 的应用以嵌入一个 <code>web</code> 视图(例如: PhoneGap，Cordova)，你预先知道其使用的是哪一个浏览器解析引擎， 那就使用 <code>jQuery 3.0.0</code> 吧。</li>
+<li>Until we announce otherwise, both packages will contain the same public APIs in correspondingly-numbered major and minor versions. This should make it easy for developers to switch between the two and be maximally compatible with third-party jQuery plugins.</li>
+<li>除非我们宣布，否则对应的主、次版本号相同的两个包都会有相同的公开 API。这样开发者就能够很容易的在两个包之间切换，并且在第三方 <code>jQuery</code> 插件中拥有最好的兼容性。</li>
+</ul>
+<p>With each future release, we’ll be making both packages available on npm and bower. Both packages will also be available as single-file builds on the jQuery CDN. Using them from there is as simple as including either jquery-compat-3.0.0.js or jquery-3.0.0.js depending on your needs. We’ve talked with the folks who run Google’s CDN and they will also be supporting both packages.</p>
+<p>未来每一个版本发布的时候，我们都会同时放到 <code>npm</code> 和 <code>bower</code> 上。两个包也会以单个文件的形式在 <code>jQuery CDN</code> 上提供。在那里使用他们和根据你自己的需要去包含 <code>jquery-compat-3.0.0.js</code> 或<code>jquery-3.0.0.js</code> 一样简便。我们也和 Google’s CDN 的运营人员谈过，他们也会为这两个包提供支持。</p>
+<p>As we make further progress on version 3.0, we will update everyone with the details about code changes, supported browsers, and the like. Stay tuned!</p>
+<p>随着我们在3.0版本方面工作的推进，我们会向所有人告知代码变更、浏览器支持等一切细节的更新。敬请期待吧！</p>
+<blockquote>
+<p>本文根据 <a href="http://blog.jquery.com/author/dmethvin/" target="_blank" rel="external">Dave Methvin</a> 的《jQuery 3.0: The Next Generations》所译，整个译文带有自己的理解与思想，如果译得不好或有不对之处还请同行朋友指点。如需转载此译文，需注明英文出处：<a href="http://blog.jquery.com/2014/10/29/jquery-3-0-the-next-generations/" target="_blank" rel="external">http://blog.jquery.com/2014/10/29/jquery-3-0-the-next-generations/</a></p>
+</blockquote>
+<h2 id="相关链接">相关链接</h2><ul>
+<li>jQuery 3.0.0-alpha1: <a href="https://code.jquery.com/jquery-3.0.0-alpha1.js" target="_blank" rel="external">https://code.jquery.com/jquery-3.0.0-alpha1.js</a></li>
+<li>jQuery compat 3.0.0-alpha1: <a href="https://code.jquery.com/jquery-3.0.0-alpha1.js" target="_blank" rel="external">https://code.jquery.com/jquery-3.0.0-alpha1.js</a></li>
+</ul>
+<h2 id="您的鼓励是作者写作最大的动力">您的鼓励是作者写作最大的动力</h2><p>如果您认为本网站的文章质量不错，读后觉得收获很大，不妨小额赞助我一下，让我有动力继续写出高质量的文章：我的支付宝账号是 <code>sqrtthree@foxmail.com</code>, <a href="http://7xl8me.com1.z0.glb.clouddn.com/alipay.JPG" target="_blank" rel="external">点击查看二维码</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/11/04/about-fetalk/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">关于社区和初心，关于感激和致歉</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="jquery3-the-next-generations" data-title="jQuery 3.0——下一代的jQuery" data-url="http://blog.sqrtthree.com/2015/11/05/jquery3-the-next-generations/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"sqrtthree"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-center">
+    		&copy; 2015 sqrtthree
+    	</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-64863915-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
