@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.sqrtthree.com/2015/11/12/jQuery3-0-Alpha-Versions-Released/</loc>
+    <lastmod>2015-11-11T16:14:23.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://blog.sqrtthree.com/2015/11/06/myCodeWars-01/</loc>
     <lastmod>2015-11-06T02:04:46.000Z</lastmod>
   </url>
@@ -47,11 +52,6 @@
   </url>
   
   <url>
-    <loc>http://blog.sqrtthree.com/categories/index.html</loc>
-    <lastmod>2015-10-03T16:16:10.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://blog.sqrtthree.com/instagram/index.html</loc>
     <lastmod>2015-10-03T16:16:10.000Z</lastmod>
   </url>
@@ -63,6 +63,11 @@
   
   <url>
     <loc>http://blog.sqrtthree.com/README.html</loc>
+    <lastmod>2015-10-03T16:16:10.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.sqrtthree.com/categories/index.html</loc>
     <lastmod>2015-10-03T16:16:10.000Z</lastmod>
   </url>
   

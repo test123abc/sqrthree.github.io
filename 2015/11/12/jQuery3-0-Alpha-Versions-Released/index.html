@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>jQuery 3.0 以及兼容版的 Alpha 版本发布 | sqrtthree</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="It’s been a long time since we did a major release, and you certainly deserve one. So we’re glad to announce the first alpha of jQuery 3.0!
+从我们做出上一个重大的版本发布已经过去很长时间了，所以你理应再得到一个新版本。因此我们非常高兴的宣布 jQuery 3.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery 3.0 以及兼容版的 Alpha 版本发布">
+<meta property="og:url" content="http://blog.sqrtthree.com/2015/11/12/jQuery3-0-Alpha-Versions-Released/index.html">
+<meta property="og:site_name" content="sqrtthree">
+<meta property="og:description" content="It’s been a long time since we did a major release, and you certainly deserve one. So we’re glad to announce the first alpha of jQuery 3.0!
+从我们做出上一个重大的版本发布已经过去很长时间了，所以你理应再得到一个新版本。因此我们非常高兴的宣布 jQuery 3.">
+<meta property="og:updated_time" content="2015-11-11T16:14:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jQuery 3.0 以及兼容版的 Alpha 版本发布">
+<meta name="twitter:description" content="It’s been a long time since we did a major release, and you certainly deserve one. So we’re glad to announce the first alpha of jQuery 3.0!
+从我们做出上一个重大的版本发布已经过去很长时间了，所以你理应再得到一个新版本。因此我们非常高兴的宣布 jQuery 3.">
+  
+    <link rel="alternative" href="/atom.xml" title="sqrtthree" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/author.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">sqrtthree</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">O ever youthful, O ever weeping.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/instagram">相册</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/sqrthree" title="github">github</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/sqrtthree" title="twitter">twitter</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/sqrtthree" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:sqrtthree@foxmail.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/FETalk/" style="font-size: 10px;">FETalk</a> <a href="/tags/api/" style="font-size: 10px;">api</a> <a href="/tags/jQuery3-0/" style="font-size: 15px;">jQuery3.0</a> <a href="/tags/jade/" style="font-size: 20px;">jade</a> <a href="/tags/myCodeWars/" style="font-size: 10px;">myCodeWars</a> <a href="/tags/服务器部署/" style="font-size: 20px;">服务器部署</a> <a href="/tags/译文/" style="font-size: 15px;">译文</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://sqrt3.sinaapp.com/">My Web</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">I&#39;m a Front-End developer in everywhere, now living in ZhengZhou, China. I&#39;m ❤ programming &amp; Front-end design.<a href="/2015/06/27/hello-world/">&nbsp;&nbsp;&nbsp;Click me.</a></div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">sqrtthree</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/author.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">sqrtthree</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">O ever youthful, O ever weeping.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/instagram">相册</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/sqrthree" title="github">github</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/sqrtthree" title="twitter">twitter</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/sqrtthree" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:sqrtthree@foxmail.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-jQuery3-0-Alpha-Versions-Released" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/12/jQuery3-0-Alpha-Versions-Released/" class="article-date">
+  	<time datetime="2015-11-11T16:14:23.000Z" itemprop="datePublished">2015-11-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      jQuery 3.0 以及兼容版的 Alpha 版本发布
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery3-0/">jQuery3.0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/译文/">译文</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/技术/">技术</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>It’s been a long time since we did a major release, and you certainly deserve one. So we’re glad to announce the first alpha of jQuery 3.0!</p>
+<p>从我们做出上一个重大的版本发布已经过去很长时间了，所以你理应再得到一个新版本。因此我们非常高兴的宣布 <code>jQuery 3.0</code> 的第一个 <code>alpha</code> 版本的发布。</p>
+<a id="more"></a>
+<p>Despite the 3.0 version number, we anticipate that these releases shouldn’t be too much trouble when it comes to upgrading existing code. Yes, there are a few breaking changes that justified the major version bump, but we’re hopeful these breakages don’t actually affect that many people. The jQuery Migrate plugin can help you to identify compatibility issues in your code as well. Your feedback on the changes in this alpha will help us greatly, so please try it out on your existing code and plugins!</p>
+<p>尽管版本号已经到了 3.0，但是在升级目前已经存在的代码时，可以预期这些发布不会造成太多的麻烦。确实，只是一些用来调整重要版本冲突的零碎改变，但是我们希望这些改变不会实际影响到很多人。<code>jQuery Migrate</code> 插件可以很好的帮助你在你的代码中识别出兼容性问题。在这个 <code>alpha</code> 版本中，你针对于这些变化的反馈将会极大的帮助我们，所以请在你目前已有的代码和插件中尝试一下。</p>
+<p>There are actually two releases here. First is jQuery 3.0, which supports modern browsers and environments from IE9 forward. Second is jQuery Compat 3.0, which includes support for IE8. As an added bonus, both jQuery and jQuery Compat will include support for Yandex.Browser, a freeware browser released in 2012. You can get the files from the jQuery CDN, or link to them directly:</p>
+<p>实际上，这里有两个版本。第一个版本是 <code>jQuery 3.0</code>, 这个版本支持现代浏览器和 <code>IE9</code> 以后的浏览器环境。第二个版本是 <code>jQuery Compat 3.0</code>，这个支持 <code>IE8</code>。作为一个额外的福利，就是 <code>jQuery</code> 和 <code>jQuery Compat</code> 这两个版本都支持 Yandex 浏览器(一个2012年发布的免费软件)。你可以从 jQuery CDN 或者直接通过下面这些链接获取这两个文件。</p>
+<p><a href="https://code.jquery.com/jquery-3.0.0-alpha1.js" target="_blank" rel="external">https://code.jquery.com/jquery-3.0.0-alpha1.js</a></p>
+<p><a href="https://code.jquery.com/jquery-compat-3.0.0-alpha1.js" target="_blank" rel="external">https://code.jquery.com/jquery-compat-3.0.0-alpha1.js</a></p>
+<p>You can also get the alpha versions from npm:</p>
+<p>你也可以从 <code>npm</code> 中获取 alpha 版:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install jquery@<span class="number">3.0</span><span class="number">.0</span>-alpha1</span><br><span class="line"></span><br><span class="line">npm install jquery-compat@<span class="number">3.0</span><span class="number">.0</span>-alpha1</span><br></pre></td></tr></table></figure>
+<h4 id="Major_changes_(主要的变化)">Major changes (主要的变化)</h4><p>Below are just the highlights of the major new features, improvements, and bug fixes in these releases. A complete list of changes is available at the bottom of this post and on our GitHub issue tracker. On GitHub, you can additionally see the features we expect to put in later beta and final versions that have yet to land.</p>
+<p>下面的这些内容只是高亮了这个版本中一些重要的新特性，代码的改进，还有一些 bug 的修复。在这篇文章下面和我们的 GitHub issue tracker 板块你可以看到一个完整的改变清单。在 Github 上，你还可以看到我们期待在下个 beta 版本和暂时还没发布的最终版中添加的新特性。</p>
+<h5 id="Simplified_-show()_and_-hide()_methods:_简化的_show_和_hide_方法">Simplified <code>.show()</code> and <code>.hide()</code> methods: 简化的 show 和 hide 方法</h5><p>Everyone’s mental model of jQuery’s .hide() method is that it sets display: none in CSS. Conversely, .show() clears the display so that the element shows again (assuming its parents are not hidden). Simple, right?</p>
+<p>每个人的心中都认为 <code>jQuery</code> 中的 <code>.hide()</code> 方法就是把元素设置为 <code>display:none</code>，相反的，<code>.show()</code> 方法就是清除 <code>display</code> 因此元素会重新显示(假设父级元素没有被隐藏)。很简单，对么？</p>
+<p>Well, no. There are actually many complex special cases that people asked us to “fix” over the years, which turned these methods into a convoluted confluence of principles. For example, what if the element is set to display: none in a stylesheet? jQuery would try to override that by forcing display: block on the element directly. Okay, but what if a normally block element like <li> was set to display: inline by a different stylesheet rule? How about the case where you call these methods on an element before it’s been added to the document and we don’t know what display value it will have? Determining all of that takes extra work. Sometimes it’s still just a guess that turns out to be wrong.</li></p>
+<p>不，这么多年来，实际上有很多复杂特殊的例子，人们要求我们去修正一下，这些例子使得这些方法陷入一个复杂的原理集合之中。例如，如果一个元素在样式表中设置为 <code>display: none</code> 将会怎样？<code>jQuery</code> 会试着在元素上强制设置 <code>display: block</code> 去覆盖它。这是可以的。但是像 <code>&lt;li&gt;</code> 这样的一个正常的块元素通过不同的样式规则被设置为 <code>display: inline</code> 会怎么样呢？在一个元素被添加到 <code>document</code> 之前你调用了这个方法并且我们不知道这个元素拥有的 <code>display</code> 值的话又会怎样？确定这些事情需要花费额外的工作。有时仅仅是一个最后被证明是错误的猜想。</p>
+<p>Since these methods add a style attribute to the element, they don’t tend to play well with techniques like responsive design where the visibility of elements may also be set by media queries. This leads to the need for jQuery handlers that listen for the orientationchange or resize events and manually hide or show parts of the page; it defeats the elegant solution that media queries were trying to implement.</p>
+<p>这些方法在元素上添加一个样式属性之后，在像是响应式设计中(元素的可见性需要通过媒体查询来设置)这样的技术上往往不能很好的表现。这个导致需要 <code>jQuery</code> 处理器去监听 <code>orientationchange</code> 或 <code>resize</code> 事件人工隐藏或显示部分页面；jQuery 打败了媒体查询正尝试实现的优雅的解决方案。</p>
+<p>You can see that jQuery was already about halfway down the path to total madness, and it didn’t make sense to complete the journey. The special cases and checks were not only complex and incomplete, but they caused significant performance issues on large pages.</p>
+<p>你可以看到 <code>jQuery</code> 已经完成了疯狂旅途中的一半路程了，但是完成整个旅程是行不通的。这个特殊的情况以及检查不仅复杂且难以完成，而且在大的页面中会造成具有重大意义的性能问题。</p>
+<p>So, instead, we’re experimentally defying the evolution of these methods and reverting to a simple, primordial model. This will break some code. If you have elements in a stylesheet that are set to display: none, the .show() method will no longer override that. So the most important rule for moving to jQuery 3.0 is this: Don’t use a stylesheet to set the default of display: none and then try to use .show() – or any method that shows elements, such as .slideDown() and .fadeIn() – to make it visible.</p>
+<p>因此，代替的是，我们实验性的反抗这些方法的演变，重新回归到一个简洁的，原始的模型。这将会分解一些代码。如果一个元素在样式表中被设置为 <code>display: none</code>，<code>.show()</code> 方法将不会再覆盖它。因此，转移到 jQuery 3.0 中有一个最重要的规则就是: 不要使用样式去设置 <code>display: none</code> 作为默认值，然后使用 <code>.show()</code> 或者其他方法来显示元素，例如使用 <code>.slideDown()</code> 和 <code>.fadeIn()</code> 方法来使它可见。</p>
+<p>If you need an element to be hidden by default, the best way is to add a class name like “hidden” to the element and define that class to be display: none in a stylesheet. Then you can add or remove that class using jQuery’s .addClass() and .removeClass() methods to control visibility. Alternately, you can have a .ready() handler call .hide() on the elements before they are displayed on the page. Or, if you really must retain the stylesheet default, you can use .css(“display”, “block”) (or the appropriate display value) to override the stylesheet.</p>
+<p>如果你需要让一个元素默认是隐藏状态，最好的方法是给元素添加一个像 <code>hidden</code> 这样的类名，然后在样式中去定义这个类为 <code>display: none</code>，然后你可以使用 <code>jQuery</code> 的 <code>.addClass()</code> 和 <code>.removeClass()</code> 方法来添加或删除这个类来控制其可见性。另外一种方法是，你可以在元素显示到页面中之前，使用 <code>.ready()</code> 处理器并在其中调用 <code>.hide()</code> 方法。或者，如果你一定要在样式中保留默认值，你可以使用 <code>.css(&quot;display&quot;, &quot;block&quot;)</code> (或其他合适的值)去覆盖样式。</p>
+<p>We know that this is likely to be one of the most contentious and difficult changes in jQuery 3.0, so we wanted to put it out in this early release to see the effects. Please let us know how it affects your code and what you need to change in order to work with this new model.</p>
+<p>我们知道这可能是 <code>jQuery 3.0</code> 中最受争议和最困难的改变，所以我们想把它放到这个早期版本中观察一下所造成的影响。请让我们知道这些改变如何影响了你的代码，以及你为了使用这个新版本所作出的改变。</p>
+<p><a href="https://github.com/jquery/jquery/issues/1767" target="_blank" rel="external">https://github.com/jquery/jquery/issues/1767</a><br><a href="https://github.com/jquery/jquery/issues/2057" target="_blank" rel="external">https://github.com/jquery/jquery/issues/2057</a><br><a href="https://github.com/jquery/jquery/issues/2308" target="_blank" rel="external">https://github.com/jquery/jquery/issues/2308</a></p>
+<h5 id="Special_case_with_-data()_names:_含有-data()名字的特殊事例">Special case with .data() names: 含有.data()名字的特殊事例</h5><p>We have updated our .data() implementation to closer match the HTML5 dataset specification. All keys are now converted from kebab-case to camelCase, regardless of access method, and digits no longer participate in the conversion. For example, we will no longer differentiate between “foo-bar” and “fooBar”, but will differentiate between “foo-42” and “foo42”. These changes will mainly come into play when retrieving all data by calling .data() with no arguments, or when trying to access the data using a converted key (.data(“foo42”)) instead of the original (.data(“foo-42”)).</p>
+<p><a href="https://github.com/jquery/jquery/issues/1751" target="_blank" rel="external">https://github.com/jquery/jquery/issues/1751</a></p>
+<p>我们也更新了我们的 <code>.data()</code> 方法来更有效的匹配 HTML5 dataset specification. 所有的键值现在都从 kebab-case 转换成驼峰命名法，不再理会访问方式，数字也不再参与转换。例如: 我们不再区分 <code>foo-bar</code> 和 <code>fooBar</code>，但是仍然区分 <code>foo-42</code> 和 <code>foo42</code>。当通过调用无参数的 <code>.data()</code> 来取得所有的数据方法，或者尝试通过转换的键名(.data(“foo42”))而不是原始的(.data(“foo-42”))来获取数据时，这些改变将会发挥主要作用。</p>
+<h5 id="jQuery-Deferred_is_now_Promises/A+_compatible:_jQuery-Deferred现在兼容Promises/A+">jQuery.Deferred is now Promises/A+ compatible: jQuery.Deferred现在兼容Promises/A+</h5><p>jQuery.Deferred objects have been updated for compatibility with Promises/A+ and ES2015 Promises, verified with the Promises/A+ Compliance Test Suite. This meant the introduction of a .catch() method and some major changes to the .then() method:</p>
+<p><code>jQuery.Deferred</code> 对象为了兼容 <code>Promises/A+</code> 和 <code>ES2015 Promises</code> 已经做出了更新，Promises/A+ Compliance Test Suite 检验。这意味着 引入一个 <code>.catch()</code> 方法，<code>.then()</code>方法也有一些重要的改变。</p>
+<ul>
+<li>An exception thrown in a .then() callback now becomes a rejection value. Previously, exceptions bubbled all the way up, aborting callback execution and irreversibly locking both the parent and child Deferred objects.</li>
+<li><code>.then()</code> 方法的回调函数中抛出的异常现在变成了一个可注入的值。以前，异常会一直往上冒泡，直至终止回调函数的执行，然后不可撤销的锁定 parent and child Deferred 对象。</li>
+<li>The resolution state of a Deferred created by .then() is now controlled by its callbacks—exceptions become rejection values and non-thenable returns become fulfillment values. Previously, returns from rejection handlers became rejection values.</li>
+<li>通过 <code>.then()</code> 方法创建的 Deferred 对象的 resolution 状态现在被它的回调函数控制——异常成为了注入值，并且 non-thenable 返回的结果成为了 fulfillment 值。以前，从注入处理器返回变成了注入值。</li>
+<li>Callbacks are always invoked asynchronously. Previously, they would be called immediately upon binding or resolution, whichever came last.</li>
+<li>回调函数总是被异步调用。以前，它们根据绑定或是 resolution 被立即调用，无论哪个更晚一些。</li>
+<li>Progress callbacks can no longer resolve Deferred objects to which they are bound.</li>
+<li>Progress 回调函数不再解决受约束的 Deferred 对象。</li>
+</ul>
+<p>Consider the following, in which a parent Deferred is rejected and a child callback generates an exception:</p>
+<p>考虑一下下面的代码，哪个parent Deferred 被注入以及 child 回调函数产生异常:</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> parent = jQuery.Deferred();</span><br><span class="line"><span class="keyword">var</span> child = parent.then( <span class="literal">null</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">"bar"</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">var</span> <span class="keyword">callback</span> = <span class="function"><span class="keyword">function</span><span class="params">( state )</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">( value )</span> </span>&#123;</span><br><span class="line">    console.log( state, value );</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> Error( <span class="string">"baz"</span> );</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> grandchildren = [</span><br><span class="line">  child.then( <span class="keyword">callback</span>( <span class="string">"fulfilled"</span> ), <span class="keyword">callback</span>( <span class="string">"rejected"</span> ) ),</span><br><span class="line">  child.then( <span class="keyword">callback</span>( <span class="string">"fulfilled"</span> ), <span class="keyword">callback</span>( <span class="string">"rejected"</span> ) )</span><br><span class="line">];</span><br><span class="line">parent.reject( <span class="string">"foo"</span> );</span><br><span class="line">console.log( <span class="string">"parent resolved"</span> );</span><br></pre></td></tr></table></figure>
+<p>As of jQuery 3.0, this will log “parent resolved” before invoking any callback, each child callback will then log “fulfilled bar”, and the grandchildren will be rejected with Error “baz”. In previous versions, this would log “rejected bar” (the child Deferred having been rejected instead of fulfilled) once and then immediately terminate with uncaught Error “baz” (“parent resolved” not being logged and the grandchildren remaining unresolved).</p>
+<p>在 jQuery 3.0 中，在调用任何回调之前会先记录 “parent resolved”，每一个子回调将会记录 “fulfilled bar”， 然后 grandchildren 将会和错误 “baz” 一起注入。在之前的版本中，会记录一次 “rejected bar” (child Deferred 已经注入而不是fulfilled)然后通过未捕获到的错误 “baz” 中断(“parent resolved” 不会被记录并且 grandchildren 会保持 unresolved 状态)。</p>
+<p>While caught exceptions had advantages for in-browser debugging, it is far more declarative (i.e. explicit) to handle them with rejection callbacks. Keep in mind that this places the responsibility on you to always add at least one rejection callback when working with promises. Otherwise, any errors will go unnoticed.</p>
+<p>当捕获异常时有利于在浏览器中进行 debug, 使用注入回调来处理异常非常具有描述性(即显式的)。记住这个地方，你有责任在使用 promises 时总是添加至少一个注入回调，否则，任何错误都不会提示。</p>
+<p>Legacy behavior can be recovered by replacing use of .then() with the now-deprecated .pipe() method (which has an identical signature).</p>
+<p>Legacy 行为可以通过使用现在还不宜用的 <code>.pipe()</code> 方法替换 <code>.then()</code> 方法来重新获取，</p>
+<p>jQuery.when has also been updated to accept any thenable object, which includes native Promise objects.</p>
+<p><code>jQuery.when</code> 方法也为了接受任何 thenable 对象而更新了，包括了原生的Promise对象。</p>
+<p><a href="https://github.com/jquery/jquery/issues/1722" target="_blank" rel="external">https://github.com/jquery/jquery/issues/1722</a><br><a href="https://github.com/jquery/jquery/issues/2102" target="_blank" rel="external">https://github.com/jquery/jquery/issues/2102</a></p>
+<h5 id="Removed_special-case_Deferred_methods_in_jQuery-ajax:_移除了jQuery-ajax中Deferred方法的一些特殊情况">Removed special-case Deferred methods in jQuery.ajax: 移除了jQuery.ajax中Deferred方法的一些特殊情况</h5><p>jqXHR object is a Promise, but also has extra methods like .abort() so that you can stop a request after it has been made.</p>
+<p>jqXHR 对象是一个Promise，但是也有像 <code>.abort()</code> 这样的额外的方法。因此你可以在创建之后停止一个请求。</p>
+<p>As users increasingly embrace the Promise pattern for asynchronous work like AJAX, the idea of having special cases for the Promise returned by jQuery.ajax is an increasingly bad idea.</p>
+<p>随着用户越来越拥护类似像 AJAX 这样异步执行的 Promise 模式，通过 jQuery.ajax 进行 Promise 返回特殊事例的想法是越来越坏的主意。</p>
+<p>success, error, complete<br>done, fail, always</p>
+<p>Note that this does not have any impact at all on the callbacks of the same name, which continue to exist and are not deprecated. This only affects the Promise methods!</p>
+<p>注意，这些对于相同名字的回调函数没有任何影响，它们将会继续存在，而且不会被弃用。这个只会影响Promise 方法！</p>
+<p><a href="https://github.com/jquery/jquery/issues/2084" target="_blank" rel="external">https://github.com/jquery/jquery/issues/2084</a></p>
+<h5 id="Error_cases_don’t_silently_fail:_错误事例不会默默地失败">Error cases don’t silently fail: 错误事例不会默默地失败</h5><p>Perhaps in a profound moment you’ve wondered, “What is the offset of a window?” Then you probably realized that is a crazy question – how can a window even have an offset?</p>
+<p>也许在一个重要的时刻你会想知道，“窗口的偏移量是多少？” 然后你可能会意识到这是一个疯狂的问题 - 窗口怎么会有偏移量？</p>
+<p>In the past, jQuery has sometimes tried to make cases like this return something rather than having them throw errors. In this particular case of asking for the offset of a window, the answer up to now has been { top: 0, left: 0 } With this alpha of jQuery 3.0 we’re experimenting with the idea of having such cases throw errors so that crazy requests aren’t silently ignored. Please try the alpha and see if there is any code out there depending on jQuery to mask problems with invalid inputs.</p>
+<p>在过去，jQuery 有时会尝试去创建类似返回一些东西的事例而不是抛出一个错误。在这个询问窗口的偏移量的特殊事例中，到目前为止答案已经变成了 <code>{ top: 0, left: 0 }</code>，在 <code>jQuery 3.0</code> 的 <code>alpha</code> 版本中，我们正在尝试抛出一个错误来让这些疯狂的请求不至于被默默地忽略掉这样的想法。请尝试使用 <code>alpha</code> 版本看一下是否存在一些依赖 <code>jQuery</code> 的代码出现无效输入的问题。</p>
+<p><a href="https://github.com/jquery/jquery/issues/1784" target="_blank" rel="external">https://github.com/jquery/jquery/issues/1784</a></p>
+<p>.width(), .height(), .css(“width”), and .css(“height”) to return decimal values (whenever the browser does)</p>
+<p><code>.width()</code>, <code>.height()</code>, <code>.css(“width”)</code>, 和 <code>.css(“height”)</code> 方法将返回带有小数点的数值(不论何时浏览器都会这样做)。</p>
+<p>Previously, jQuery rounded values when retrieving width and height. Some browsers return subpixel values – such as IE and Firefox – and sometimes users need this precision when relying on these values for layout. We don’t expect this change to have a big impact on your code, but let us know if it does.</p>
+<p>以前，当你获取  width 和 height 的时候 <code>jQuery</code> 会对其进行取整。有一些浏览器会返回亚像素值 - 例如 IE 和 Firefox，并且有时当布局依赖这些值时用户需要这种精确度的值。我们不希望这些改变会对你的代码产生很大的影响，但是如果确实影响到了，请让我们知道。</p>
+<p><a href="https://github.com/jquery/jquery/issues/1724" target="_blank" rel="external">https://github.com/jquery/jquery/issues/1724</a></p>
+<h5 id="Removed_deprecated_event_aliases:_移除不赞成使用的事件别名">Removed deprecated event aliases: 移除不赞成使用的事件别名</h5><p>.load, .unload, and .error, deprecated since jQuery 1.8, are no more. Use .on() to register listeners.</p>
+<p><code>.load</code>, <code>.unload</code>, 和 <code>.error</code>, 这些方法自从 <code>jQuery 1.8</code> 就已经弃用，而且永不使用。使用 <code>.on()</code> 注册监听器</p>
+<p><a href="https://github.com/jquery/jquery/issues/2286" target="_blank" rel="external">https://github.com/jquery/jquery/issues/2286</a></p>
+<p>jQuery.swap, jQuery.buildFragment, and jQuery.domManip are no longer accessible on the jQuery object</p>
+<p><code>jQuery.swap</code>, <code>jQuery.buildFragment</code>, 和 <code>jQuery.domManip</code> 不再从 <code>jQuery</code> 对象上获取。</p>
+<p>These methods were always intended for internal use only and were never documented. We are finally making them private to avoid confusion.</p>
+<p>这些方法常常仅在内部使用，而且也从来没有文档说明。为了避免疑惑，我们最终决定将他们私有化。</p>
+<p><a href="https://github.com/jquery/jquery/issues/2224" target="_blank" rel="external">https://github.com/jquery/jquery/issues/2224</a><br><a href="https://github.com/jquery/jquery/issues/2225" target="_blank" rel="external">https://github.com/jquery/jquery/issues/2225</a></p>
+<h5 id="Animations_now_use_requestAnimationFrame:动画现在使用requestAnimationFrame">Animations now use requestAnimationFrame:动画现在使用requestAnimationFrame</h5><p>On platforms that support the requestAnimationFrame API, which is pretty much everywhere but IE8 and IE9, jQuery will now use that API when performing animations. This should result in animations that are smoother and use less CPU time – and save battery as well on mobile devices.</p>
+<p>除了 <code>IE8</code> 和 <code>IE9</code> 之外，越来越多的平台都支持 <code>requestAnimationFrame</code> API，<code>jQuery</code> 现在在执行动画的时候也使用了此 API。这样的结果是会让动画越来平滑流畅，并且使用更少的 CPU 时间，在移动设备上也尽可能好的保存电量。</p>
+<p>jQuery tried using requestAnimationFrame a few years back but there were serious compatibility issues with existing code so we had to back it out. We think we’ve beaten most of those issues by suspending animations while a browser tab is out of view. Still, any code that depends on animations to always run in nearly real-time is making an unrealistic assumption.</p>
+<p><code>jQuery</code> 尝试使用 <code>requestAnimationFrame</code> 了一些年头，但是在目前的代码中有一些很严重的兼容性问题，因此我们又把它撤销回去了。我们认为我们通过当浏览器标签页移出视野时暂停动画这种方式已经解决了这些问题中的大多数。然而，在真实的运行时环境中，任何依赖于动画的代码一直运行是一个不切实际的假想。</p>
+<h5 id="-unwrap(_selector_)">.unwrap( selector )</h5><p>Before jQuery 3.0, the .unwrap() method did not take any arguments. The selector parameter offers a way to be specific about which wrappers to remove.</p>
+<p>在 <code>jQuery 3.0</code> 之前，<code>.unwrap()</code> 方法不接收任何参数。selector 参数提供了一个确定哪个包装器该被移出的方式。</p>
+<p><a href="https://github.com/jquery/jquery/issues/1744" target="_blank" rel="external">https://github.com/jquery/jquery/issues/1744</a></p>
+<h5 id="Massive_speedups_for_some_jQuery_custom_selectors">Massive speedups for some jQuery custom selectors</h5><p>Thanks to some detective work by Paul Irish at Google, we identified some cases where we could skip a bunch of extra work when custom selectors like :visible are used many times in the same document. That particular case is up to 17 times faster now!</p>
+<p>感谢来自 Google 的 Paul Irish 所做出的一些排查工作，我们才可以识别出我们可以跳过的一些额外工作，像是 <code>:visible</code> 这样的常规的选择器在一个文档中使用好多次。特定的事例中现在在性能上能比以前快 17 倍。</p>
+<p>Keep in mind that even with this improvement, selectors like :visible and :hidden can be expensive because they depend on the browser to determine whether elements are actually displaying on the page. That may require, in the worst case, a complete recalculation of CSS styles and page layout! While we don’t discourage their use in most cases, we recommend testing your pages to determine if these selectors are causing performance issues.</p>
+<p>记住，即使这些事情改善了，像是 <code>:visible</code> 和 <code>:hidden</code> 这样的选择器也是很昂贵的，因为它们依赖于浏览器来决定什么时候元素确实显示在页面上。可能需要的是，在最差的情况中，CSS 样式和页面布局需要完整的重绘。尽管在大多数情况下我们不阻止使用他们，但是我们推荐你在你的页面上测试一下来确定这些选择器是否会造成一些性能问题。</p>
+<p><a href="https://github.com/jquery/jquery/issues/2042" target="_blank" rel="external">https://github.com/jquery/jquery/issues/2042</a></p>
+<h5 id="译者注:">译者注:</h5><p>具体的更新内容列表没有在此翻译，如果想具体了解请自行查看英文原文。</p>
+<blockquote>
+<p>本文根据 <a href="http://blog.jquery.com/author/timmywil/" target="_blank" rel="external">Timmy Willison</a> 的《jQuery 3.0 and jQuery Compat 3.0 Alpha Versions Released》所译，整个译文带有自己的理解与思想，如果译得不好或有不对之处还请同行朋友指点。如需转载此译文，需注明英文出处：<a href="http://blog.jquery.com/2015/07/13/jquery-3-0-and-jquery-compat-3-0-alpha-versions-released/" target="_blank" rel="external">http://blog.jquery.com/2015/07/13/jquery-3-0-and-jquery-compat-3-0-alpha-versions-released/</a></p>
+</blockquote>
+<h2 id="相关链接">相关链接</h2><ul>
+<li>jQuery 3.0.0-alpha1: <a href="https://code.jquery.com/jquery-3.0.0-alpha1.js" target="_blank" rel="external">https://code.jquery.com/jquery-3.0.0-alpha1.js</a></li>
+<li>jQuery compat 3.0.0-alpha1: <a href="https://code.jquery.com/jquery-3.0.0-alpha1.js" target="_blank" rel="external">https://code.jquery.com/jquery-3.0.0-alpha1.js</a></li>
+</ul>
+<h2 id="您的鼓励是作者写作最大的动力">您的鼓励是作者写作最大的动力</h2><p>如果您认为本网站的文章质量不错，读后觉得收获很大，不妨小额赞助我一下，让我有动力继续写出高质量的文章：我的支付宝账号是 <code>sqrtthree@foxmail.com</code>, <a href="http://7xl8me.com1.z0.glb.clouddn.com/alipay.JPG" target="_blank" rel="external">点击查看二维码</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/11/06/myCodeWars-01/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">My Code Wars v0.1</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="jQuery3-0-Alpha-Versions-Released" data-title="jQuery 3.0 以及兼容版的 Alpha 版本发布" data-url="http://blog.sqrtthree.com/2015/11/12/jQuery3-0-Alpha-Versions-Released/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"sqrtthree"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-center">
+    		&copy; 2015 sqrtthree
+    	</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-64863915-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
