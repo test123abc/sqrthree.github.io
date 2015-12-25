@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>谈谈我理解的API接口设计 | sqrtthree</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="随着web 技术的发展, 前端技术在 web 开发中占着越来越重的比重. 尤其是最近出现的 AngularJS/React 等框架的出现, 让开发 SPA 应用类的开发方式产生了巨大的革新. 在开发过程中, 前后端的数据交互也变得越来越密切. 再加上层出不穷的各种终端设备, 我们迫切需要一个统一的 api 接口规范设计. 主要参考了Github 的 API 设计规范, 我按照自己的理解总结了一下.">
@@ -23,6 +24,7 @@
   
   <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
+
 <body>
   <div id="container">
     <div class="left-col">
@@ -73,12 +75,12 @@
 					<div class="tips-arrow"></div>
 					<ul class="tips-inner">
 						<li>菜单</li>
-						<li>标签</li>
+						<li>標籤</li>
 						
 						<li>友情链接</li>
 						
 						
-						<li>关于我</li>
+						<li>關於</li>
 						
 					</ul>
 				</div>
@@ -156,7 +158,9 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
+			
 				<img lazy-src="/img/author.jpg" class="js-avatar">
+			
 			</div>
 			<hgroup>
 			  <h1 class="header-author">sqrtthree</h1>
@@ -194,6 +198,7 @@
 		</header>				
 	</div>
 </nav>
+
       <div class="body-wrap"><article id="post-api" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -370,20 +375,28 @@
 </article>
 
 
-<div class="share">
-	<!-- JiaThis Button BEGIN -->
-	<div class="jiathis_style">
-		<span class="jiathis_txt">分享到：</span>
-		<a class="jiathis_button_tsina"></a>
-		<a class="jiathis_button_cqq"></a>
-		<a class="jiathis_button_douban"></a>
-		<a class="jiathis_button_weixin"></a>
-		<a class="jiathis_button_tumblr"></a>
-		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-	</div>
-	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
-	<!-- JiaThis Button END -->
+<div class="share-box clearfix">
+    <div class="share_jia">
+    	<!-- JiaThis Button BEGIN -->
+    	<div class="jiathis_style">
+    		<span class="jiathis_txt">分享到: &nbsp; </span>
+    		<a class="jiathis_button_facebook"></a>
+            <a class="jiathis_button_twitter"></a>
+            <a class="jiathis_button_plus"></a>
+            <a class="jiathis_button_tsina"></a>
+    		<a class="jiathis_button_cqq"></a>
+    		<a class="jiathis_button_douban"></a>
+    		<a class="jiathis_button_weixin"></a>
+    		<a class="jiathis_button_tumblr"></a>
+        <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+    	</div>
+    	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+    	<!-- JiaThis Button END -->
+    </div>
 </div>
+
+
+
 
 
 
