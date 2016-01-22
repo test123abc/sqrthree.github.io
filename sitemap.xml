@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.sqrtthree.com/2016/01/23/implicit-type-conversion/</loc>
+    <lastmod>2016-01-22T17:53:21.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://blog.sqrtthree.com/2015/12/26/javascript-developer-survey-results/</loc>
     <lastmod>2015-12-26T10:41:10.000Z</lastmod>
   </url>
@@ -57,11 +62,6 @@
   </url>
   
   <url>
-    <loc>http://blog.sqrtthree.com/instagram/index.html</loc>
-    <lastmod>2015-10-03T16:16:10.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://blog.sqrtthree.com/tags/index.html</loc>
     <lastmod>2015-10-03T16:16:10.000Z</lastmod>
   </url>
@@ -73,6 +73,11 @@
   
   <url>
     <loc>http://blog.sqrtthree.com/categories/index.html</loc>
+    <lastmod>2015-10-03T16:16:10.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.sqrtthree.com/instagram/index.html</loc>
     <lastmod>2015-10-03T16:16:10.000Z</lastmod>
   </url>
   
