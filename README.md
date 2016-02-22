@@ -16,3 +16,4 @@ I'm ❤  programming & Front-End design.
 * Github:	[@sqrthree](https://github.com/sqrthree)
 * Twitter:	[@sqrtthree](https://twitter.com/sqrtthree)
 * Weibo:	[@sqrtthree](http://weibo.com/sqrtthree)
+* Blog:	    [http://blog.sqrtthree.com/](http://blog.sqrtthree.com/)
