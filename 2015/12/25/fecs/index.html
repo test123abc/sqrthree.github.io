@@ -127,7 +127,7 @@ This means strictly enf">
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/api/" style="font-size: 10px;">api</a> <a href="/tags/jQuery3-0/" style="font-size: 13.33px;">jQuery3.0</a> <a href="/tags/jade/" style="font-size: 20px;">jade</a> <a href="/tags/myCodeWars/" style="font-size: 10px;">myCodeWars</a> <a href="/tags/服务器部署/" style="font-size: 20px;">服务器部署</a> <a href="/tags/译文/" style="font-size: 16.67px;">译文</a>
+						<a href="/tags/api/" style="font-size: 10px;">api</a> <a href="/tags/jQuery3-0/" style="font-size: 13.33px;">jQuery3.0</a> <a href="/tags/jade/" style="font-size: 20px;">jade</a> <a href="/tags/myCodeWars/" style="font-size: 10px;">myCodeWars</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/服务器部署/" style="font-size: 20px;">服务器部署</a> <a href="/tags/译文/" style="font-size: 16.67px;">译文</a>
 					</div>
 				</section>
 				
@@ -249,39 +249,39 @@ This means strictly enf">
 <a id="more"></a>
 <p>今天要讲的不是代码规范，关于代码规范网上已经有了非常好的实践和各大公司公开的实践指南，大家可自行查询。 例如: <a href="http://zoomzhao.github.io/code-guide/" target="_blank" rel="external">code-guide chinese</a>.</p>
 <p>然而，有了规范是一回事，执行起来又是一回事。今天要介绍的就是一款按照指定风格检测代码是否符合规范的工具，通过工具的自动检测，以确保每一行代码都符合规范。</p>
-<h2 id="FECS_是什么？">FECS 是什么？</h2><p><a href="http://fecs.baidu.com/" target="_blank" rel="external">fecs</a> 是以百度前端代码规范为目标的基于 Node.js 的前端代码风格检测工具，套件内包括了 <code>htmlcs、csshint、lesslint</code> 和 <code>jformatter</code> 等工具。</p>
+<h2 id="FECS-是什么？"><a href="#FECS-是什么？" class="headerlink" title="FECS 是什么？"></a>FECS 是什么？</h2><p><a href="http://fecs.baidu.com/" target="_blank" rel="external">fecs</a> 是以百度前端代码规范为目标的基于 Node.js 的前端代码风格检测工具，套件内包括了 <code>htmlcs、csshint、lesslint</code> 和 <code>jformatter</code> 等工具。</p>
 <p>因此，<code>fecs</code> 不仅能检查 <code>HTML/CSS/LESS/JavaScript</code> 代码的规范问题，而且还能修复代码的规范问题。</p>
-<h2 id="FECS_能干什么？">FECS 能干什么？</h2><h3 id="fecs_check">fecs check</h3><p>首先，主要功能就是代码格式的检查，当然了呢，因为是最初是供于百度内部使用的工具，自然就是以 <a href="https://github.com/ecomfe/spec/" target="_blank" rel="external">百度前端代码规范</a> 为首要目标，好在该规范第一开源，第二还不错，因此可以直接使用。</p>
+<h2 id="FECS-能干什么？"><a href="#FECS-能干什么？" class="headerlink" title="FECS 能干什么？"></a>FECS 能干什么？</h2><h3 id="fecs-check"><a href="#fecs-check" class="headerlink" title="fecs check"></a>fecs check</h3><p>首先，主要功能就是代码格式的检查，当然了呢，因为是最初是供于百度内部使用的工具，自然就是以 <a href="https://github.com/ecomfe/spec/" target="_blank" rel="external">百度前端代码规范</a> 为首要目标，好在该规范第一开源，第二还不错，因此可以直接使用。</p>
 <p>当然了，如果你不喜欢其中的某些规则，<code>FECS</code> 也是支持配置文件设置规则的方式的，具体的在下文说明。</p>
 <p>需要说明的是，<code>FECS</code> 目前只支持 <code>HTML/CSS/LESS/JavaScript</code> 四种文件和语法的检测。</p>
-<h4 id="Javascript">Javascript</h4><p><code>Javascript</code> 方面 <code>FECS</code> 采用了 <code>eslint</code> 检测引擎，因此你在自定义规则的时候可以参考 <a href="http://esling.org/" target="_blank" rel="external">esling</a> 的文档进行相关配置。<code>FECS</code> 只是在 <code>eslint</code> 基础之上针对百度的代码规范作了新的规则实现或调整。详细内容见 <a href="https://github.com/ecomfe/fecs/wiki/FECSRules" target="_blank" rel="external">FECS 自有规则</a></p>
-<h4 id="CSS/LESS/HTML">CSS/LESS/HTML</h4><p>CSS 的 linter 是使用了内部优化过的 <code>csshint</code>。LESS 和 HTML 方面则分别使用了 <code>lesslint</code> 和 <code>htmlcs</code>。</p>
-<h2 id="FECS_的安装及其使用">FECS 的安装及其使用</h2><h3 id="安装">安装</h3><p>安装 <code>FECS</code> 需要依赖 <code>node</code> <code>npm</code> 环境支持，执行以下命令即可安装:</p>
+<h4 id="Javascript"><a href="#Javascript" class="headerlink" title="Javascript"></a>Javascript</h4><p><code>Javascript</code> 方面 <code>FECS</code> 采用了 <code>eslint</code> 检测引擎，因此你在自定义规则的时候可以参考 <a href="http://esling.org/" target="_blank" rel="external">esling</a> 的文档进行相关配置。<code>FECS</code> 只是在 <code>eslint</code> 基础之上针对百度的代码规范作了新的规则实现或调整。详细内容见 <a href="https://github.com/ecomfe/fecs/wiki/FECSRules" target="_blank" rel="external">FECS 自有规则</a></p>
+<h4 id="CSS-LESS-HTML"><a href="#CSS-LESS-HTML" class="headerlink" title="CSS/LESS/HTML"></a>CSS/LESS/HTML</h4><p>CSS 的 linter 是使用了内部优化过的 <code>csshint</code>。LESS 和 HTML 方面则分别使用了 <code>lesslint</code> 和 <code>htmlcs</code>。</p>
+<h2 id="FECS-的安装及其使用"><a href="#FECS-的安装及其使用" class="headerlink" title="FECS 的安装及其使用"></a>FECS 的安装及其使用</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>安装 <code>FECS</code> 需要依赖 <code>node</code> <code>npm</code> 环境支持，执行以下命令即可安装:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ [sudo] npm <span class="operator"><span class="keyword">install</span> fecs -<span class="keyword">g</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="使用">使用</h3><p>使用方式可使用以下命令查看:</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>使用方式可使用以下命令查看:</p>
 <figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ fecs --help</span><br><span class="line">$ fecs<span class="instruction"> check </span>--help</span><br><span class="line">$ fecs format --help</span><br></pre></td></tr></table></figure>
 <p>具体的命令参数？哎呀，官方已经写的够详细的了，还是看官方文档吧: <a href="https://github.com/ecomfe/fecs/wiki/CLI" target="_blank" rel="external">FECS 命令参数</a></p>
-<h2 id="自定义配置">自定义配置</h2><p><code>FECS</code> 支持通过配置文件的方式指定特定的规则。</p>
+<h2 id="自定义配置"><a href="#自定义配置" class="headerlink" title="自定义配置"></a>自定义配置</h2><p><code>FECS</code> 支持通过配置文件的方式指定特定的规则。</p>
 <p>配置文件的支持来自 <code>manis</code>，支持使用 <code>.fecsrc</code> 或 <code>package.json</code>，但以第一个找到的为准。配置文件 <code>.fecsrc</code> 大体是这个样子的:</p>
 <figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"files"</span>: [],</span><br><span class="line"></span><br><span class="line">    <span class="string">"eslint"</span>: <span class="decorator">&#123;...&#125;</span>,</span><br><span class="line"></span><br><span class="line">    <span class="string">"csshint"</span>: <span class="decorator">&#123;...&#125;</span>,</span><br><span class="line"></span><br><span class="line">    <span class="string">"htmlcs"</span>: <span class="decorator">&#123;...&#125;</span>,</span><br><span class="line"></span><br><span class="line">    <span class="string">"csscomb"</span>: <span class="decorator">&#123;...&#125;</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>比如说他们的<a href="https://github.com/ecomfe/spec/blob/master/javascript-style-guide.md" target="_blank" rel="external">JavaScript编码规范</a> 中关于换行中有这样一条 <a href="https://github.com/ecomfe/spec/blob/master/javascript-style-guide.md#建议-对于-ifelsetrycatchfinally-等语句推荐使用在--号后添加一个换行-的风格使代码层次结构更清晰阅读性更好" target="_blank" rel="external">对于if…else…try…catch…finally 等语句，推荐使用在 } 号后添加一个换行的风格，使代码层次结构更清晰，阅读性更好</a>，这一条我就很不喜欢嘛，那我可以这样配置:</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">eslint</span>": <span class="value">&#123;</span><br><span class="line">        "<span class="attribute">rules</span>": <span class="value">&#123;</span><br><span class="line">            "<span class="attribute">brace-style</span>": <span class="value">[<span class="number">2</span>, <span class="string">"1tbs"</span>, &#123;&#125;]</span><br><span class="line">        </span>&#125;</span><br><span class="line">    </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
 <p>这样配置之后再进行检测，就能愉快的按照下面这种写法愉快的 coding 了。</p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">if</span> (condition) &#123;</span><br><span class="line">    <span class="comment">// some statements;</span></span><br><span class="line">&#125; <span class="tag">else</span> &#123;</span><br><span class="line">    <span class="comment">// some statements;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="多工具支持">多工具支持</h2><p>详情支持列表请参考官方文档 <a href="https://github.com/ecomfe/fecs#工具支持" target="_blank" rel="external">工具支持</a>。</p>
+<h2 id="多工具支持"><a href="#多工具支持" class="headerlink" title="多工具支持"></a>多工具支持</h2><p>详情支持列表请参考官方文档 <a href="https://github.com/ecomfe/fecs#工具支持" target="_blank" rel="external">工具支持</a>。</p>
 <p>嗯。文档依旧写的很完善，基本上已经没什么好补充的了。</p>
 <p>在这里我有一个小提示，就是工具对 <code>atom</code> 编辑器的支持相对于对 <code>sublime</code> 的支持来说要优秀很多， 包括检测速度呀，错误提示呀，<code>atom</code> 都略称一筹，这取决于 <code>atom</code> 优秀的插件机制。并且我在 <code>sublime</code>下面使用的时候发现了一个 bug，就是错误提示会显示为特殊编码导致无法以中文显示。解决方案呢，在这里<a href="https://github.com/leeight/Baidu-FE-Code-Style/issues/6" target="_blank" rel="external">https://github.com/leeight/Baidu-FE-Code-Style/issues/6</a>，不过感觉略麻烦的样子。</p>
-<h2 id="Tips:">Tips:</h2><p><code>FECS</code> 的错误报告默认为英文格式，由各 linter 直接提供。<code>FECS</code> 根据百度前端代码规范，作了一次影射转换，通过指定 reporter 为 baidu 可以看到中文的报告输出效果，对于某些比较抽象的描述，会同时在括号内提供英文原文补充说明。</p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips:"></a>Tips:</h2><p><code>FECS</code> 的错误报告默认为英文格式，由各 linter 直接提供。<code>FECS</code> 根据百度前端代码规范，作了一次影射转换，通过指定 reporter 为 baidu 可以看到中文的报告输出效果，对于某些比较抽象的描述，会同时在括号内提供英文原文补充说明。</p>
 <p>例如，你可以这样用: </p>
 <figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fecs<span class="instruction"> check </span>--reporter=baidu</span><br></pre></td></tr></table></figure>
 <p>或者，更直接一点，直接添加一个 <code>alias</code>，使其在执行 <code>fecs check</code> 命令时默认为中文输出。</p>
 <figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alias</span> fecs=<span class="attribute">'fecs</span> <span class="comment">--reporter=baidu'</span></span><br></pre></td></tr></table></figure>
-<h2 id="相关链接:">相关链接:</h2><ul>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接:"></a>相关链接:</h2><ul>
 <li><a href="http://fecs.baidu.com/" target="_blank" rel="external">FECS 官网</a></li>
 <li><a href="http://github.com/ecomfe/fecs/wiki" target="_blank" rel="external">FECS WIKI</a></li>
 <li><a href="http://github.com/ecomfe/fecs" target="_blank" rel="external">FECS Github</a></li>
 </ul>
-<h2 id="您的鼓励是作者写作最大的动力">您的鼓励是作者写作最大的动力</h2><p>如果您认为本网站的文章质量不错，读后觉得收获很大，不妨小额赞助我一下，让我有动力继续写出高质量的文章：我的支付宝账号是 <code>sqrtthree@foxmail.com</code>, <a href="http://7xl8me.com1.z0.glb.clouddn.com/alipay.JPG" target="_blank" rel="external">点击查看二维码</a></p>
+<h2 id="您的鼓励是作者写作最大的动力"><a href="#您的鼓励是作者写作最大的动力" class="headerlink" title="您的鼓励是作者写作最大的动力"></a>您的鼓励是作者写作最大的动力</h2><p>如果您认为本网站的文章质量不错，读后觉得收获很大，不妨小额赞助我一下，让我有动力继续写出高质量的文章：我的支付宝账号是 <code>sqrtthree@foxmail.com</code>, <a href="http://7xl8me.com1.z0.glb.clouddn.com/alipay.JPG" target="_blank" rel="external">点击查看二维码</a></p>
 
       
     </div>

@@ -2,118 +2,164 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.sqrtthree.com/README.html</loc>
-    <lastmod>2016-02-22T06:21:49.000Z</lastmod>
+    <loc>http://blog.sqrtthree.com/2016/02/23/gitbook/</loc>
+    
+    <lastmod>2016-02-23T14:40:01.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2016/01/23/implicit-type-conversion/</loc>
+    
     <lastmod>2016-01-22T17:53:21.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/12/26/javascript-developer-survey-results/</loc>
+    
     <lastmod>2015-12-26T10:41:10.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/12/25/fecs/</loc>
+    
     <lastmod>2015-12-25T07:33:04.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/11/12/jQuery3-0-Alpha-Versions-Released/</loc>
+    
     <lastmod>2015-11-11T16:14:23.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/11/06/myCodeWars-01/</loc>
+    
     <lastmod>2015-11-06T02:04:46.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/11/05/jquery3-the-next-generations/</loc>
+    
     <lastmod>2015-11-05T03:42:00.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/10/21/server-deployment-supervisor/</loc>
+    
     <lastmod>2015-10-20T16:08:41.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/10/20/server-deployment-shadowsocks/</loc>
+    
     <lastmod>2015-10-20T15:38:06.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/10/20/server-deployment-ssh/</loc>
+    
     <lastmod>2015-10-20T05:23:27.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/10/19/server-deployment-choose/</loc>
+    
     <lastmod>2015-10-19T05:28:41.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/10/09/strict-mode/</loc>
+    
     <lastmod>2015-10-09T04:05:12.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/10/05/without-you-im-nothing/</loc>
+    
     <lastmod>2015-10-04T16:21:41.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.sqrtthree.com/tags/index.html</loc>
-    <lastmod>2015-10-03T16:16:10.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/instagram/index.html</loc>
+    
     <lastmod>2015-10-03T16:16:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.sqrtthree.com/tags/index.html</loc>
+    
+    <lastmod>2015-10-03T16:16:10.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/categories/index.html</loc>
+    
     <lastmod>2015-10-03T16:16:10.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/09/08/api/</loc>
+    
     <lastmod>2015-09-08T05:03:43.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/08/29/utf8-to-b64/</loc>
+    
     <lastmod>2015-08-29T11:46:53.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/08/20/jade-04/</loc>
+    
     <lastmod>2015-08-20T08:04:18.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/08/20/jade-03/</loc>
+    
     <lastmod>2015-08-20T07:58:08.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/08/20/jade-02/</loc>
+    
     <lastmod>2015-08-20T07:52:51.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/08/20/jade-01/</loc>
+    
     <lastmod>2015-08-20T07:19:56.000Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://blog.sqrtthree.com/2015/06/27/hello-world/</loc>
+    
     <lastmod>2015-06-27T12:30:41.000Z</lastmod>
+    
   </url>
   
 </urlset>

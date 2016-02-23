@@ -120,7 +120,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/api/" style="font-size: 10px;">api</a> <a href="/tags/jQuery3-0/" style="font-size: 13.33px;">jQuery3.0</a> <a href="/tags/jade/" style="font-size: 20px;">jade</a> <a href="/tags/myCodeWars/" style="font-size: 10px;">myCodeWars</a> <a href="/tags/服务器部署/" style="font-size: 20px;">服务器部署</a> <a href="/tags/译文/" style="font-size: 16.67px;">译文</a>
+						<a href="/tags/api/" style="font-size: 10px;">api</a> <a href="/tags/jQuery3-0/" style="font-size: 13.33px;">jQuery3.0</a> <a href="/tags/jade/" style="font-size: 20px;">jade</a> <a href="/tags/myCodeWars/" style="font-size: 10px;">myCodeWars</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/服务器部署/" style="font-size: 20px;">服务器部署</a> <a href="/tags/译文/" style="font-size: 16.67px;">译文</a>
 					</div>
 				</section>
 				
@@ -216,6 +216,76 @@
   
     
   
+    
+  
+  
+    <article id="post-server-deployment-choose" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/19/server-deployment-choose/" class="article-date">
+  	<time datetime="2015-10-19T05:28:41.000Z" itemprop="datePublished">2015-10-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/19/server-deployment-choose/">0、服务器主机选择和购买</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>由于某种不能说的原因，导致我们没法使用 Google，作为一个开发人员这是不能容忍的，近日来发现竟然连 <a href="https://gist.github.com/">https://gist.github.com/</a> 都无法访问，这简直令人发指。于是各种代理服务就如雨后春笋一般出现，但是前段时间某技术升级加上各种手段，导致该关闭的关闭，该封停的封定，现在还有 <code>shadowsocks</code> 技术勉强可以维持，但该项目已经不再更新 <em>(:з」∠)</em>。</p>
+<p>有些网站也会提供一些免费的 <code>shadowsocks</code> 账号供使用，但我体验了一段时间之后，第一觉得太麻烦，因为这种公共服务基本上每过一段时间就会改一次密码。第二是不太稳定，并且总觉得在私密性上放不下心，就想着自己利用服务器搭建一个私人服务。</p>
+</blockquote>
+<p>因为之前没有接触过服务器端的部署，蹒跚学步的过程中遇到了很多困惑和问题，在这里也做一下记录，写一个 <code>&quot;服务器部署从入门不一定到精通&quot;</code> 系列，待多年以后回头来看我是这样被大家看着长大的 O(∩_∩)O哈哈哈~。</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/服务器部署/">服务器部署</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/技术/">技术</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/10/19/server-deployment-choose/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-strict-mode" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -243,7 +313,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="什么是严格模式？">什么是严格模式？</h2><blockquote>
+        <h2 id="什么是严格模式？"><a href="#什么是严格模式？" class="headerlink" title="什么是严格模式？"></a>什么是严格模式？</h2><blockquote>
 <p><code>严格模式</code> 是 ECMAScript 5 中引入的一种将更好的错误检查引入代码中的方法, 现在已经被大多浏览器实现. 顾名思义，这种模式使得Javascript在更严格的条件下运行.</p>
 </blockquote>
       
@@ -433,7 +503,7 @@
         <blockquote>
 <p>今天在写一个通过 GitHub API 获取README 的功能的时候, 由于返回值为 Base64 编码, 我在尝试用 js 转换为 UFT-8 的时候发现中文会导致乱码. 在这里总结一下相关的知识点吧.</p>
 </blockquote>
-<h2 id="首先,_为什么要编码？">首先, 为什么要编码？</h2><p>由于一些网络通讯协议的限制, 又或者是出于信息加密的目的, 我们就需要将原信息转换为 base64 编码,然后才能进行传输.例如，发送某些含有 ASCII 码表中 0 到 31 之间的控制字符的数据。</p>
+<h2 id="首先-为什么要编码？"><a href="#首先-为什么要编码？" class="headerlink" title="首先, 为什么要编码？"></a>首先, 为什么要编码？</h2><p>由于一些网络通讯协议的限制, 又或者是出于信息加密的目的, 我们就需要将原信息转换为 base64 编码,然后才能进行传输.例如，发送某些含有 ASCII 码表中 0 到 31 之间的控制字符的数据。</p>
 <p>通常的方法是通过 <code>window.btoa()</code> 方法对源数据进行编码, 然后接收方使用 <code>window.atob()</code> 方法对其进行解码, 从而得到原数据.</p>
       
     </div>
@@ -497,7 +567,7 @@
         <blockquote>
 <p>文章首发于前端乱炖社区, 现在搬迁过来了. <a href="http://www.html-js.com/article/2596">http://www.html-js.com/article/2596</a></p>
 </blockquote>
-<h2 id="1、神奇的_mixins">1、神奇的 <code>mixins</code></h2><p>想必有 <code>less</code> &amp; <code>sass</code> 经验的同学对 <code>mixins</code> 一定都不陌生了，<code>mixins</code> 呢，其实就是方便对一堆代码块的重复利用。在 <code>Jade</code> 里面当然也少不了代码块的复用咯~~</p>
+<h2 id="1、神奇的-mixins"><a href="#1、神奇的-mixins" class="headerlink" title="1、神奇的 mixins"></a>1、神奇的 <code>mixins</code></h2><p>想必有 <code>less</code> &amp; <code>sass</code> 经验的同学对 <code>mixins</code> 一定都不陌生了，<code>mixins</code> 呢，其实就是方便对一堆代码块的重复利用。在 <code>Jade</code> 里面当然也少不了代码块的复用咯~~</p>
       
     </div>
     
@@ -565,7 +635,7 @@
 <p>文章首发于前端乱炖社区, 现在搬迁过来了. <a href="http://www.html-js.com/article/2585">http://www.html-js.com/article/2585</a></p>
 </blockquote>
 <p>前面介绍了一些 <code>Jade</code> 的简单用法，这篇文章为大家讲一下 <code>Jade</code> 中如何进行数据的动态传递和流程控制，干货来咯~</p>
-<h2 id="1、Jade_中简单的变量定义和使用">1、<code>Jade</code> 中简单的变量定义和使用</h2><p>我们在写 <code>html</code> 静态页面的过程中，免不了会碰到一些需要动态注入的地方，一般的写法就略显麻烦，那么我们有了 <code>Jade</code> 之后呢，不啰嗦了，我们从最简单的例子开始：</p>
+<h2 id="1、Jade-中简单的变量定义和使用"><a href="#1、Jade-中简单的变量定义和使用" class="headerlink" title="1、Jade 中简单的变量定义和使用"></a>1、<code>Jade</code> 中简单的变量定义和使用</h2><p>我们在写 <code>html</code> 静态页面的过程中，免不了会碰到一些需要动态注入的地方，一般的写法就略显麻烦，那么我们有了 <code>Jade</code> 之后呢，不啰嗦了，我们从最简单的例子开始：</p>
       
     </div>
     
@@ -632,7 +702,7 @@
         <blockquote>
 <p>文章首发于前端乱炖社区, 现在搬迁过来了. <a href="http://www.html-js.com/article/2575">http://www.html-js.com/article/2575</a></p>
 </blockquote>
-<h2 id="1、文档声明">1、文档声明</h2><p>我们在开始写一个 <code>html</code> 页面的时候，首先要写上 <code>DOCTYPE</code> 文档声明的，现在通常情况下我们都是采用 <code>HTML5</code> 的文档声明方式，那么在 <code>jade</code> 里面我们应该怎么写呢？</p>
+<h2 id="1、文档声明"><a href="#1、文档声明" class="headerlink" title="1、文档声明"></a>1、文档声明</h2><p>我们在开始写一个 <code>html</code> 页面的时候，首先要写上 <code>DOCTYPE</code> 文档声明的，现在通常情况下我们都是采用 <code>HTML5</code> 的文档声明方式，那么在 <code>jade</code> 里面我们应该怎么写呢？</p>
 <p>在 <code>jade</code> 里面编写文档声明有2种方式：</p>
 <ol>
 <li>我们可以直接在 <code>jade</code> 文件里面写 <code>doctype html</code> 即可</li>
@@ -770,17 +840,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="About_Me">About Me</h2><p>I’m a Front-End developer in everywhere, now living in ZhengZhou, China.</p>
+        <h2 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h2><p>I’m a Front-End developer in everywhere, now living in ZhengZhou, China.</p>
 <p>I’m ❤  programming &amp; Front-end design.</p>
-<h2 id="Skills">Skills</h2><ul>
+<h2 id="Skills"><a href="#Skills" class="headerlink" title="Skills"></a>Skills</h2><ul>
 <li>HTML5&amp;CSS3    <code>*****</code></li>
 <li>Javascript    <code>********</code></li>
 <li>Nodejs        <code>**</code></li>
 </ul>
-<h2 id="Tools">Tools</h2><ul>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
 <li>mac &amp; vim</li>
 </ul>
-<h2 id="Contact_Me">Contact Me</h2><ul>
+<h2 id="Contact-Me"><a href="#Contact-Me" class="headerlink" title="Contact Me"></a>Contact Me</h2><ul>
 <li>E-mail:    <a href="mailto:sqrtthree@foxmail.com" target="_blank" rel="external">sqrtthree@foxmail.com</a></li>
 <li>Github:    <a href="https://github.com/sqrthree" target="_blank" rel="external">@sqrthree</a></li>
 <li>Twitter:    <a href="https://twitter.com/sqrtthree" target="_blank" rel="external">@sqrtthree</a></li>
