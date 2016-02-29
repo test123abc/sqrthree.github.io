@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.sqrtthree.com/"/>
-  <updated>2016-02-23T14:40:01.000Z</updated>
+  <updated>2016-02-29T03:52:37.000Z</updated>
   <id>http://blog.sqrtthree.com/</id>
   
   <author>
@@ -14,6 +14,135 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在 Chrome 开发者工具中调试 node.js</title>
+    <link href="http://blog.sqrtthree.com/2016/02/29/debugging-nodejs-in-chrome-devtools/"/>
+    <id>http://blog.sqrtthree.com/2016/02/29/debugging-nodejs-in-chrome-devtools/</id>
+    <published>2016-02-29T03:52:37.000Z</published>
+    <updated>2016-02-29T03:52:37.000Z</updated>
+    
+    <content type="html">&lt;p&gt;这篇文章介绍了一种在 Chrome 开发者工具里面开发、调试和分析 Node.js 应用程序的新方法。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;devtool&quot;&gt;&lt;a href=&quot;#devtool&quot; class=&quot;headerlink&quot; title=&quot; devtool&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#devtool&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt;devtool&lt;/h2&gt;&lt;p&gt;最近我一直在开发一个命令行工具 &lt;a href=&quot;https://github.com/Jam3/devtool&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;devtool&lt;/a&gt;，它可以在 Chrome 的开发者工具中运行 Node.js 程序。&lt;/p&gt;
+&lt;p&gt;下面的记录显示了在一个 HTTP 服务器中设置断点的情况。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/V4RQSZ2.gif&quot; alt=&quot;movie&quot;&gt;&lt;/p&gt;
+&lt;p&gt;该工具基于 &lt;a href=&quot;https://github.com/atom/electron/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Electron&lt;/a&gt; 将 Node.js 和 Chromium 的功能融合在了一起。它的目的在于为调试、分析和开发 Node.js 应用程序提供一个简单的界面。&lt;/p&gt;
+&lt;p&gt;你可以使用 &lt;a href=&quot;http://npmjs.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;npm&lt;/a&gt; 来安装它:&lt;/p&gt;
+&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm &lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;install&lt;/span&gt; -&lt;span class=&quot;keyword&quot;&gt;g&lt;/span&gt; devtool&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;REPL&quot;&gt;&lt;a href=&quot;#REPL&quot; class=&quot;headerlink&quot; title=&quot; REPL&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#repl&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt;REPL&lt;/h2&gt;&lt;p&gt;在某种程度上，我们可以用它来作为 &lt;code&gt;node&lt;/code&gt; shell 命令的替代品。例如，我们可以这样打开一个 REPL (译者注: REPL 全称为”Read-Eval-Print Loop”，是一个简单的、交互式的编程环境)。&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;devtool&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这将启动一个带有 Node.js 特性支持的 Chrome 开发者工具实例。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/bnInBHA.png&quot; alt=&quot;console&quot;&gt;&lt;/p&gt;
+&lt;p&gt;我们可以引用 Node 模块、本地 npm 模块和像 &lt;code&gt;process.cwd()&lt;/code&gt; 这样的内置模块。也可以获取像 &lt;code&gt;copy()&lt;/code&gt; 和 &lt;code&gt;table()&lt;/code&gt; 这样的 Chrome 开发者工具中的函数。&lt;/p&gt;
+&lt;p&gt;其他的例子就一目了然了:&lt;/p&gt;
+&lt;figure class=&quot;highlight vala&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;# run a Node script&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;devtool app.js&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;# pipe in content to process.stdin&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;devtool &amp;lt; audio.mp3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;# pipe in JavaScript to eval it&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;browserify index.js | devtool&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;run-a-Node-script&quot;&gt;&lt;a href=&quot;#run-a-Node-script&quot; class=&quot;headerlink&quot; title=&quot;run a Node script&quot;&gt;&lt;/a&gt;run a Node script&lt;/h1&gt;&lt;h2 id=&quot;开发&quot;&gt;&lt;a href=&quot;#开发&quot; class=&quot;headerlink&quot; title=&quot;  开发&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#development&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt; 开发&lt;/h2&gt;&lt;p&gt;我们可以在通用模块和应用程序的开发中使用 &lt;code&gt;devtool&lt;/code&gt;，来代替像 &lt;a href=&quot;https://www.npmjs.com/package/nodemon&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;nodemon&lt;/a&gt; 这样目前已经存在的工具。&lt;/p&gt;
+&lt;figure class=&quot;highlight stylus&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;devtool app&lt;span class=&quot;class&quot;&gt;.js&lt;/span&gt; --watch&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这行命令将会在 Chrome 开发者工具中的控制台中启动我们的 &lt;code&gt;app.js&lt;/code&gt;， 通过 &lt;code&gt;--watch&lt;/code&gt; 参数，我们保存的文件将(自动)重新载入到控制台。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/NuoYkJK.png&quot; alt=&quot;console&quot;&gt;&lt;/p&gt;
+&lt;p&gt;点击 &lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;app.js:1&lt;/code&gt;&lt;/a&gt; 链接，程序将会在 &lt;code&gt;Sources&lt;/code&gt; 标签中把我们带到与之相关的那一行。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/mH5jWT9.png&quot; alt=&quot;line&quot;&gt;&lt;/p&gt;
+&lt;p&gt;在 &lt;code&gt;Sources&lt;/code&gt; 标签中，你也可以敲击 &lt;code&gt;Cmd/Ctrl + P&lt;/code&gt; 按键在所有依赖的模块中进行快速搜索。你甚至可以审查和调试内置模块，比如 Node.js 中的那些。你也可以使用左手边的面板来浏览模块。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/jn3RmnV.png&quot; alt=&quot;Sources&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;调试&quot;&gt;&lt;a href=&quot;#调试&quot; class=&quot;headerlink&quot; title=&quot;  调试&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#debugging&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt; 调试&lt;/h2&gt;&lt;p&gt;因为我们能够访问 &lt;code&gt;Sources&lt;/code&gt; 标签，所以我们可以用它来调试我们的应用程序。你可以设置一个断点，然后重新加载调试器(&lt;code&gt;Cmd/Ctrl + R&lt;/code&gt;)，或者你也可以通过 &lt;code&gt;--break&lt;/code&gt; 标记来设置一个初始断点。&lt;/p&gt;
+&lt;figure class=&quot;highlight nginx&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;title&quot;&gt;devtool&lt;/span&gt; app.js --&lt;span class=&quot;built_in&quot;&gt;break&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/hJ2pLW1.png&quot; alt=&quot;break&quot;&gt;&lt;/p&gt;
+&lt;p&gt;下面是一些对于那些学习 Chrome 开发者工具的人来说可能不是特别常用的功能:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://blittle.github.io/chrome-dev-tools/sources/conditional-breakpoints.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;条件断点&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blittle.github.io/chrome-dev-tools/sources/uncaught-exceptions.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;有未捕获的异常时暂停&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blittle.github.io/chrome-dev-tools/sources/restart-frame.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;重启帧&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://albertlee.azurewebsites.net/using-watch-tools-in-chrome-dev-tools-to-improve-your-debugging/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;监听表达式&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;提示 - 当调试器暂停时，你可以敲击 &lt;code&gt;Escape&lt;/code&gt; 按键打开一个执行在当前作用域内的控制台。你可以修改一些变量然后继续执行。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/nG9ellE.gif&quot; alt=&quot;Imgur&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;分析&quot;&gt;&lt;a href=&quot;#分析&quot; class=&quot;headerlink&quot; title=&quot;  分析&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#profiling&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt; 分析&lt;/h2&gt;&lt;p&gt;&lt;code&gt;devtool&lt;/code&gt; 的另一个功能是分析像 &lt;a href=&quot;https://github.com/substack/node-browserify&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;browserify&lt;/a&gt;, &lt;a href=&quot;https://github.com/gulpjs/gulp&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;gulp&lt;/a&gt; 和 &lt;a href=&quot;https://github.com/babel/babel&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;babel&lt;/a&gt; 这样的程序。&lt;/p&gt;
+&lt;p&gt;这里我们使用 &lt;a href=&quot;https://developer.chrome.com/devtools/docs/console-api&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;console.profile()&lt;/code&gt;&lt;/a&gt; (Chrome 的一个功能)来分析一个打包工具的 CPU 使用情况。&lt;/p&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; browserify = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&#39;browserify&#39;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// Start DevTools profiling...&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.profile(&lt;span class=&quot;string&quot;&gt;&#39;build&#39;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// Bundle some browser application&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;browserify(&lt;span class=&quot;string&quot;&gt;&#39;client.js&#39;&lt;/span&gt;).bundle(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;err, src&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (err) &lt;span class=&quot;keyword&quot;&gt;throw&lt;/span&gt; err;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;// Finish DevTools profiling...&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.profileEnd(&lt;span class=&quot;string&quot;&gt;&#39;build&#39;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;现在我们在这个文件上运行 &lt;code&gt;devtool&lt;/code&gt; :&lt;/p&gt;
+&lt;figure class=&quot;highlight css&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;devtool&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;class&quot;&gt;.js&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;执行之后，我们可以在 &lt;code&gt;Profiles&lt;/code&gt; 标签中看到结果。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/vSu7Lcz.png&quot; alt=&quot;profile&quot;&gt;&lt;/p&gt;
+&lt;p&gt;我们可以使用右边的链接来查看和调试执行频率较高的代码路径。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/O4DZHyv.png&quot; alt=&quot;debug&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;高级选项&quot;&gt;&lt;a href=&quot;#高级选项&quot; class=&quot;headerlink&quot; title=&quot;  高级选项&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#advanced-options&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt; 高级选项&lt;/h2&gt;&lt;h4 id=&quot;实验&quot;&gt;&lt;a href=&quot;#实验&quot; class=&quot;headerlink&quot; title=&quot;  实验&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#experiments&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt; 实验&lt;/h4&gt;&lt;p&gt;Chrome 会不断的向他们的开发者工具中推送新功能和实验，例如 &lt;strong&gt;Promise Inspector&lt;/strong&gt;。你可以通过点击右上角的三个点，然后选择 &lt;code&gt;Settings -&amp;gt; Experiments&lt;/code&gt; 来开启他们。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/dNuIMw0.png&quot; alt=&quot;experiments&quot;&gt;&lt;/p&gt;
+&lt;p&gt;一旦启用，你就可以通过敲击 &lt;code&gt;Escape&lt;/code&gt; 按键来调出一个带有 &lt;em&gt;Promises&lt;/em&gt; 监视器的面板。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/xKkTEeg.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;提示: 在 &lt;em&gt;Experiments&lt;/em&gt; 界面，如果你敲击 &lt;code&gt;Shift&lt;/code&gt; 键 6 次，你会接触到一些甚至更多的实验性（不稳定）的功能。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;console&quot;&gt;&lt;a href=&quot;#console&quot; class=&quot;headerlink&quot; title=&quot; --console&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#codeconsolecode&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt;&lt;code&gt;--console&lt;/code&gt;&lt;/h4&gt;&lt;p&gt;你可以重定向控制台输出到终端中(&lt;code&gt;process.stdout&lt;/code&gt; 和 &lt;code&gt;process.stderr&lt;/code&gt;)。也允许你通过使用管道将它导入到其他进程中，例如 TAP prettifiers。&lt;/p&gt;
+&lt;figure class=&quot;highlight 1c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;devtool test.js --console &lt;span class=&quot;string&quot;&gt;| tap-spec&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;和-process-argv&quot;&gt;&lt;a href=&quot;#和-process-argv&quot; class=&quot;headerlink&quot; title=&quot; -- 和 process.argv&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#codecode-and-codeprocessargvcode&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt;&lt;code&gt;--&lt;/code&gt; 和 &lt;code&gt;process.argv&lt;/code&gt;&lt;/h4&gt;&lt;p&gt;你的脚本可以像一个普通的 Node.js 应用那样解析 &lt;code&gt;process.argv&lt;/code&gt;。如果你在 &lt;code&gt;devtool&lt;/code&gt; 命令中传递一个句号(&lt;code&gt;--&lt;/code&gt;)，它后面的所有内容都会被当做一个新的 &lt;code&gt;process.argv&lt;/code&gt; 。例如:&lt;/p&gt;
+&lt;figure class=&quot;highlight stylus&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;devtool script&lt;span class=&quot;class&quot;&gt;.js&lt;/span&gt; --console -- &lt;span class=&quot;tag&quot;&gt;input&lt;/span&gt;.txt&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;现在，你的脚本看起来像这样:&lt;/p&gt;
+&lt;figure class=&quot;highlight stata&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;file&lt;/span&gt; = process.argv[2];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;console.&lt;span class=&quot;literal&quot;&gt;log&lt;/span&gt;(&#39;&lt;span class=&quot;keyword&quot;&gt;File&lt;/span&gt;: %s&#39;, &lt;span class=&quot;keyword&quot;&gt;file&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;输出:&lt;/p&gt;
+&lt;figure class=&quot;highlight http&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;File&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;input.txt&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;quit-和-headless&quot;&gt;&lt;a href=&quot;#quit-和-headless&quot; class=&quot;headerlink&quot; title=&quot; --quit 和 --headless&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#codequitcode-and-codeheadlesscode&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt;&lt;code&gt;--quit&lt;/code&gt; 和 &lt;code&gt;--headless&lt;/code&gt;&lt;/h4&gt;&lt;p&gt;使用 &lt;code&gt;--quit&lt;/code&gt;，当遇到了一个错误(如语法错误或者未捕获的异常)时，进程将会安静的退出，并返回结束码&lt;code&gt;1&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;使用 &lt;code&gt;--headless&lt;/code&gt;，开发工具将不会被打开。&lt;/p&gt;
+&lt;p&gt;这可以用于命令行脚本：&lt;/p&gt;
+&lt;figure class=&quot;highlight nimrod&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;devtool render.js --quit --headless &amp;gt; &lt;span class=&quot;literal&quot;&gt;result&lt;/span&gt;.png&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;browser-field&quot;&gt;&lt;a href=&quot;#browser-field&quot; class=&quot;headerlink&quot; title=&quot; --browser-field&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#codebrowserfieldcode&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt;&lt;code&gt;--browser-field&lt;/code&gt;&lt;/h4&gt;&lt;p&gt;一些模块为了更好的在浏览器中运行或许会提供一个入口点。当你需要这些模块时，你可以使用 &lt;code&gt;--browser-field&lt;/code&gt; 来支持 &lt;a href=&quot;https://github.com/defunctzombie/package-browser-field-spec&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;package.json flag&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;例如，我们可以使用 &lt;a href=&quot;https://github.com/Jam3/xhr-request&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;xhr-request&lt;/a&gt; ，当带有 &lt;code&gt;&amp;quot;browser&amp;quot;&lt;/code&gt; 字段被引用时，这个模块会使用 XHR。&lt;/p&gt;
+&lt;figure class=&quot;highlight lisp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;const request = require&lt;span class=&quot;list&quot;&gt;(&lt;span class=&quot;quoted&quot;&gt;&#39;xhr-request&lt;/span&gt;&#39;)&lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;request&lt;span class=&quot;list&quot;&gt;(&lt;span class=&quot;quoted&quot;&gt;&#39;https&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;://api&lt;/span&gt;.github.com/users/mattdesl/repos&#39;, &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    json: true&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;, &lt;span class=&quot;list&quot;&gt;(&lt;span class=&quot;keyword&quot;&gt;err&lt;/span&gt;, data)&lt;/span&gt; =&amp;gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if &lt;span class=&quot;list&quot;&gt;(&lt;span class=&quot;keyword&quot;&gt;err&lt;/span&gt;)&lt;/span&gt; throw err&lt;span class=&quot;comment&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    console.log&lt;span class=&quot;list&quot;&gt;(&lt;span class=&quot;keyword&quot;&gt;data&lt;/span&gt;)&lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;)&lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在 shell 中执行:&lt;/p&gt;
+&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm &lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;install&lt;/span&gt; xhr-request &lt;span class=&quot;comment&quot;&gt;--save&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;devtool app.js &lt;span class=&quot;comment&quot;&gt;--browser-field&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;现在，我们可以在 &lt;code&gt;Network&lt;/code&gt; 选项卡中审查请求:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/BWciXuh.png&quot; alt=&quot;requests&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;no-node-timers&quot;&gt;&lt;a href=&quot;#no-node-timers&quot; class=&quot;headerlink&quot; title=&quot; --no-node-timers&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#codenonodetimerscode&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt;&lt;code&gt;--no-node-timers&lt;/code&gt;&lt;/h4&gt;&lt;p&gt;默认情况下，我们提供全局的 &lt;code&gt;setTimeout&lt;/code&gt; and &lt;code&gt;setInterval&lt;/code&gt;，因此他们表现的像 Node.js 一样(返回一个带有 &lt;code&gt;unref()&lt;/code&gt; and &lt;code&gt;ref()&lt;/code&gt; 函数的对象)。&lt;/p&gt;
+&lt;p&gt;但是，你可以禁用这个方法来改善对异步堆栈跟踪的支持。&lt;/p&gt;
+&lt;figure class=&quot;highlight nginx&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;title&quot;&gt;devtool&lt;/span&gt; app.js --&lt;span class=&quot;built_in&quot;&gt;no&lt;/span&gt;-node-timers&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/dmfOfMx.png&quot; alt=&quot;async&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;V8-Flags&quot;&gt;&lt;a href=&quot;#V8-Flags&quot; class=&quot;headerlink&quot; title=&quot; V8 Flags&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#v8-flags&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt;V8 Flags&lt;/h4&gt;&lt;p&gt;在当前目录，你可以创建一个 &lt;code&gt;.devtoolrc&lt;/code&gt; 文件来进行诸如 V8 flags 这样的高级设置。&lt;/p&gt;
+&lt;figure class=&quot;highlight json&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &quot;&lt;span class=&quot;attribute&quot;&gt;v8&lt;/span&gt;&quot;: &lt;span class=&quot;value&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &quot;&lt;span class=&quot;attribute&quot;&gt;flags&lt;/span&gt;&quot;: &lt;span class=&quot;value&quot;&gt;[&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;string&quot;&gt;&quot;--harmony-destructuring&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;/span&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;访问&lt;a href=&quot;https://github.com/Jam3/devtool/blob/master/docs/rc-config.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;这里&lt;/a&gt;获取更多细节&lt;/p&gt;
+&lt;h2 id=&quot;陷阱&quot;&gt;&lt;a href=&quot;#陷阱&quot; class=&quot;headerlink&quot; title=&quot; 陷阱&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#gotchas&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt;陷阱&lt;/h2&gt;&lt;p&gt;由于程序是在一个 Browser/Electron 环境中运行，而不是在一个真正的 Node.js 环境中。因此这里有&lt;a href=&quot;https://github.com/Jam3/devtool#gotchas&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;一些陷阱&lt;/a&gt;你需要注意。&lt;/p&gt;
+&lt;h2 id=&quot;对比&quot;&gt;&lt;a href=&quot;#对比&quot; class=&quot;headerlink&quot; title=&quot; 对比&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#comparisons&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt;对比&lt;/h2&gt;&lt;p&gt;目前已经存在了一些 Node.js 调试器，所以你或许想知道他们之间的区别在哪。&lt;/p&gt;
+&lt;h3 id=&quot;WebStorm-调试器&quot;&gt;&lt;a href=&quot;#WebStorm-调试器&quot; class=&quot;headerlink&quot; title=&quot; WebStorm 调试器&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#webstorm-debugger&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt;WebStorm 调试器&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://www.jetbrains.com/webstorm/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;WebStorm&lt;/a&gt; 编辑器里面包含了一个非常强大的 Node.js 调试器。如果你已经使用 WebStorm 作为你的代码编辑器，那对你来说很棒。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/cfwG6qY.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;但是，它缺少一些 Chrome 开发者工具中的功能，例如:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个丰富的互动的控制台&lt;/li&gt;
+&lt;li&gt;异常时暂停&lt;/li&gt;
+&lt;li&gt;异步堆栈跟踪&lt;/li&gt;
+&lt;li&gt;Promise 检查&lt;/li&gt;
+&lt;li&gt;分析&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但因为你和你的 WebStorm 工作空间集成，所以你可以在调试时修改和编辑你的文件。它也是运行在一个真正的 Node/V8 环境中，而不像 &lt;code&gt;devtool&lt;/code&gt; 一样。因此对于大部分的 Node.js 应用程序来说它更稳健。&lt;/p&gt;
+&lt;h3 id=&quot;iron-node&quot;&gt;&lt;a href=&quot;#iron-node&quot; class=&quot;headerlink&quot; title=&quot; iron-node&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#ironnode&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt;iron-node&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/fkbLvoS.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;一个同样基于 Electron 的调试器是&lt;a href=&quot;https://github.com/s-a/iron-node&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;iron-node&lt;/a&gt;。&lt;code&gt;iron-node&lt;/code&gt; 包含了一个内置的命令来重新编译原生插件，还有一个复杂的图形界面显示您的&lt;code&gt;package.json&lt;/code&gt; 和 &lt;code&gt;README.md&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;而 &lt;code&gt;devtool&lt;/code&gt; 更侧重于把命令行、Unix 风格的管道和重定向和 Electron/Browser 的 API 当作有趣的用例。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;devtool&lt;/code&gt; 提供各种各样的功能来表现的更像 Node.js (例如 &lt;code&gt;require.main&lt;/code&gt;, &lt;code&gt;setTimeout&lt;/code&gt; 和 &lt;code&gt;process.exit&lt;/code&gt;)，并且覆盖了内部的 &lt;code&gt;require&lt;/code&gt; 机制作为 source maps，还有改进过的错误处理、断点注入、以及 &lt;code&gt;&amp;quot;browser&amp;quot;&lt;/code&gt; 字段的解决方案。&lt;/p&gt;
+&lt;h3 id=&quot;node-inspector&quot;&gt;&lt;a href=&quot;#node-inspector&quot; class=&quot;headerlink&quot; title=&quot; node-inspector&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#nodeinspector&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt;node-inspector&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/T4fpxjU.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;你或许也喜欢 &lt;a href=&quot;https://github.com/node-inspector/node-inspector&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;node-inspector&lt;/a&gt;，一个使用远程调试而不是构建在 Electron 之上的工具。&lt;/p&gt;
+&lt;p&gt;这意味着你的代码将运行在一个真正的 Node 环境中，没有任何 &lt;code&gt;window&lt;/code&gt; 或其他的 Browser/Electron API 来污染作用域并导致某些模块出现问题。对于大型 Node.js 应用(即本地插件)来说它有一个强有力的支持，并且在开发者工具实例中拥有更多的控制权(即可以注入断点和支持网络请求)。&lt;/p&gt;
+&lt;p&gt;然而，由于它重新实现了大量的调试技巧，因此对于开发来说感觉可能比最新版的 Chrome 开发者工具要慢、笨拙和脆弱。它经常会崩溃，往往导致 Node.js 开发人员很无奈。&lt;/p&gt;
+&lt;p&gt;而 &lt;code&gt;devtool&lt;/code&gt; 的目的是让那些从 Chrome 开发者工具中转过来的人觉得比较亲切，而且也增加了像 Browser/Electron APIs 这样的功能。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;本文根据 &lt;a href=&quot;http://mattdesl.svbtle.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MATT DESLAURIERS&lt;/a&gt; 的《&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Debugging Node.js in Chrome DevTools&lt;/a&gt;》所译，整个译文带有自己的理解与思想，如果译得不好或有不对之处还请同行朋友指点。如需转载此译文，需注明英文出处：&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Debugging Node.js in Chrome DevTools&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;您的鼓励是作者写作最大的动力&quot;&gt;&lt;a href=&quot;#您的鼓励是作者写作最大的动力&quot; class=&quot;headerlink&quot; title=&quot;您的鼓励是作者写作最大的动力&quot;&gt;&lt;/a&gt;您的鼓励是作者写作最大的动力&lt;/h2&gt;&lt;p&gt;如果您认为本网站的文章质量不错，读后觉得收获很大，不妨小额赞助我一下，让我有动力继续写出高质量的文章：我的支付宝账号是 &lt;code&gt;sqrtthree@foxmail.com&lt;/code&gt;, &lt;a href=&quot;http://7xl8me.com1.z0.glb.clouddn.com/alipay.JPG&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;点击查看二维码&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这篇文章介绍了一种在 Chrome 开发者工具里面开发、调试和分析 Node.js 应用程序的新方法。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="技术" scheme="http://blog.sqrtthree.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="译文" scheme="http://blog.sqrtthree.com/tags/%E8%AF%91%E6%96%87/"/>
+    
+  </entry>
   
   <entry>
     <title>GitBook 简明教程</title>
@@ -1308,40 +1437,6 @@
     
     
       <category term="jade" scheme="http://blog.sqrtthree.com/tags/jade/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://blog.sqrtthree.com/2015/06/27/hello-world/"/>
-    <id>http://blog.sqrtthree.com/2015/06/27/hello-world/</id>
-    <published>2015-06-27T12:30:41.000Z</published>
-    <updated>2015-06-27T12:30:41.000Z</updated>
-    
-    <content type="html">&lt;h2 id=&quot;About-Me&quot;&gt;&lt;a href=&quot;#About-Me&quot; class=&quot;headerlink&quot; title=&quot;About Me&quot;&gt;&lt;/a&gt;About Me&lt;/h2&gt;&lt;p&gt;I’m a Front-End developer in everywhere, now living in ZhengZhou, China.&lt;/p&gt;
-&lt;p&gt;I’m ❤  programming &amp;amp; Front-end design.&lt;/p&gt;
-&lt;h2 id=&quot;Skills&quot;&gt;&lt;a href=&quot;#Skills&quot; class=&quot;headerlink&quot; title=&quot;Skills&quot;&gt;&lt;/a&gt;Skills&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;HTML5&amp;amp;CSS3    &lt;code&gt;*****&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Javascript    &lt;code&gt;********&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Nodejs        &lt;code&gt;**&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;Tools&quot;&gt;&lt;a href=&quot;#Tools&quot; class=&quot;headerlink&quot; title=&quot;Tools&quot;&gt;&lt;/a&gt;Tools&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;mac &amp;amp; vim&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;Contact-Me&quot;&gt;&lt;a href=&quot;#Contact-Me&quot; class=&quot;headerlink&quot; title=&quot;Contact Me&quot;&gt;&lt;/a&gt;Contact Me&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;E-mail:    &lt;a href=&quot;mailto:sqrtthree@foxmail.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;sqrtthree@foxmail.com&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Github:    &lt;a href=&quot;https://github.com/sqrthree&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;@sqrthree&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Twitter:    &lt;a href=&quot;https://twitter.com/sqrtthree&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;@sqrtthree&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Weibo:    &lt;a href=&quot;http://weibo.com/sqrtthree&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;@sqrtthree&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;About-Me&quot;&gt;&lt;a href=&quot;#About-Me&quot; class=&quot;headerlink&quot; title=&quot;About Me&quot;&gt;&lt;/a&gt;About Me&lt;/h2&gt;&lt;p&gt;I’m a Front-End developer in everywhere, now l
-    
-    </summary>
-    
     
   </entry>
   
