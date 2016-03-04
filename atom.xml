@@ -22,7 +22,16 @@
     <published>2016-02-29T03:52:37.000Z</published>
     <updated>2016-02-29T03:52:37.000Z</updated>
     
-    <content type="html">&lt;p&gt;这篇文章介绍了一种在 Chrome 开发者工具里面开发、调试和分析 Node.js 应用程序的新方法。&lt;/p&gt;
+    <content type="html">&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;原文链接 : &lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Debugging Node.js in Chrome DevTools&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;原文作者 : &lt;a href=&quot;http://mattdesl.svbtle.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MATT DESLAURIERS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;译文出自 : &lt;a href=&quot;https://github.com/xitu/gold-miner&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;掘金翻译计划&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;译者 : &lt;a href=&quot;https://github.com/sqrthree&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;sqrthree (根号三)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;校对者: &lt;a href=&quot;https://github.com/shenxn&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;shenxn&lt;/a&gt;、&lt;a href=&quot;https://github.com/CoderBOBO&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CoderBOBO&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这篇文章介绍了一种在 Chrome 开发者工具里面开发、调试和分析 Node.js 应用程序的新方法。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;h2 id=&quot;devtool&quot;&gt;&lt;a href=&quot;#devtool&quot; class=&quot;headerlink&quot; title=&quot; devtool&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#devtool&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;/a&gt;devtool&lt;/h2&gt;&lt;p&gt;最近我一直在开发一个命令行工具 &lt;a href=&quot;https://github.com/Jam3/devtool&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;devtool&lt;/a&gt;，它可以在 Chrome 的开发者工具中运行 Node.js 程序。&lt;/p&gt;
 &lt;p&gt;下面的记录显示了在一个 HTTP 服务器中设置断点的情况。&lt;/p&gt;
@@ -133,7 +142,16 @@
     
     <summary type="html">
     
-      &lt;p&gt;这篇文章介绍了一种在 Chrome 开发者工具里面开发、调试和分析 Node.js 应用程序的新方法。&lt;/p&gt;
+      &lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;原文链接 : &lt;a href=&quot;http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools&quot;&gt;Debugging Node.js in Chrome DevTools&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;原文作者 : &lt;a href=&quot;http://mattdesl.svbtle.com/&quot;&gt;MATT DESLAURIERS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;译文出自 : &lt;a href=&quot;https://github.com/xitu/gold-miner&quot;&gt;掘金翻译计划&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;译者 : &lt;a href=&quot;https://github.com/sqrthree&quot;&gt;sqrthree (根号三)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;校对者: &lt;a href=&quot;https://github.com/shenxn&quot;&gt;shenxn&lt;/a&gt;、&lt;a href=&quot;https://github.com/CoderBOBO&quot;&gt;CoderBOBO&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这篇文章介绍了一种在 Chrome 开发者工具里面开发、调试和分析 Node.js 应用程序的新方法。&lt;/p&gt;
     
     </summary>
     
@@ -294,7 +312,16 @@
     <published>2015-12-26T10:41:10.000Z</published>
     <updated>2015-12-26T10:41:10.000Z</updated>
     
-    <content type="html">&lt;p&gt;There were over 5000 responses, 5350 to be exact, and I can’t wait to share the details. Before that I want to thank everyone who chipped in. This is a great time to be a part of the JavaScript community, and I’m truly excited for things to come!&lt;/p&gt;
+    <content type="html">&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;原文链接 : &lt;a href=&quot;https://ponyfoo.com/articles/javascript-developer-survey-results&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;JavaScript Developer Survey Results&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;原文作者 : &lt;a href=&quot;https://ponyfoo.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ponyfoo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;译文出自 : &lt;a href=&quot;https://github.com/xitu/gold-miner&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;掘金翻译计划&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;译者 : &lt;a href=&quot;https://github.com/sqrthree&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;sqrthree(根号三)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;校对者: &lt;a href=&quot;https://github.com/Zhangdroid&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Zhangdroid&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;There were over 5000 responses, 5350 to be exact, and I can’t wait to share the details. Before that I want to thank everyone who chipped in. This is a great time to be a part of the JavaScript community, and I’m truly excited for things to come!&lt;/p&gt;
 &lt;p&gt;截止目前有超过了 5000 人参与了(该次调查)，准确的说是 5350 人。我迫不及待的想要和大家分享一下这次调查的细节。在分享之前我想要感谢参与调查的每一个人。这是 Javascript 社区一个伟大的时刻，我对未来的事情感到无比激动。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;p&gt;I didn’t anticipate such high interest, and next time I’ll make some improvements to the format. Namely, I’ll put the survey up on GitHub first so that the community can collaborate on the questions and options for a couple of weeks before launching the survey. That way, I’ll be able to produce more accurate results and avoid complaints like “I am shocked you didn’t include Emacs!”.&lt;/p&gt;
@@ -410,7 +437,16 @@
     
     <summary type="html">
     
-      &lt;p&gt;There were over 5000 responses, 5350 to be exact, and I can’t wait to share the details. Before that I want to thank everyone who chipped in. This is a great time to be a part of the JavaScript community, and I’m truly excited for things to come!&lt;/p&gt;
+      &lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;原文链接 : &lt;a href=&quot;https://ponyfoo.com/articles/javascript-developer-survey-results&quot;&gt;JavaScript Developer Survey Results&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;原文作者 : &lt;a href=&quot;https://ponyfoo.com/&quot;&gt;ponyfoo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;译文出自 : &lt;a href=&quot;https://github.com/xitu/gold-miner&quot;&gt;掘金翻译计划&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;译者 : &lt;a href=&quot;https://github.com/sqrthree&quot;&gt;sqrthree(根号三)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;校对者: &lt;a href=&quot;https://github.com/Zhangdroid&quot;&gt;Zhangdroid&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;There were over 5000 responses, 5350 to be exact, and I can’t wait to share the details. Before that I want to thank everyone who chipped in. This is a great time to be a part of the JavaScript community, and I’m truly excited for things to come!&lt;/p&gt;
 &lt;p&gt;截止目前有超过了 5000 人参与了(该次调查)，准确的说是 5350 人。我迫不及待的想要和大家分享一下这次调查的细节。在分享之前我想要感谢参与调查的每一个人。这是 Javascript 社区一个伟大的时刻，我对未来的事情感到无比激动。&lt;/p&gt;
     
     </summary>
